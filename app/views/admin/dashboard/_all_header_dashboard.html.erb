@@ -1,0 +1,940 @@
+<% current_admin_access_model = current_admin.admin_access.allow_model_name rescue nil %>
+<div class="wrapper wrapper-content">
+  <div class="row">
+    <% if (current_admin.super_admin == true) || (current_admin_access_model.present?) && (current_admin_access_model.include? "User") %>
+      <div class="col-lg-3">
+        <div class="panel">
+          <div class="round bg-warning-300" style="border-radius: 5px; border: 1px solid #ff8a65 padding: 2px;">
+            <div class="panel-body" onclick="window.location = 'admin/users';">
+              <div class="row">
+                <div class="col-lg-6" ><i class="fa fa-users" style="font-size:60px"></i></div>
+                <div class="col-lg-6">
+                  <h2 class="no-margin margin-class"><%= User.all.uniq.count%></h2>
+                </div>
+              </div>
+              <div class="row text-center" style="font-weight: 600;">
+                TOTAL USERS
+              </div>                        
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="col-lg-3">
+        <div class="panel">
+          <div class="round bg-green-300" style="border-radius: 5px; border: 1px solid #44a344 padding: 2px;">
+            <div class="panel-body" onclick="window.location = 'admin/active_users';">
+              <div class="row">
+                <div class="col-lg-6" ><i class="fa fa-users" style="font-size:60px"></i></div>
+                <div class="col-lg-6">
+                  <h2 class="no-margin margin-class"><%= @active_users_data.count rescue nil %></h2>
+                </div>
+              </div>
+              <div class="row text-center" style="font-weight: 600;">
+                ACTIVE USERS
+              </div>                       
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="col-lg-3">
+        <div class="panel">
+          <div class="round bg-blue-300" style="border-radius: 5px; border: 1px solid #5959c2 padding: 2px;">
+            <div class="panel-body" onclick="window.location = 'admin/recent_lapse_users';">
+              <div class="row">
+                <div class="col-lg-6" ><i class="fa fa-user" style="font-size:60px"></i></div>
+                <div class="col-lg-6">
+                  <h2 class="no-margin margin-class"><%= @recent_lapse_users_data.count rescue nil %></h2>
+                </div>
+              </div>
+              <div class="row text-center" style="font-weight: 600;">
+                RECENT LAPSE USERS
+              </div>                       
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="col-lg-3">
+        <div class="panel">
+          <div class="round btn-grad-lapse-user" style="border-radius: 5px; border: 1px solid #FF8008 padding: 2px;">
+            <div class="panel-body" onclick="window.location = 'admin/lapse_users';">
+              <div class="row">
+                <div class="col-lg-6" ><i class="fa fa-users" style="font-size:60px"></i></div>
+                <div class="col-lg-6">
+                  <h2 class="no-margin margin-class"><%= @lapse_users_data.count rescue nil %></h2>
+                </div>
+              </div>
+              <div class="row text-center" style="font-weight: 600;">
+                LAPSE USERS
+              </div>                        
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-lg-3">
+        <div class="panel">
+          <div class="round btn-sale-lead-user" style="border-radius: 5px; border: 1px solid #F2C94C padding: 2px;">
+            <div class="panel-body" onclick="window.location = 'admin/sale_leads_users';">
+              <div class="row">
+                <div class="col-lg-6" ><i class="fa fa-users" style="font-size:60px"></i></div>
+                <div class="col-lg-6">
+                  <h2 class="no-margin margin-class"><%= @sale_leads_users_data.count rescue nil %></h2>
+                </div>
+              </div>
+              <div class="row text-center" style="font-weight: 600;">
+                SALE LEADS USERS
+              </div>                        
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-lg-3">
+        <div class="panel">
+          <div class="round bg-warning-not-sus-300" style="border-radius: 5px; border: 1px solid #f15959 padding: 2px;">
+            <div class="panel-body" onclick="window.location = 'admin/not_subscribed_users';">
+              <div class="row">
+                <div class="col-lg-6" ><i class="fa fa-users" style="font-size:60px"></i></div>
+                <div class="col-lg-6">
+                  <h2 class="no-margin margin-class"><%= @not_subscribed_users_data.count rescue nil %></h2>
+                </div>
+              </div>
+              <div class="row text-center" style="font-weight: 600;">
+                NOT SUBSCRIBED USERS
+              </div>                        
+            </div>
+          </div>
+        </div>
+      </div>
+    <% end %>
+    <% if (current_admin.super_admin == true) || (current_admin_access_model.present?) && (current_admin_access_model.include? "Category") %>  
+      <div class="col-lg-3">
+        <div class="panel">
+          <div class="round bg-teal-301" style="border-radius: 5px; border: 1px padding: 2px;">
+            <div class="panel-body" onclick="window.location = 'admin/categories';">
+              <div class="row">
+                <div class="col-lg-6"><i class="fa fa-list-alt"  style="font-size:60px"></i></div>
+                <div class="col-lg-6">
+                  <h2 class="no-margin margin-class" style="font-size: 27px !important;"><%= Category.all.count%></h2>
+                </div>
+              </div>
+              <div class="row text-center" style="font-weight: 600;">
+                TOTAL CATEGORIES
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    <% end %>
+    <% if (current_admin.super_admin == true) || (current_admin_access_model.present?) && (current_admin_access_model.include? "Station") %>  
+      <div class="col-lg-3">
+        <div class="panel">
+          <div class="round bg-teal-307" style="border-radius: 5px; border: 1px solid #098af99e padding: 2px;">
+            <div class="panel-body" onclick="window.location = 'admin/stations';">
+              <div class="row">
+                <div class="col-lg-6" ><i class="fa fa-train" style="font-size:60px"></i></div>
+                <div class="col-lg-6">
+                  <h2 class="no-margin margin-class"><%= Station.all.count%></h2>
+                </div>
+              </div>
+              <div class="row text-center" style="font-weight: 600;">
+                TOTAL STATIONS
+              </div>                       
+            </div>
+          </div>
+        </div>
+      </div>
+    <% end %>
+    <% if (current_admin.super_admin == true) || (current_admin_access_model.present?) && (current_admin_access_model.include? "Question") %>  
+      <div class="col-lg-3">
+        <div class="panel">
+          <div class="round bg-purple-300" style="border-radius: 5px; border: 1px solid #9575cd padding: 2px;">
+            <div class="panel-body" onclick="window.location = 'admin/questions';">
+              <div class="row">
+                <div class="col-lg-6" ><i class="fa fa-question" style="font-size:60px;"></i></div>
+                <div class="col-lg-6">
+                  <h2 class="no-margin margin-class"><%= Question.all.count%></h2>
+                </div>
+              </div>
+              <div class="row text-center" style="font-weight: 600;">
+                TOTAL QUESTION
+              </div>                     
+            </div>
+          </div>
+        </div>
+      </div>
+    <% end %>
+    <% if (current_admin.super_admin == true) || (current_admin_access_model.present?) && (current_admin_access_model.include? "Course") %>  
+      <div class="col-lg-3">
+        <div class="panel">
+          <div class="round bg-teal-303" style="border-radius: 5px; border: 1px padding: 2px;">
+            <div class="panel-body" onclick="window.location = 'admin/courses';">
+              <div class="row">
+                <div class="col-lg-6"><i class="fa fa-user"  style="font-size:60px"></i></div>
+                <div class="col-lg-6">
+                  <h2 class="no-margin margin-class" style="font-size: 27px !important;"><%= Course.all.count rescue nil %></h2>
+                </div>
+              </div>
+              <div class="row text-center" style="font-weight: 600;">
+                TOTAL COURSES 
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    <% end %>
+    <% if (current_admin.super_admin == true) || (current_admin_access_model.present?) && (current_admin_access_model.include? "Exam") %>  
+      <div class="col-lg-3">
+        <div class="panel">
+          <div class="round bg-pink-300" style="border-radius: 5px; border: 1px padding: 2px;">
+            <div class="panel-body" onclick="window.location = 'admin/exams';">
+              <div class="row">
+                <div class="col-lg-6"><i class="fa fa-user"  style="font-size:60px"></i></div>
+                <div class="col-lg-6">
+                  <h2 class="no-margin margin-class" style="font-size: 27px !important;"><%= Exam.all.count rescue nil %></h2>
+                </div>
+              </div>
+              <div class="row text-center" style="font-weight: 600;">
+                TOTAL EXAMS 
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    <% end %>
+    <% if (current_admin.super_admin == true) || (current_admin_access_model.present?) && (current_admin_access_model.include? "Rating") %>  
+      <div class="col-lg-3">
+        <div class="panel">
+          <div class="round bg-teal-306" style="border-radius: 5px; border: 1px solid #c5b601 padding: 2px;">
+            <div class="panel-body" onclick="window.location = 'admin/ratings';">
+              <div class="row">
+                <div class="col-lg-6"><i class="fa fa-star checked"  style="font-size:60px"></i></div>
+                <div class="col-lg-6">
+                  <h2 class="no-margin margin-class"><%= Rating.all.count%></h2>
+                </div>
+              </div>
+              <div class="row text-center" style="font-weight: 600;">
+                TOTAL RATINGS
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    <% end %>
+    <% if (current_admin.super_admin == true) || (current_admin_access_model.present?) && (current_admin_access_model.include? "Team") %>  
+      <div class="col-lg-3">
+        <div class="panel">
+          <div class="round bg-teal-305" style="border-radius: 5px; border: 1px solid #ef46d2 padding: 2px;">
+            <div class="panel-body" onclick="window.location = 'admin/teams';">
+              <div class="row">
+                <div class="col-lg-6" ><i class="fa fa-users" style="font-size:60px"></i></div>
+                <div class="col-lg-6">
+                  <h2 class="no-margin margin-class"><%= Team.all.count%></h2>
+                </div>
+              </div>
+              <div class="row text-center" style="font-weight: 600;">
+                TOTAL TEAMS
+              </div>                        
+            </div>
+          </div>
+        </div>
+      </div>
+    <% end %>  
+    <!-- <div class="col-lg-3">
+      <div class="panel">
+        <div class="round bg-warning-300" style="border-radius: 5px; border: 1px solid #ff8a65; padding: 2px;">
+          <div class="panel-body" onclick="window.location = 'admin/testimonials';">
+            <div class="row">
+              <div class="col-lg-6" ><i class="fa fa-quote-left" style="font-size:60px"></i></div>
+              <div class="col-lg-6">
+                <h2 class="no-margin margin-class"><%#= Testimonial.all.count%></h2>
+              </div>
+            </div>
+            <div class="row text-center" style="font-weight: 600;">
+              TOTAL TESTIMONIALS
+            </div>                        
+          </div>
+        </div>
+      </div>
+    </div> -->
+    <!-- <div class="col-lg-3">
+      <div class="panel">
+        <div class="round bg-teal-300" style="border-radius: 5px; border: 1px solid #4db6ac; padding: 2px;">
+          <div class="panel-body" onclick="window.location = 'admin/attempts';">
+            <div class="row">
+              <div class="col-lg-6"><i class="fa fa-user"  style="font-size:60px"></i></div>
+              <div class="col-lg-6">
+                <h2 class="no-margin margin-class" style="font-size: 27px !important;"><%#= Attempt.all.count%></h2>
+              </div>
+            </div>
+            <div class="row text-center" style="font-weight: 600;">
+              TOTAL ATTEMPTS 
+            </div>
+          </div>
+        </div>
+      </div>
+    </div> -->
+    <!-- <div class="col-lg-3">
+      <div class="panel">
+        <div class="round bg-pink-300" style="border-radius: 5px; border: 1px solid #f06292; padding: 2px;">
+          <div class="panel-body" onclick="window.location = 'admin/books';">
+            <div class="row">
+              <div class="col-lg-6" ><i class="fa fa-book-open" style="font-size:60px"></i></div>
+              <div class="col-lg-6">
+                <h2 class="no-margin margin-class"><%#= Book.all.count%></h2>
+              </div>
+            </div>
+            <div class="row text-center" style="font-weight: 600;">
+              TOTAL BOOKS
+            </div>                       
+          </div>
+        </div>
+      </div>
+    </div> -->
+    <% if (current_admin.super_admin == true) || (current_admin_access_model.present?) && (current_admin_access_model.include? "Coupon") %>  
+      <div class="col-lg-3">
+        <div class="panel">
+          <div class="round bg-teal-304" style="border-radius: 5px; border: 1px padding: 2px;">
+            <div class="panel-body" onclick="window.location = 'admin/coupons';">
+              <div class="row">
+                <div class="col-lg-6"><i class="fa fa-user"  style="font-size:60px"></i></div>
+                <div class="col-lg-6">
+                  <h2 class="no-margin margin-class" style="font-size: 27px !important;"><%= Coupon.all.count rescue nil %></h2>
+                </div>
+              </div>
+              <div class="row text-center" style="font-weight: 600;">
+                TOTAL COUPONS 
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    <% end %>
+    <% if (current_admin.super_admin == true) || (current_admin_access_model.present?) && (current_admin_access_model.include? "Membership") %>  
+      <div class="col-lg-3">
+        <div class="panel">
+          <div class="round bg-purple-300" style="border-radius: 5px; border: 1px solid #9575cd padding: 2px;">
+            <div class="panel-body" onclick="window.location = 'admin/memberships';">
+              <div class="row">
+                <div class="col-lg-6" ><i class="fa fa-user-plus" style="font-size:60px;"></i></div>
+                <div class="col-lg-6">
+                  <h2 class="no-margin margin-class"><%= Membership.all.count%></h2>
+                </div>
+              </div>
+              <div class="row text-center" style="font-weight: 600;">
+                TOTAL MEMBERSHIPS
+              </div>                     
+            </div>
+          </div>
+        </div>
+      </div>
+    <% end %>  
+    <!-- <div class="col-lg-3">
+      <div class="panel">
+        <div class="round bg-pink-300" style="border-radius: 5px; border: 1px solid #f06292; padding: 2px;">
+          <div class="panel-body" onclick="window.location = 'admin/settings';">
+            <div class="row">
+              <div class="col-lg-6" ><i class="fa fa-cog" style="font-size:60px"></i></div>
+              <div class="col-lg-6">
+                <h2 class="no-margin margin-class"><%#= Setting.all.count%></h2>
+              </div>
+            </div>
+            <div class="row text-center" style="font-weight: 600;">
+              TOTAL SETTINGS
+            </div>                       
+          </div>
+        </div>
+      </div>
+    </div> -->
+    <% if (current_admin.super_admin == true) || (current_admin_access_model.present?) && (current_admin_access_model.include? "Admin") %>
+      <div class="col-lg-3">
+        <div class="panel">
+          <div class="round bg-warning-300" style="border-radius: 5px; border: 1px solid #ff8a65 padding: 2px;">
+            <div class="panel-body" onclick="window.location = 'admin/admins';">
+              <div class="row">
+                <div class="col-lg-6" ><i class="fa fa-users" style="font-size:60px"></i></div>
+                <div class="col-lg-6">
+                  <h2 class="no-margin margin-class"><%= Admin.all.count%></h2>
+                </div>
+              </div>
+              <div class="row text-center" style="font-weight: 600;">
+                TOTAL ADMIN USERS
+              </div>                        
+            </div>
+          </div>
+        </div>
+      </div>
+    <% end %>
+    <% if (current_admin.super_admin == true) || (current_admin_access_model.present?) && (current_admin_access_model.include? "Price") %>  
+      <div class="col-lg-3">
+        <div class="panel">
+          <div class="round bg-teal-300" style="border-radius: 5px; border: 1px solid #4db6ac padding: 2px;">
+            <div class="panel-body" onclick="window.location = 'admin/prices';">
+              <div class="row">
+                <div class="col-lg-6"><i class="fa fa-user"  style="font-size:60px"></i></div>
+                <div class="col-lg-6">
+                  <h2 class="no-margin margin-class" style="font-size: 27px !important;"><%= Price.all.count%></h2>
+                </div>
+              </div>
+              <div class="row text-center" style="font-weight: 600;">
+                TOTAL PRICING 
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    <% end %>
+    <% if (current_admin.super_admin == true) || (current_admin_access_model.present?) && (current_admin_access_model.include? "Faq") %>  
+      <div class="col-lg-3">
+        <div class="panel">
+          <div class="round bg-warning-300" style="border-radius: 5px; border: 1px solid #ff8a65 padding: 2px;">
+            <div class="panel-body" onclick="window.location = 'admin/faqs';">
+              <div class="row">
+                <div class="col-lg-6" ><i class="fa fa-users" style="font-size:60px"></i></div>
+                <div class="col-lg-6">
+                  <h2 class="no-margin margin-class"><%= Faq.all.count%></h2>
+                </div>
+              </div>
+              <div class="row text-center" style="font-weight: 600;">
+                TOTAL FAQ
+              </div>                        
+            </div>
+          </div>
+        </div>
+      </div>
+    <% end %>
+    <% if (current_admin.super_admin == true) || (current_admin_access_model.present?) && (current_admin_access_model.include? "Feedback") %>  
+      <div class="col-lg-3">
+        <div class="panel">
+          <div class="round bg-warning-not-sus-300" style="border-radius: 5px; border: 1px solid #f15959 padding: 2px;">
+            <div class="panel-body" onclick="window.location = 'admin/feedbacks';">
+              <div class="row">
+                <div class="col-lg-6" ><i class="fa fa-users" style="font-size:60px"></i></div>
+                <div class="col-lg-6">
+                  <h2 class="no-margin margin-class"><%= Feedback.all.count%></h2>
+                </div>
+              </div>
+              <div class="row text-center" style="font-weight: 600;">
+                NON MEMBER FEEDBACK
+              </div>                        
+            </div>
+          </div>
+        </div>
+      </div>
+    <% end %>
+    <% if (current_admin.super_admin == true) || (current_admin_access_model.present?) && (current_admin_access_model.include? "Resource") %>  
+      <div class="col-lg-3">
+        <div class="panel">
+          <div class="round bg-teal-304" style="border-radius: 5px; border: 1px solid #2a558c padding: 2px;">
+            <div class="panel-body" onclick="window.location = 'admin/resources';">
+              <div class="row">
+                <div class="col-lg-6" ><i class="fa fa-gift" style="font-size:60px;"></i></div>
+                <div class="col-lg-6">
+                  <h2 class="no-margin margin-class"><%= Resource.all.count%></h2>
+                </div>
+              </div>
+              <div class="row text-center" style="font-weight: 600;">
+                TOTAL RESOURCES
+              </div>                     
+            </div>
+          </div>
+        </div>
+      </div>
+    <% end %>
+    <% if (current_admin.super_admin == true) || (current_admin_access_model.present?) && (current_admin_access_model.include? "TargetSpeciality") %>  
+      <div class="col-lg-3">
+        <div class="panel">
+          <div class="round bg-warning-not-sus-300" style="border-radius: 5px; border: 1px solid #f15959 padding: 2px;">
+            <div class="panel-body" onclick="window.location = 'admin/target_specialities';">
+              <div class="row">
+                <div class="col-lg-6" ><i class="fa fa-users" style="font-size:60px"></i></div>
+                <div class="col-lg-6">
+                  <h2 class="no-margin margin-class"><%= TargetSpeciality.all.count rescue nil %></h2>
+                </div>
+              </div>
+              <div class="row text-center" style="font-weight: 600;">
+                TARGET SPECIALITIES
+              </div>                        
+            </div>
+          </div>
+        </div>
+      </div>
+    <% end %>
+    <% if (current_admin.super_admin == true) || (current_admin_access_model.present?) && (current_admin_access_model.include? "Coaching") %>  
+      <div class="col-lg-3">
+        <div class="panel">
+          <div class="round bg-teal-308" style="border-radius: 5px; border: 1px solid #a99674 padding: 2px;">
+            <div class="panel-body" onclick="window.location = 'admin/coachings';">
+              <div class="row">
+                <div class="col-lg-6" ><i class="fa fa-users" style="font-size:60px"></i></div>
+                <div class="col-lg-6">
+                  <h2 class="no-margin margin-class"><%= Coaching.all.count rescue nil %></h2>
+                </div>
+              </div>
+              <div class="row text-center" style="font-weight: 600;">
+                COACHING
+              </div>                        
+            </div>
+          </div>
+        </div>
+      </div>
+    <% end %>
+    <% if (current_admin.super_admin == true) || (current_admin_access_model.present?) && (current_admin_access_model.include? "PrivacyTerm") %>  
+      <div class="col-lg-3">
+        <div class="panel">
+          <div class="round bg-teal-309" style="border-radius: 5px; border: 1px solid #529853 padding: 2px;">
+            <div class="panel-body" onclick="window.location = 'admin/privacy_terms';">
+              <div class="row">
+                <div class="col-lg-6"><i class="fa fa-star checked"  style="font-size:60px"></i></div>
+                <div class="col-lg-6">
+                  <h2 class="no-margin margin-class"><%= PrivacyTerm.all.count%></h2>
+                </div>
+              </div>
+              <div class="row text-center" style="font-weight: 600;">
+                TOTAL PRIVACY TERM
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    <% end %>
+    <% if (current_admin.super_admin == true) || (current_admin_access_model.present?) && (current_admin_access_model.include? "PartaUser") %>  
+      <div class="col-lg-3">
+        <div class="panel">
+          <div class="round bg-teal-301" style="border-radius: 5px; border: 1px solid #0f504c padding: 2px;">
+            <div class="panel-body" onclick="window.location = 'admin/parta_users';">
+              <div class="row">
+                <div class="col-lg-6"><i class="fa fa-user"  style="font-size:60px"></i></div>
+                <div class="col-lg-6">
+                  <h2 class="no-margin margin-class" style="font-size: 27px !important;"><%= PartaUser.all.count rescue nil %></h2>
+                </div>
+              </div>
+              <div class="row text-center" style="font-weight: 600;">
+                TOTAL PART A USERS 
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    <% end %>
+    <% if (current_admin.super_admin == true) || (current_admin_access_model.present?) && (current_admin_access_model.include? "PartaCategory") %>  
+      <div class="col-lg-3">
+        <div class="panel">
+          <div class="round bg-teal-302" style="border-radius: 5px; border: 1px solid #e2b03f padding: 2px;">
+            <div class="panel-body" onclick="window.location = 'admin/parta/categories';">
+              <div class="row">
+                <div class="col-lg-6"><i class="fa fa-user"  style="font-size:60px"></i></div>
+                <div class="col-lg-6">
+                  <h2 class="no-margin margin-class" style="font-size: 27px !important;"><%= Parta::Category.all.count rescue nil %></h2>
+                </div>
+              </div>
+              <div class="row text-center" style="font-weight: 600;">
+                TOTAL PART A USERS 
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    <% end %>
+    <% if (current_admin.super_admin == true) || (current_admin_access_model.present?) && (current_admin_access_model.include? "PartaQuestion") %>  
+      <div class="col-lg-3">
+        <div class="panel">
+          <div class="round btn-grad" style="border-radius: 5px; border: 1px padding: 2px;">
+            <div class="panel-body" onclick="window.location = 'admin/parta/questions';">
+              <div class="row">
+                <div class="col-lg-6"><i class="fa fa-user"  style="font-size:60px"></i></div>
+                <div class="col-lg-6">
+                  <h2 class="no-margin margin-class" style="font-size: 27px !important;"><%= Parta::Question.all.count rescue nil %></h2>
+                </div>
+              </div>
+              <div class="row text-center" style="font-weight: 600;">
+                TOTAL PART A QUESTIONS 
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    <% end %>
+    <% if (current_admin.super_admin == true) || (current_admin_access_model.present?) && (current_admin_access_model.include? "About") %>  
+      <div class="col-lg-3">
+        <div class="panel">
+          <div class="round btn-grad-about" style="border-radius: 5px; border: 1px padding: 2px;">
+            <div class="panel-body" onclick="window.location = 'admin/abouts';">
+              <div class="row">
+                <div class="col-lg-6"><i class="fa fa-user"  style="font-size:60px"></i></div>
+                <div class="col-lg-6">
+                  <h2 class="no-margin margin-class" style="font-size: 27px !important;"><%= About.all.count rescue nil %></h2>
+                </div>
+              </div>
+              <div class="row text-center" style="font-weight: 600;">
+                ABOUT 
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    <% end %>
+    <% if (current_admin.super_admin == true) || (current_admin_access_model.present?) && (current_admin_access_model.include? "CommunityCode") %>  
+      <div class="col-lg-3">
+        <div class="panel">
+          <div class="round btn-grad-community-code" style="border-radius: 5px; border: 1px padding: 2px;">
+            <div class="panel-body" onclick="window.location = 'admin/community_codes';">
+              <div class="row">
+                <div class="col-lg-6"><i class="fa fa-user"  style="font-size:60px"></i></div>
+                <div class="col-lg-6">
+                  <h2 class="no-margin margin-class" style="font-size: 27px !important;"><%= CommunityCode.all.count rescue nil %></h2>
+                </div>
+              </div>
+              <div class="row text-center" style="font-weight: 600;">
+                COMMUNITY CODE
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    <% end %>
+    <% if (current_admin.super_admin == true) || (current_admin_access_model.present?) && (current_admin_access_model.include? "CookiePolicy") %>  
+      <div class="col-lg-3">
+        <div class="panel">
+          <div class="round bg-teal-5010" style="border-radius: 5px; border: 1px padding: 2px;">
+            <div class="panel-body" onclick="window.location = 'admin/cookie_policies';">
+              <div class="row">
+                <div class="col-lg-6"><i class="fa fa-user"  style="font-size:60px"></i></div>
+                <div class="col-lg-6">
+                  <h2 class="no-margin margin-class" style="font-size: 27px !important;"><%= CookiePolicy.all.count rescue nil %></h2>
+                </div>
+              </div>
+              <div class="row text-center" style="font-weight: 600;">
+                COOKIE POLICY 
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    <% end %>
+    <% if (current_admin.super_admin == true) || (current_admin_access_model.present?) && (current_admin_access_model.include? "Disclaimer") %>  
+      <div class="col-lg-3">
+        <div class="panel">
+          <div class="round btn-grad-disclaimer" style="border-radius: 5px; border: 1px padding: 2px;">
+            <div class="panel-body" onclick="window.location = 'admin/disclaimers';">
+              <div class="row">
+                <div class="col-lg-6"><i class="fa fa-user"  style="font-size:60px"></i></div>
+                <div class="col-lg-6">
+                  <h2 class="no-margin margin-class" style="font-size: 27px !important;"><%= Disclaimer.all.count rescue nil %></h2>
+                </div>
+              </div>
+              <div class="row text-center" style="font-weight: 600;">
+                DISCLAIMER 
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    <% end %>
+    <% if (current_admin.super_admin == true) || (current_admin_access_model.present?) && (current_admin_access_model.include? "EmailFormat") %>  
+      <div class="col-lg-3">
+        <div class="panel">
+          <div class="round btn-grad-email-format" style="border-radius: 5px; border: 1px padding: 2px;">
+            <div class="panel-body" onclick="window.location = 'admin/email_formats';">
+              <div class="row">
+                <div class="col-lg-6"><i class="fa fa-user"  style="font-size:60px"></i></div>
+                <div class="col-lg-6">
+                  <h2 class="no-margin margin-class" style="font-size: 27px !important;"><%= EmailFormat.all.count rescue nil %></h2>
+                </div>
+              </div>
+              <div class="row text-center" style="font-weight: 600;">
+                EMAIL FORMAT 
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    <% end %>
+    <% if (current_admin.super_admin == true) || (current_admin_access_model.present?) && (current_admin_access_model.include? "EndUserLicenseAgreement") %>  
+      <div class="col-lg-3">
+        <div class="panel">
+          <div class="round btn-grad-eula" style="border-radius: 5px; border: 1px padding: 2px;">
+            <div class="panel-body" onclick="window.location = 'admin/end_user_license_agreements';">
+              <div class="row">
+                <div class="col-lg-6"><i class="fa fa-user"  style="font-size:60px"></i></div>
+                <div class="col-lg-6">
+                  <h2 class="no-margin margin-class" style="font-size: 27px !important;"><%= EndUserLicenseAgreement.all.count rescue nil %></h2>
+                </div>
+              </div>
+              <div class="row text-center" style="font-weight: 600;">
+                END USER LICENSE AGREEMENT 
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    <% end %>
+    <% if (current_admin.super_admin == true) || (current_admin_access_model.present?) && (current_admin_access_model.include? "FooterRecord") %>  
+      <div class="col-lg-3">
+        <div class="panel">
+          <div class="round btn-grad-footer-record" style="border-radius: 5px; border: 1px padding: 2px;">
+            <div class="panel-body" onclick="window.location = 'admin/footer_records';">
+              <div class="row">
+                <div class="col-lg-6"><i class="fa fa-user"  style="font-size:60px"></i></div>
+                <div class="col-lg-6">
+                  <h2 class="no-margin margin-class" style="font-size: 27px !important;"><%= FooterRecord.all.count rescue nil %></h2>
+                </div>
+              </div>
+              <div class="row text-center" style="font-weight: 600;">
+                FOOTER RECORD
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    <% end %>
+    <% if (current_admin.super_admin == true) || (current_admin_access_model.present?) && (current_admin_access_model.include? "FullTermCondition") %>  
+      <div class="col-lg-3">
+        <div class="panel">
+          <div class="round btn-grad-full-term-cond" style="border-radius: 5px; border: 1px padding: 2px;">
+            <div class="panel-body" onclick="window.location = 'admin/full_term_conditions';">
+              <div class="row">
+                <div class="col-lg-6"><i class="fa fa-user"  style="font-size:60px"></i></div>
+                <div class="col-lg-6">
+                  <h2 class="no-margin margin-class" style="font-size: 27px !important;"><%= FullTermCondition.all.count rescue nil %></h2>
+                </div>
+              </div>
+              <div class="row text-center" style="font-weight: 600;">
+                FULL TERM CONDITION
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    <% end %>
+    <% if (current_admin.super_admin == true) || (current_admin_access_model.present?) && (current_admin_access_model.include? "HomeLogoBanner") %>  
+      <div class="col-lg-3">
+        <div class="panel">
+          <div class="round btn-grad-home-logo-banner" style="border-radius: 5px; border: 1px padding: 2px;">
+            <div class="panel-body" onclick="window.location = 'admin/home_logo_banners';">
+              <div class="row">
+                <div class="col-lg-6"><i class="fa fa-user"  style="font-size:60px"></i></div>
+                <div class="col-lg-6">
+                  <h2 class="no-margin margin-class" style="font-size: 27px !important;"><%= HomeLogoBanner.all.count rescue nil %></h2>
+                </div>
+              </div>
+              <div class="row text-center" style="font-weight: 600;">
+                HOME LOGO BANNER
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    <% end %>
+    <% if (current_admin.super_admin == true) || (current_admin_access_model.present?) && (current_admin_access_model.include? "MemberFeedback") %>  
+      <div class="col-lg-3">
+        <div class="panel">
+          <div class="round btn-grad-member-feedback" style="border-radius: 5px; border: 1px padding: 2px;">
+            <div class="panel-body" onclick="window.location = 'admin/member_feedbacks';">
+              <div class="row">
+                <div class="col-lg-6"><i class="fa fa-user"  style="font-size:60px"></i></div>
+                <div class="col-lg-6">
+                  <h2 class="no-margin margin-class" style="font-size: 27px !important;"><%= MemberFeedback.all.count rescue nil %></h2>
+                </div>
+              </div>
+              <div class="row text-center" style="font-weight: 600;">
+                MEMBER PAGE FEEDBACK
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    <% end %>
+    <% if (current_admin.super_admin == true) || (current_admin_access_model.present?) && (current_admin_access_model.include? "MemberHomePage") %>  
+      <div class="col-lg-3">
+        <div class="panel">
+          <div class="round bg-green-300" style="border-radius: 5px; border: 1px padding: 2px;">
+            <div class="panel-body" onclick="window.location = 'admin/member_home_pages';">
+              <div class="row">
+                <div class="col-lg-6"><i class="fa fa-user"  style="font-size:60px"></i></div>
+                <div class="col-lg-6">
+                  <h2 class="no-margin margin-class" style="font-size: 27px !important;"><%= MemberHomePage.all.count rescue nil %></h2>
+                </div>
+              </div>
+              <div class="row text-center" style="font-weight: 600;">
+                MEMBER HOME PAGE
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    <% end %>
+    <% if (current_admin.super_admin == true) || (current_admin_access_model.present?) && (current_admin_access_model.include? "MockExam") %>  
+      <div class="col-lg-3">
+        <div class="panel">
+          <div class="round bg-teal-501" style="border-radius: 5px; border: 1px solid #58c79e padding: 2px;">
+            <div class="panel-body" onclick="window.location = 'admin/mock_exams';">
+              <div class="row">
+                <div class="col-lg-6"><i class="fa fa-user"  style="font-size:60px"></i></div>
+                <div class="col-lg-6">
+                  <h2 class="no-margin margin-class" style="font-size: 27px !important;"><%= MockExam.all.count rescue nil %></h2>
+                </div>
+              </div>
+              <div class="row text-center" style="font-weight: 600;">
+                MOCK EXAM
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    <% end %>
+    <% if (current_admin.super_admin == true) || (current_admin_access_model.present?) && (current_admin_access_model.include? "MockExamText") %>  
+      <div class="col-lg-3">
+        <div class="panel">
+          <div class="round bg-teal-502" style="border-radius: 5px; border: 1px solid #6a5680 padding: 2px;">
+            <div class="panel-body" onclick="window.location = 'admin/mock_exam_texts';">
+              <div class="row">
+                <div class="col-lg-6"><i class="fa fa-user"  style="font-size:60px"></i></div>
+                <div class="col-lg-6">
+                  <h2 class="no-margin margin-class" style="font-size: 27px !important;"><%= MockExamText.all.count rescue nil %></h2>
+                </div>
+              </div>
+              <div class="row text-center" style="font-weight: 600;">
+                MOCK EXAM TEXT
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    <% end %>
+    <% if (current_admin.super_admin == true) || (current_admin_access_model.present?) && (current_admin_access_model.include? "PartaInfo") %>  
+      <div class="col-lg-3">
+        <div class="panel">
+          <div class="round bg-teal-503" style="border-radius: 5px; border: 1px solid #c7aa58 padding: 2px;">
+            <div class="panel-body" onclick="window.location = 'admin/parta_infos';">
+              <div class="row">
+                <div class="col-lg-6"><i class="fa fa-user"  style="font-size:60px"></i></div>
+                <div class="col-lg-6">
+                  <h2 class="no-margin margin-class" style="font-size: 27px !important;"><%= PartaInfo.all.count rescue nil %></h2>
+                </div>
+              </div>
+              <div class="row text-center" style="font-weight: 600;">
+                PART A INFO
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    <% end %>
+    <% if (current_admin.super_admin == true) || (current_admin_access_model.present?) && (current_admin_access_model.include? "PartaSetting") %>  
+      <div class="col-lg-3">
+        <div class="panel">
+          <div class="round bg-teal-504" style="border-radius: 5px; border: 1px solid #39cac1 padding: 2px;">
+            <div class="panel-body" onclick="window.location = 'admin/parta/settings';">
+              <div class="row">
+                <div class="col-lg-6"><i class="fa fa-user"  style="font-size:60px"></i></div>
+                <div class="col-lg-6">
+                  <h2 class="no-margin margin-class" style="font-size: 27px !important;"><%= Parta::Setting.all.count rescue nil %></h2>
+                </div>
+              </div>
+              <div class="row text-center" style="font-weight: 600;">
+                PART A SETTING
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    <% end %>
+    <% if (current_admin.super_admin == true) || (current_admin_access_model.present?) && (current_admin_access_model.include? "Partner") %>  
+      <div class="col-lg-3">
+        <div class="panel">
+          <div class="round bg-teal-505" style="border-radius: 5px; border: 1px solid #d68b1b padding: 2px;">
+            <div class="panel-body" onclick="window.location = 'admin/partners';">
+              <div class="row">
+                <div class="col-lg-6"><i class="fa fa-user"  style="font-size:60px"></i></div>
+                <div class="col-lg-6">
+                  <h2 class="no-margin margin-class" style="font-size: 27px !important;"><%= Partner.all.count rescue nil %></h2>
+                </div>
+              </div>
+              <div class="row text-center" style="font-weight: 600;">
+                PARTNER PAGE TEXT
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    <% end %>
+    <% if (current_admin.super_admin == true) || (current_admin_access_model.present?) && (current_admin_access_model.include? "PartnerMember") %>  
+      <div class="col-lg-3">
+        <div class="panel">
+          <div class="round bg-teal-506" style="border-radius: 5px; border: 1px solid #f5a080 padding: 2px;">
+            <div class="panel-body" onclick="window.location = 'admin/partner_members';">
+              <div class="row">
+                <div class="col-lg-6"><i class="fa fa-user"  style="font-size:60px"></i></div>
+                <div class="col-lg-6">
+                  <h2 class="no-margin margin-class" style="font-size: 27px !important;"><%= PartnerMember.all.count rescue nil %></h2>
+                </div>
+              </div>
+              <div class="row text-center" style="font-weight: 600;">
+                PARTNER MEMBER
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    <% end %>
+    <% if (current_admin.super_admin == true) || (current_admin_access_model.present?) && (current_admin_access_model.include? "PaymentContent") %>  
+      <div class="col-lg-3">
+        <div class="panel">
+          <div class="round bg-teal-507" style="border-radius: 5px; border: 1px solid #9c264c padding: 2px;">
+            <div class="panel-body" onclick="window.location = 'admin/payment_contents';">
+              <div class="row">
+                <div class="col-lg-6"><i class="fa fa-user"  style="font-size:60px"></i></div>
+                <div class="col-lg-6">
+                  <h2 class="no-margin margin-class" style="font-size: 27px !important;"><%= PaymentContent.all.count rescue nil %></h2>
+                </div>
+              </div>
+              <div class="row text-center" style="font-weight: 600;">
+                PAYMENT CONTENT
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    <% end %>
+    <% if (current_admin.super_admin == true) || (current_admin_access_model.present?) && (current_admin_access_model.include? "QuestionCategory") %>  
+      <div class="col-lg-3">
+        <div class="panel">
+          <div class="round bg-teal-508" style="border-radius: 5px; border: 1px solid #b26abb padding: 2px;">
+            <div class="panel-body" onclick="window.location = 'admin/question_categories';">
+              <div class="row">
+                <div class="col-lg-6"><i class="fa fa-user"  style="font-size:60px"></i></div>
+                <div class="col-lg-6">
+                  <h2 class="no-margin margin-class" style="font-size: 27px !important;"><%= QuestionCategory.all.count rescue nil %></h2>
+                </div>
+              </div>
+              <div class="row text-center" style="font-weight: 600;">
+                QUESTION CATEGORY
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    <% end %>
+    <% if (current_admin.super_admin == true) || (current_admin_access_model.present?) && (current_admin_access_model.include? "UserJoinEmail") %>  
+      <div class="col-lg-3">
+        <div class="panel">
+          <div class="round bg-teal-509" style="border-radius: 5px; border: 1px solid #306360 padding: 2px;">
+            <div class="panel-body" onclick="window.location = 'admin/user_join_emails';">
+              <div class="row">
+                <div class="col-lg-6"><i class="fa fa-user"  style="font-size:60px"></i></div>
+                <div class="col-lg-6">
+                  <h2 class="no-margin margin-class" style="font-size: 27px !important;"><%= UserJoinEmail.all.count rescue nil %></h2>
+                </div>
+              </div>
+              <div class="row text-center" style="font-weight: 600;">
+                USER JOIN EMAIL
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    <% end %>   
+  </div>
+</div>  
+    

@@ -1,0 +1,11 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  parta_user_id: 1
+  parta_category_id: 1
+  status: MyString
+
+two:
+  parta_user_id: 1
+  parta_category_id: 1
+  status: MyString

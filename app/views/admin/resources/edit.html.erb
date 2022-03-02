@@ -1,0 +1,2 @@
+<%= render partial: "admin/breadcrumbs/breadcrumb", locals: {path: "resources", title: "Resouces", current_page: "Edit Resouce"} %>
+<%= render partial: 'form', locals: {url: admin_resource_path(@resource), method: :put} %>

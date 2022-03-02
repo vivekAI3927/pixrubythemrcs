@@ -1,0 +1,117 @@
+<%= render partial: "admin/breadcrumbs/breadcrumb", locals: {path: "questions", title: "Questions", current_page: "View Question"} %>  
+<div class="content">
+  <div class="panel panel-white">
+    <div class="panel-heading admin-pannel">
+      <%= link_to "Edit Question", edit_admin_parta_question_path(@question), class: "join_btn admin-trading-btn" %>
+      <%= link_to "Delete Question", admin_parta_question_path(@question), data: { confirm: 'Are you sure you want to delete this question', "bootstrap-confirm": 'delete' }, method: :delete, class: "join_btn admin-trading-btn" %>
+    </div>
+    <div class="panel-body">
+      <div class="row">
+        <div class="col-sm-12">
+          <form class="form-horizontal">
+            <div class="row">
+              <div class="form-group col-sm-5" >
+                <label class="col-sm-5 control-label text-muted" style="font-size: 14px">Id.:</label>
+                <div class="form-group col-sm-6">
+                  <p class="form-control-static"><%= @question.id %></p>
+                </div>
+              </div>
+            </div>
+            <div id="header"></div>
+            <div class="row">  
+              <div class="form-group col-sm-12" >
+                <label class="col-sm-12 control-label text-muted" style="font-size: 14px">Content:</label>
+                <div class="form-group col-sm-12">
+                  <p class="form-control-static"><%= @question.content.html_safe %></p>
+                </div>
+              </div>
+            </div>
+            <div id="header"></div>
+            <div class="row">
+              <div class="form-group col-sm-5" >
+                <label class="col-sm-5 control-label text-muted" style="font-size: 14px">Position:</label>
+                <div class="form-group col-sm-6">
+                  <p class="form-control-static"><%= @question.position %></p>
+                </div>
+              </div>
+              <div class="form-group col-sm-5">
+                <label class="col-sm-5 control-label text-muted" style="font-size: 14px">Station:</label>
+                <div class="form-group col-sm-6">
+                  <p class="form-control-static"><%=@question.parta_category.name %></p>
+                </div>
+              </div>
+            </div>
+            <div id="header"></div>
+            <div class="row">
+              <div class="form-group col-sm-12">
+                <label class="col-sm-12 control-label text-muted" style="font-size: 14px">Image Text:</label>
+                <div class="form-group col-sm-12">
+                  <p class="form-control-static"><%=@question.image_text.html_safe %></p>
+                </div>
+              </div>
+            </div>
+            <div id="header"></div>
+            <div class="row">
+              <div class="form-group col-sm-12" >
+                <label class="col-sm-12 control-label text-muted" style="font-size: 14px">Answer Text:</label>
+                <div class="form-group col-sm-12">
+                  <p class="form-control-static"><%=@question.answer_text.html_safe %></p>
+                </div>
+              </div>
+            </div>
+            <div id="header"></div>
+            <div class="row">
+              <div class="form-group col-sm-5">
+                <label class="col-sm-5 control-label text-muted" style="font-size: 14px">Image:</label>
+                <div class="form-group col-sm-6">
+                  <p class="form-control-static">
+                    <%= link_to image_tag(@question.image.url, alt: "Facebook", :class=> "category-img-circular"), @question.image.url, target: :_blank rescue nil%>
+                  </p>
+                </div>
+              </div>
+              <div class="form-group col-sm-5" >
+                <label class="col-sm-5 control-label text-muted" style="font-size: 14px">Answer Image Url:</label>
+                <div class="form-group col-sm-6">
+                  <p class="form-control-static">
+                    <%= link_to image_tag(@question.answer_image.url, alt: "Facebook", :class=> "category-img-circular"), @question.answer_image.url, target: :_blank rescue nil%>
+                  </p>
+                </div>
+              </div>
+            </div>
+            <div id="header"></div>
+            <div class="row">
+              <div class="form-group col-sm-5">
+                <label class="col-sm-5 control-label text-muted" style="font-size: 14px">Created At:</label>
+                <div class="form-group col-sm-6">
+                  <p class="form-control-static"><%=@question.created_at.strftime("%d-%m-%Y") rescue nil %></p>
+                </div>
+              </div>
+              <div class="form-group col-sm-5" >
+                <label class="col-sm-5 control-label text-muted" style="font-size: 14px">Updated At:</label>
+                <div class="form-group col-sm-6">
+                  <p class="form-control-static"><%=@question.updated_at.strftime("%d-%m-%Y") rescue nil %></p>
+                </div>
+              </div>
+            </div>
+            <div id="header"></div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>  
+
+<style type="text/css">
+  #header { 
+    border-bottom: 1px solid #DDDDDD; 
+  }
+  .category-img-circular{
+   width: 100px;
+   height: 100px;
+   background-size: cover;
+   display: block;
+   border-radius: 100px;
+   -webkit-border-radius: 100px;
+   -moz-border-radius: 100px;
+  }
+</style>

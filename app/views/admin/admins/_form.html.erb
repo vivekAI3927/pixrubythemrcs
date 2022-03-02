@@ -1,0 +1,42 @@
+<div class="main-card mb-3 card">
+  <div class="card-body">
+    <%= simple_form_for [:admin, @admin], :html => { :class => 'form-horizontal' } do |f| %>
+      <div class="position-relative form-group">
+        <%= f.simple_fields_for :profile, (@admin.profile.present? ? @admin.profile : @admin.build_profile) do |profile_form|%>
+          <div class="form-row">
+            <div class="col-sm-6"><%= profile_form.input :first_name %></div>
+            <div class="col-sm-6"><%= profile_form.input :last_name %></div>
+          </div>
+          <div class="form-row">
+            <div class="col-sm-12"><%= f.input :email, required: true, autofocus: true %></div>
+          </div>
+          <div class="form-row">
+            <div class="col-sm-6"><%= f.input :password, required: true, hint: ("#{@minimum_password_length} characters minimum" if @minimum_password_length), input_html: { autocomplete: "new-password" } %></div>
+            <div class="col-sm-6"><%= f.input :password_confirmation, required: true, input_html: { autocomplete: "new-password" } %></div>
+          </div>
+          <div class="form-row">
+            <div class="col-sm-6"><%=image_tag @admin.profile.avatar.url(:thumb), size:'40*40' if profile_form.object.avatar.present?%>
+            <%= profile_form.input :avatar, label: 'Profile picture' %></div>
+            <!-- <div class="col-sm-6"><%#= profile_form.input :gender, as: :radio_buttons, collection: ['Female', 'Male']%></div> -->
+            <div class="col-sm-6"><%= profile_form.input :mobile_number%></div>
+          </div>
+          <div class="form-row">
+            <!-- <div class="col-sm-6"><%#= profile_form.input :dob, as: :date, start_year: 90.years.ago.year, end_year: 8.years.ago.year, order: [:day, :month, :year] %></div> -->
+            <!-- <div class="col-sm-6"><%#= profile_form.input :mobile_number%></div> -->
+          </div>
+          <div class="form-row">
+            <div class="col-sm-6"><%= profile_form.input :address%></div>
+            <div class="col-sm-6"><%= profile_form.input :country, collection: CS.countries.values.sort%></div>
+          </div>
+
+          <br/>
+        <%end%>
+        <%= f.input :type %>
+        <%= f.error_span(@admin[:type]) %>
+        <%= f.button :submit, :class => 'mb-2 mr-2 btn btn-primary' %>
+        <%= link_to t('.cancel', :default => t("helpers.links.cancel")),
+                      admin_admins_path, :class => 'mb-2 mr-2 btn btn-warning' %>
+      </div>
+    <% end %>
+  </div>
+</div>

@@ -1,0 +1,52 @@
+<%= render partial: "admin/breadcrumbs/breadcrumb", locals: {path: "email_formats", title: "Emails", current_page: "View Email Format"} %>  
+<div class="content">
+    <div class="panel panel-white">
+      <div class="panel-heading admin-pannel">
+        <%= link_to "Edit Emails", edit_admin_email_format_path(@email_format), class: "join_btn admin-trading-btn" %>
+      </div>
+      <div class="panel-body">
+        <div class="row">
+          <div class="col-sm-12">
+            <form class="form-horizontal">
+              <div class="row">
+                <div class="form-group col-sm-5" >
+                  <label class="col-sm-5 control-label text-muted admin_font">Id.:</label>
+                  <div class="form-group col-sm-6">
+                    <p class="form-control-static"><%= @email_format.id %></p>
+                  </div>
+                </div>
+              </div>
+              <div id="header"></div>
+              <div class="row">
+                <div class="form-group col-sm-12" >
+                  <label class="col-sm-12 control-label text-muted admin_font">Exam Reminder:</label>
+                  <div class="form-group col-sm-12">
+                    <p class="form-control-static"><%= @email_format.exam_reminder.html_safe %></p>
+                  </div>
+                </div>
+              </div>
+              <div id="header"></div>
+              <div class="row">
+                <div class="form-group col-sm-12" >
+                  <label class="col-sm-12 control-label text-muted admin_font">Not Join Message:</label>
+                  <div class="form-group col-sm-12">
+                    <p class="form-control-static"><%= @email_format.not_join_message.html_safe %></p>
+                  </div>
+                </div>
+              </div>
+              <div id="header"></div>
+               <div class="row">
+                <div class="form-group col-sm-12" >
+                  <label class="col-sm-12 control-label text-muted admin_font">Paid Message:</label>
+                  <div class="form-group col-sm-12">
+                    <p class="form-control-static"><%= @email_format.paid_message.html_safe %></p>
+                  </div>
+                </div>
+              </div>
+              <div id="header"></div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+</div>  

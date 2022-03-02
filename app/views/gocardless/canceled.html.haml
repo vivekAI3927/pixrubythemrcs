@@ -1,0 +1,16 @@
+%section.organic-breadcrumb
+  .container
+    .breadcrumb-banner.d-flex.flex-wrap.align-items-center.justify-content-end
+      .col-first
+        %h1.text.danger PAYMENT NOT COMPLETED
+
+.row
+  .order-place-inner
+    %span.cross-icon
+      %i.material-icons close
+    %p
+      Please click
+      %a#cancel_pay{:href => "/"} HOME
+      to retry payment
+
+    = @error

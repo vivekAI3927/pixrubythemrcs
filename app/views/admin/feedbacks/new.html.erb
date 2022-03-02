@@ -1,0 +1,2 @@
+<%= render partial: "admin/breadcrumbs/breadcrumb", locals: {path: "feedbacks", title: "Feedbacks", current_page: "New Feedback"} %>
+<%= render partial: 'form', locals: {url: admin_feedbacks_path(@feedback), method: :post} %> 

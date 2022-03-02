@@ -1,0 +1,2 @@
+<%= render partial: "admin/breadcrumbs/breadcrumb", locals: {path: "privacy_terms", title: "Privacy", current_page: "Privacy Terms"} %>
+<%= render partial: 'form', locals: {url: admin_privacy_term_path(@privacy_term.id), method: :put} %>

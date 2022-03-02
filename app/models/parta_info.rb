@@ -1,0 +1,2 @@
+class PartaInfo < ApplicationRecord
+end

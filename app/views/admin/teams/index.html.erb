@@ -1,0 +1,52 @@
+<%= render partial: "admin/breadcrumbs/breadcrumb", locals: {path: "teams", title: "Teams", current_page: "Team List"} %>
+<div class="content">
+  <div class="row">
+  </div>
+ </div>
+  <div class="row">
+    <div class="col-sm-12">
+      <div class="grid-view table-responsive" id="student-grid">
+        <table class="items">
+          <thead>
+            <tr>
+              <th id="student-grid_c0">Sl.No.</th>
+              <th id="student-grid_c2"><%= sortable "name" %></th>
+              <th id="student-grid_c2"><%= sortable "position" %></th>
+              <th id="student-grid_c3"><%= sortable "bio" %></th>
+              <th id="student-grid_c4">Image</th>
+              <th class="button-column" id="student-grid_c8">Action</th>
+            </tr>
+          </thead>
+          <tbody class="hole-list">
+            <%=render :partial=> "team_list"%>
+          </tbody>
+        </table>
+        <%if @teams.present?%>
+          <%= render partial: "admin/paginations/pagination", locals: {all_data: @teams} %>
+        <% end %>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script type="text/javascript">
+	$(document).ready(function(){
+	  $(".select-name").change(function(){
+	    $.ajax({
+	      type:"get",
+	      url:"/admin/teams/get_filter_team",
+	      data:{
+	        "name":$(this).val()
+	      }
+	    });
+	  });
+	  $(".select-title").change(function(){
+	    $.ajax({
+	      type:"get",
+	      url:"/admin/teams/get_filter_team",
+	      data:{
+	        "title":$(".select-title").val()      }
+	    });
+	  });
+	});
+</script>

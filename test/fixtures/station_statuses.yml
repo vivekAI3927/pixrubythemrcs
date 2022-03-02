@@ -1,0 +1,21 @@
+# == Schema Information
+#
+# Table name: station_statuses
+#
+#  id         :bigint           not null, primary key
+#  user_id    :integer
+#  station_id :integer
+#  status     :string
+#  created_at :datetime         not null
+#  updated_at :datetime         not null
+#
+
+one:
+  user_id: 1
+  station_id: 1
+  status: MyString
+
+two:
+  user_id: 1
+  station_id: 1
+  status: MyString

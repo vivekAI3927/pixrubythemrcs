@@ -1,0 +1,58 @@
+<%= render partial: "admin/breadcrumbs/breadcrumb", locals: {path: "mock_exams", title: "Mock Exam", current_page: "Mock Exam"} %>
+<div class="content">
+  <div class="row">
+    <div class="col-sm-12">
+      <div class="grid-view table-responsive" id="student-grid">
+        <table class="items">
+          <thead>
+            <tr>
+              <th id="student-grid_c0">Id</th>
+              <th id="student-grid_c0">Title</th>
+              <th id="student-grid_c1"> Description</th>
+              <th class="button-column" id="student-grid_c7">Action</th>
+            </tr>
+          </thead>
+          <tbody class="hole-list">
+            <%@mock_exams.each_with_index do |x,index|%>
+                <tr>
+                  <td width="10%"><%= x.id %></td>
+                  <td width="10%"><%= x.title rescue nil %></td>
+                  <td width="70%"><%= x.description.html_safe %></td>
+                  <td width="20%"> 
+                    <%=link_to admin_mock_exam_path(x) do%>
+                      <span class="glyphicon glyphicon-eye-open"></span>
+                    <%end%>
+                    <%= link_to edit_admin_mock_exam_path(x) do|| %>
+                      <span class="glyphicon glyphicon-pencil" style="color:#1ab394"></span>
+                    <% end %>
+                  </td>
+                </tr>
+              <%end%>
+          </tbody>
+        </table>
+        <%if @mock_exams.present?%>
+          <div class="pager">
+
+          </div>
+        <%end%>
+      </div>
+    </div>
+  </div>
+</div>
+
+<style>
+.fa {
+    font-weight: bold;
+}
+.btn {
+    position: relative;
+    border-radius: 2px;
+    margin-top: 10px;
+ }
+ 
+.col-sm-1 {
+    width: 8.3333333333%;
+    margin-left: -21px;
+    margin-top: -32px;
+}
+</style>

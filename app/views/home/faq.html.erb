@@ -1,0 +1,48 @@
+<section class="organic-breadcrumb">
+    <div class="container">
+        <div class="breadcrumb-banner d-flex flex-wrap align-items-center justify-content-end">
+            <div class="col-first">
+                <h1>FAQ</h1>
+            </div>
+        </div>
+    </div>
+</section>
+<section class="faq" style="background-color: white;">
+	<div class="container ">
+		<div class="row">
+			<div class="bs-example scroll_top_faq"  >
+				<div class="accordion" id="accordionExample">
+					<% Faq.all.where(status: true).each do |faq| %>
+						<div class="card">
+							<div class="card-header " id="headingTwo">
+								<h2 class="mb-0">
+									<button type="button" class="btn btn-link"  data-toggle="collapse" data-target="#collapseTwo<%= faq.id %>"><%= faq.title %> <i class="fa fa-plus"></i></button>
+								</h2>
+							</div>
+							<div id="collapseTwo<%= faq.id %>" class="collapse " aria-labelledby="headingTwo" data-parent="#accordionExample">
+								<div class="card-body">
+									<p><%= faq.description.html_safe %> </p>
+								</div>
+							</div>
+						</div>
+					<% end %>
+				</div>		
+			</div>
+		</div>
+	</div>
+</section>
+
+<script type="text/javascript">
+	$(window).load(function(){
+	  $('html, body').animate({scrollTop: $('.scroll_top_faq').offset().top - 122}, 1000);
+	});
+</script>
+<script type="text/javascript">
+	$(document).ready(function () {
+    $('.collapse').on('shown.bs.collapse', function(e) {
+		  var $card = $(this).closest('.card');
+		  $('html,body').animate({
+		    scrollTop: $card.offset().top - 122}, 1000);
+		});
+	})
+</script>

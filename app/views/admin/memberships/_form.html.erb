@@ -1,0 +1,48 @@
+<%= form_for @membership, :url => url, :html => { :multipart => true, :class => "p-20" },  method: method do |f| %>
+  <div class="row">
+    <div class="col-sm-12">
+      <div class="panel panel-default">
+         <div class="panel-heading">
+           <h4 class="panel-title">Membership</h4>
+        </div>
+        <div class="panel-body">
+          <div class="row">  
+            <div class="form-group col-sm-6">
+              <label for="reg_input_name" class="req">Length</label>
+              <%=f.number_field :length, :class=>"form-control",:placeholder => "Enter Length" %>
+              <div class = "error error_msg"><%= @membership.errors.messages[:length][0] %></div>
+            </div>
+            <div class="form-group col-sm-6">
+              <label for="reg_input_name" class="req">Price</label>
+              <%=f.number_field :price, :class => "form-control", :placeholder => "Enter Price"  %>
+              <div class = "error error_msg"><%= @membership.errors.messages[:price][0] %></div>
+            </div>
+          </div>  
+          <div class="row">
+            <div class="form-group col-sm-6">
+              <label for="reg_input_name">Available</label>
+              <%= f.check_box :available %>
+            </div>
+          </div>
+           <div class="row">  
+            <div class="form-group col-sm-12">
+              <label for="reg_input_name">Status</label>
+              <%= f.select :status, [["Create", "create"], ["Renewal", "renewal"]], {}, {class: "form-control"} %>
+            </div>
+          </div>
+            <div class="row">  
+            <div class="form-group col-sm-12">
+              <label for="reg_input_name">Stripe Plan</label>
+              <%=f.text_field :stripe_plan_name, :class => "form-control", :placeholder => "Enter Stirpe Sku"  %>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-sm-12 text-center">
+              <%= f.submit "Save", :class=>"btn join_btn admin-submit-btn"%>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+<% end %>

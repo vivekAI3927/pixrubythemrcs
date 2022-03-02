@@ -1,0 +1,108 @@
+<%= render partial: "admin/breadcrumbs/breadcrumb", locals: {path: "questions", title: "Questions", current_page: "Edit Question"} %> 
+<%= form_for(@question, as: @question, url: admin_question_path(@question.id), html: { method: :put, :class => "p-20" }) do |f| %>
+  <div class="row">
+    <div class="col-sm-12">
+      <div class="panel panel-default">
+         <div class="panel-heading">
+           <h4 class="panel-title">Edit Question</h4>
+        </div>
+        <div class="panel-body">
+          <div class="row">  
+            <div class="form-group col-sm-12">
+              <label for="reg_input_name" class="req">Content</label>
+              <%=f.text_area :content, :class=>"form-control", id: "editor_content", :required=>'required' %>
+              <% if params[:via_station].present? %>
+                <%= f.hidden_field :via_station, :value => "true" %>
+              <% end %>  
+              <div class = "error error_msg"><%= @question.errors.messages[:content][0] %></div>
+            </div>
+          </div>
+          <div class="row">  
+            <div class="form-group col-sm-6">
+              <label for="reg_input_name" class="req">Position</label>
+              <%=f.number_field :position, :class => "form-control",id: "position" %>
+               <div class = "error error_msg"><%= @question.errors.messages[:position][0] %></div>
+            </div>
+            <div class="form-group col-sm-6">
+            <label for="reg_input_name">Answer Image</label>
+              <%=f.file_field :answer_image_file_name, :class=>"form-control"  %>
+              <% if @question.answer_image_file_name.present? %>
+                <%=image_tag(@question.answer_image_file_name.url, size: "80x80")%>
+              <% end %>  
+            </div>  
+          </div>
+          <div class="row">  
+            <div class="form-group col-sm-12">
+              <label for="reg_input_name" class="req">Answer Text</label>
+               <%=f.text_area :answer_text, :class => "forAnswer Image Textm-control",id: "editor_answer_text",  "data-validation-confirm" => "required" %>
+             <div class = "error error_msg"><%= @question.errors.messages[:answer_text][0] %></div>
+            </div>
+          </div>
+          <div class="row">
+            <div class="form-group col-sm-6">
+              <label for="reg_input_name" >Image</label>
+              <%=f.file_field :image_file_name, :class=>"form-control" %>
+               <%=image_tag(@question.image.url, size: "80x80") rescue nil%>
+            </div>
+            <% if @question.image.present? %>
+              <div class="form-group col-sm-3">
+                <label for="reg_input_name">Delete image: </label>
+                <%= f.check_box :delete_image %>
+              </div>
+            <% end %>
+            <% if @question.answer_image.present? %>
+              <div class="form-group col-sm-3">
+                <label for="reg_input_name">Delete Answer image: </label>
+                <%= f.check_box :delete_answer_image %>
+              </div>
+            <% end %>  
+          </div>
+          <div class="row">  
+            <div class="form-group col-sm-12">
+              <label for="reg_input_name">Image Text</label>
+              <%=f.text_area :image_text, :class=>"form-control", id: "editor_image_text" %>
+              <div class = "error error_msg"><%= @question.errors.messages[:image_text][0] %></div>
+            </div>
+          </div>
+          <div class="row">
+             <div class="form-group col-sm-6">
+              <label for="reg_input_name" class="req">Station</label>
+              <%= f.collection_select :station_id, Station.all.order(:title),:id,:title, {},
+                                                           include_blank: true, :class => "form-control" %>
+              <div class = "error error_msg"><%#= @category.errors.messages[:image_file_name][0] %></div>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-sm-12 text-center">
+              <%= link_to "Cancel", :back, {:class=>"btn join_btn admin-submit-btn"} %>
+              <%= f.submit "Submit", :class=>"btn join_btn admin-submit-btn"%>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+<%end%>
+
+<style type="text/css">
+  .req:after {
+  content: "*";
+  font-size: 15px;
+  color: #cc0000;
+  padding-left: 4px;
+}
+</style>
+<script>
+  CKEDITOR.replace('editor_answer_text', {
+    height: 250,
+    extraPlugins: 'colorbutton,colordialog'
+  });
+  CKEDITOR.replace('editor_image_text', {
+    height: 250,
+    extraPlugins: 'colorbutton,colordialog'
+  });
+  CKEDITOR.replace('editor_content', {
+    height: 250,
+    extraPlugins: 'colorbutton,colordialog'
+  });
+</script>   

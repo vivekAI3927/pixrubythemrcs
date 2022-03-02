@@ -1,0 +1,26 @@
+<%@prices.each_with_index do |x,index|%>
+  <tr>
+    <td width="10%"><%= x.id %></td>
+    <td width="20%"><%=link_to x.title, admin_price_path(x) %></td>
+    <td width="15%"><%= x.price %></td>
+    <td width="15%">
+      <% if x.icon_url.present? %>
+        <%= link_to image_tag(x.icon_url, alt: "Facebook", :class=> "img-circular"), x.icon_url, target: :_blank rescue nil %>
+      <% else %>
+        <%= image_tag ("/blank_image.png"), :class=> "img-circular" %>
+      <% end %>  
+    </td>
+    <td width="15%"><%= x.status %></td>
+    <td width="10%"> 
+      <%=link_to admin_price_path(x) do%>
+        <span class="glyphicon glyphicon-eye-open"></span>
+      <%end%>
+      <%= link_to edit_admin_price_path(x) do|| %>
+        <span class="glyphicon glyphicon-pencil" style="color:#1ab394"></span>
+      <% end %>
+      <%= link_to admin_price_path(x), data: { confirm: 'Are you sure you want to delete book '+ x.title, "bootstrap-confirm": 'delete' }, method: :delete do|| %>
+        <span class="glyphicon glyphicon-trash" style="color:red"></span>
+      <% end %>
+    </td>
+  </tr>
+<%end%>

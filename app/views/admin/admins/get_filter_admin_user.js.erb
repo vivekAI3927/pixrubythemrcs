@@ -1,0 +1,6 @@
+<%if @status%>
+	$('.hole-list').html("<%= escape_javascript render 'admin/admins/admin_user_list' %>");
+<%else%>
+	$('.hole-list').html("<%= escape_javascript render 'students/no_data_found' %>");
+<%end%>
+$('.pagination').remove();

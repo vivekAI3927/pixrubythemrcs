@@ -1,0 +1,11 @@
+<% if @attempt.started && !@attempt.completed %>
+  $("span#<%= @station.id %>").attr('class', 'tracker tracker_started')
+                              .attr('title', 'Nearly there');
+
+<% elsif @attempt.started && @attempt.completed %>
+  $("span#<%= @station.id %>").attr('class', 'tracker tracker_completed')
+                              .attr('title', 'Complete...nice one!');
+<% elsif !@attempt.started && !@attempt.completed %>
+  $("span#<%= @station.id %>").attr('class', 'tracker tracker_not_started')
+                              .attr('title', 'Not started');
+<% end %>

@@ -1,0 +1,40 @@
+<%= render partial: "admin/breadcrumbs/breadcrumb", locals: {path: "target_specialities", title: "Target Specialities", current_page: "Target Speciality"} %>
+<div class="content">
+  <div class="row">
+    <div class="col-sm-12">
+      <div class="grid-view table-responsive" id="student-grid">
+        <table class="items">
+          <thead>
+            <tr>
+              <th id="student-grid_c0"><%= sortable "id" %></th>
+              <th id="student-grid_c2"><%= sortable "name" %></th>
+              <th class="button-column" id="student-grid_c7">Action</th>
+            </tr>
+          </thead>
+          <tbody class="hole-list">
+            <%@target_specialities.each_with_index do |x,index|%>
+                <tr>
+                  <td width="12%"><%= x.id %></td>
+                  <td width="15%"><%= x.name%></td>
+                  <td width="5%"> 
+                    <%=link_to admin_target_speciality_path(x) do%>
+                      <span class="glyphicon glyphicon-eye-open"></span>
+                    <%end%>
+                    <%= link_to edit_admin_target_speciality_path(x) do|| %>
+                      <span class="glyphicon glyphicon-pencil" style="color:#1ab394"></span>
+                    <% end %>
+                    <%= link_to admin_target_speciality_path(x), data: { confirm: 'Are you sure you want to delete this Target Speciality', "bootstrap-confirm": 'delete' }, method: :delete do|| %>
+                      <span class="glyphicon glyphicon-trash" style="color:red"></span>
+                    <% end %>  
+                  </td>
+                </tr>
+              <%end%>
+          </tbody>
+        </table>
+        <%if @target_specialities.present?%>
+          <%= render partial: "admin/paginations/pagination", locals: {all_data: @target_specialities} %>
+        <% end %>
+      </div>
+    </div>
+  </div>
+</div>

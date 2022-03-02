@@ -1,0 +1,13 @@
+<%@exams.each_with_index do |x,index|%>
+  <tr>
+    <td width="5%"><%=index+1%></td>
+    <td width="10%"><%= link_to x.user.try(:name), admin_user_path(x.user.id) rescue nil%></td>
+    <td width="15%"><%= link_to x.current_station, admin_exam_path(x) %></td>
+    <td width="20%"><%= x.stations %></td>
+    <td width="10%"> 
+    <%=link_to admin_exam_path(x) do%>
+      <span class="glyphicon glyphicon-eye-open"></span>
+    <%end%>
+    </td>
+  </tr>
+<%end%>

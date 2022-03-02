@@ -1,0 +1,43 @@
+%section.organic-breadcrumb
+  .container
+    .breadcrumb-banner.d-flex.flex-wrap.align-items-center.justify-content-end
+      .col-first
+        %h1
+          = station.title
+        - if current_user
+          .row
+            .col-md-12.text-center
+              = link_to update_status_station_path(station, status: STATION_TODO) do
+                %span#todo{class: "badge #{@station_status.todo ? 'badge-danger' : 'badge-secondary'}" } TO-DO
+              = link_to update_status_station_path(station, status: STATION_FLAGGED) do
+                %span#flagged{class: "badge #{@station_status.flagged ? 'badge-warning' : 'badge-secondary'}" } FLAGGED
+              = link_to update_status_station_path(station, status: STATION_DONE) do
+                %span#done{class: "badge #{@station_status.done ? 'badge-success' : 'badge-secondary'}" } DONE
+  
+%section.how-it-works.pt-100.pb-50 
+  #question-box.container.theme-bg.question_bd_format
+    .row
+      .col-md-12.next_question_scroll
+        /= link_to "RESTART OSCE", 'javascript:history.back()', :class => 'btn trading-btn'
+        - question_ids = station.questions.map(&:id)
+        - question_position = question_ids.index(question.id)
+        %span{:style => "color: #534f4f;"}
+          Question #{question_position + 1} of  #{station.questions.count}
+        %br/
+        %h3
+          %small
+            = station.scenario_text.html_safe
+            %hr/
+    .row
+      .col-md-12
+        = render 'stations/station_question', :question => question, :station => station
+:css
+  var $myGroup = $('#myGroup');
+      $myGroup.on('show','.collapse', function() {
+          $myGroup.find('.collapse.in').collapse('hide');
+      });
+
+:javascript
+  $(document).ready(function () {
+    $('html, body').animate({scrollTop: $('.next_question_scroll').offset().top - 122 }, 1000);
+  })

@@ -1,0 +1,123 @@
+<%= render partial: "admin/breadcrumbs/breadcrumb", locals: {path: "lapse_users", title: "Lapse Users", current_page: "Lapse User List"} %>
+  <br>
+  <div class="row">
+    <div class="col-sm-12">
+      <div class="grid-view table-responsive" id="student-grid">
+        <table class="items datatable">
+          <thead>
+            <tr>
+              <th id="student-grid_c2" class="abc">SN.</th>
+              <th id="student-grid_c2" class="abc">Name</th>
+              <th id="student-grid_c5">Email</th>
+              <th id="student-grid_c5">Status</th>
+              <th id="student-grid_c5">Country</th>
+              <th id="student-grid_c5">Membership</th>
+              <th id="student-grid_c5">Joined</th>
+              <th id="student-grid_c3">Subscribed on</th>
+              <th id="student-grid_c5">Referred by</th>
+              <th id="student-grid_c5">Coupon Name</th>
+              <th id="student-grid_c4">Target exam date</th>
+            </tr>
+          </thead>
+          <tbody class="hole-list">
+            <%@lapse_users_data.each_with_index do |user,index|%>
+              <tr>
+                <td width="10%"><%= index + 1 %></td>
+                <td width="10%"><%= user.name %></td>
+                <td width="10%"><%=user.email%></td>
+                <td width="10%">
+                  <% membership_length = user.membership.length rescue nil %>
+                  <% start_time = user.subscribed_on %>
+                  <% end_time = start_time + membership_length.month rescue nil %>
+                  <% inside = Date.today %>
+                  <% active_user = inside.between?(start_time, end_time) rescue nil %>
+
+                  <% end_membership_last_4_week = inside - 4.weeks rescue nil %>
+                  <% one_day_before_today_date =  inside - 1.day %>
+                  <% recent_lapse = end_time.between?(end_membership_last_4_week, one_day_before_today_date) rescue nil %>
+
+                  <% laspe = end_time < end_membership_last_4_week rescue nil %>
+
+                  <% user_created_date = user.created_at %>
+                  <% user_created_date_last_3_month = Date.today - 3.month %>
+                  <% user_suscribed_date = user.subscribed_on %>
+                  <% not_suscribe_but_regis_last_3_month = user_created_date.between?(user_created_date_last_3_month, Date.today) rescue nil %>
+
+                  <% not_suscribed = user_created_date <  user_created_date_last_3_month rescue nil %>
+
+                  <% if active_user == true %>
+                    <p style="color: green">Active</p>
+                  <% elsif recent_lapse == true %>
+                    <p style="color: blue">Recent lapse</p>
+                  <% elsif laspe == true %>
+                    <p style="color: orange">Lapse</p>
+                  <% elsif (user_suscribed_date == nil) && (not_suscribe_but_regis_last_3_month == true) %> 
+                    <p style="color: #f06292">Sale leads</p>
+                  <% elsif (user_suscribed_date == nil) && (not_suscribed == true) %>
+                    <p style="color: red">Not subscribed</p>       
+                  <% end %> 
+                </td>
+                <td width="10%"><%=user.country_name if user.country? %></td>
+                <td width="5%"><%=user.membership.try(:name)%></td>
+                <td width="15%"><%=user.created_at.strftime("%d-%m-%Y") rescue nil %></td>
+                <td width="10%"><%=user.subscribed_on.strftime("%d-%m-%Y") rescue nil %></td>
+                <td width="5%"><%=user.referred_by%></td>
+                <td width="15%"><%=user.coupon_name%></td>
+                <td width="20%"><%=user.target_exam_date.strftime("%d-%m-%Y") rescue nil %></td>
+              </tr>
+            <%end%>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script type="text/javascript">
+  $('.datatable').DataTable({
+  // dom: "<'row-fluid'<'span6'l><'span6'f>r>t<'row-fluid'<'span6'i><'span6'p>>",
+  // pagingType: "bootstrap"
+  "pageLength": 50
+  });
+</script>
+
+<style>
+
+
+
+.fa {
+    font-weight: bold;
+}
+.btn {
+    position: relative;
+    border-radius: 2px;
+    margin-top: 10px;
+ }
+ 
+.col-sm-1 {
+    width: 8.3333333333%;
+    margin-left: -21px;
+    margin-top: -32px;
+}
+ .items th .current {
+  padding-right: 20px;
+  background-repeat: no-repeat;
+  background-position: right center;
+}
+
+.items th .asc {
+  background-image: url(https://img.icons8.com/small/16/000000/circled-up.png);
+  padding-left: 15px;
+}
+
+.items th .desc {
+  background-image: url(https://img.icons8.com/small/16/000000/circled-down.png);
+  /*https://img.icons8.com/material/10/000000/give-way--v1.png*/
+  padding-left: 15px;
+}
+.grid-view table.items td
+{
+  font-size: 10px;
+  font-weight: 500;
+}
+</style>

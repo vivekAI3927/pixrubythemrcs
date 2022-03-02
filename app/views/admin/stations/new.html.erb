@@ -1,0 +1,120 @@
+<%= render partial: "admin/breadcrumbs/breadcrumb", locals: {path: "stations", title: "Stations", current_page: "New Station"} %>
+<%= form_for @station, :url => '/admin/stations', :html => { :multipart => true, :class => "p-20" } do |f| %>
+  <div class="row">
+    <div class="col-sm-12">
+      <div class="panel panel-default">
+         <div class="panel-heading">
+           <h4 class="panel-title">Add New Station</h4>
+        </div>
+        <div class="panel-body">
+          <div class="row">  
+            <div class="form-group col-sm-6">
+              <label for="reg_input_name" class="req">Title</label>
+              <%=f.text_field :title, :class=>"form-control", :placeholder => "Enter Title" %>
+              <div class = "error error_msg"><%= @station.errors.messages[:title][0] %></div>
+            </div>
+          </div>  
+          <div class="row">   
+            <div class="form-group col-sm-12">
+              <label for="reg_input_name" class="req">Scenario Text</label>
+              <%=f.text_area :scenario_text, :class => "form-control", :placeholder => "Enter Scenario Text", id: 'scenario_text'  %>
+              <div class = "error error_msg"><%= @station.errors.messages[:scenario_text][0] %></div>
+            </div>
+          </div>  
+          <div class="row">
+            <div class="form-group col-sm-12">
+              <label for="reg_input_name">Cheatsheet</label>
+              <%=f.text_area :cheatsheet, :class=>"form-control", :placeholder => "Enter Cheatsheet", id: "editorcheatsheet"  %>
+            </div>
+          </div>  
+          <div class="row">  
+            <div class="form-group col-sm-12">
+              <label for="reg_input_name">Markscheme</label>
+               <%=f.text_area :markscheme, :class => "form-control",id: "editormarkscheme", :placeholder => "Enter Markscheme" %>
+            </div>
+          </div>
+          <div class="row">
+            <div class="form-group col-sm-12">
+              <label for="reg_input_name">Actor Brief</label>
+              <%=f.text_area :actor_brief, :class=>"form-control",id: "editoractor_brief",  :placeholder => "Enter Actor Brief" %>
+            </div>
+          </div>
+          <div class="row">  
+            <div class="form-group col-sm-12">
+              <label for="reg_input_name">Exam Brief</label>
+               <%=f.text_area :exam_brief, :class => "form-control",id: "editorexam_brief", :placeholder => "Enter Exam Brief" %>
+            </div>
+          </div>
+          <div class="row">
+            <div class="form-group col-sm-6">
+              <label for="reg_input_name" class="req">Category</label>
+              <%= f.collection_select :category_id,@categories,:id,:name, {},
+                                                           include_blank: true, :class => "form-control" rescue nil %>
+              <div class = "error error_msg"><%#= @category.errors.messages[:image_file_name][0] %></div>
+            </div>
+            <div class="form-group col-sm-6">
+              <label for="reg_input_name">Image</label>
+              <%=f.file_field :image_file_name, :class=>"form-control"%>
+            </div>
+          </div>
+          <div class="row">
+            <div class="form-group col-sm-6">
+              <label for="reg_input_name">Trial</label>
+              <%= f.check_box :trial %>
+            </div>
+            <div class="form-group col-sm-6">
+              <label for="reg_input_name">Available</label>
+              <%=f.check_box :available %>
+            </div>
+          </div>
+              <div class="row">
+            <!--Radio buttons-->
+            <!-- <div class="btn-group" data-toggle="buttons">
+
+              <label class="btn btn-primary active form-check-label">
+                <%#= f.radio_button :flag, 'TO-DO', :checked => true, class: "form-check-input" %> TO-DO
+              </label>
+
+              <label class="btn btn-primary form-check-label  ">
+                <%#= f.radio_button :flag, STATION_FLAGGED, class: "form-check-input" %> FLAGGED
+              </label>
+
+              <label class="btn btn-primary form-check-label ">
+                <%#= f.radio_button :flag, 'DONE', class: "form-check-input" %> DONE
+              </label>
+
+            </div> -->
+            <!--Radio buttons-->
+          </div>
+          <div class="row">
+            <div class="col-sm-12 text-center">
+              <%= f.submit "Save", :class=>"btn join_btn admin-submit-btn"%>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+<% end %>
+<script>
+  CKEDITOR.replace('scenario_text', {
+    height: 250,
+    extraPlugins: 'colorbutton,colordialog'
+  });
+  CKEDITOR.replace('editormarkscheme', {
+    height: 250,
+    extraPlugins: 'colorbutton,colordialog'
+  });
+  CKEDITOR.replace('editoractor_brief', {
+    height: 250,
+    extraPlugins: 'colorbutton,colordialog'
+  });
+  CKEDITOR.replace('editorexam_brief', {
+    height: 250,
+    extraPlugins: 'colorbutton,colordialog'
+  });
+  CKEDITOR.replace('editorcheatsheet', {
+    height: 250,
+    extraPlugins: 'colorbutton,colordialog'
+  });
+</script>

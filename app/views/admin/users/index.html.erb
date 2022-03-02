@@ -1,0 +1,143 @@
+<%= render partial: "admin/breadcrumbs/breadcrumb", locals: {path: "users", title: "Users", current_page: "User List"} %>
+<div class="content">
+  <div class="row">
+    <!-- <div class="col-sm-3">
+      <%#= select_tag :country, options_for_select(User.all.order("country ASC").collect{ |u| [u.country, u.country]}.uniq), {:prompt => "--Select Country--",:class =>"select_combobox form-control select-country"} %>
+      <%#= country_select :country, {priority_countries: [""]}, {},{:prompt => "--Select Country--",:class =>"select_combobox form-control select-country"}%>
+      <div class="school_val_error" id="Student_courseid_em_" style="display:none">
+      </div>
+    </div>
+    <div class="col-sm-3">
+      <%#= select_tag :target_exam_date, options_for_select(User.all.order("target_exam_date DESC").collect{ |u| [u.target_exam_date, u.target_exam_date]}.uniq), {:prompt => "--Select Target Exam Date--",:class =>"select_combobox form-control select-target_exam_date"} %>
+      <div class="school_val_error" id="Student_batchid_em_" style="display:none"></div>
+    </div> -->
+    <div class="col-sm-12">
+      <%= form_tag @admin_users_path,:method =>'get' do %>
+        <div class ="row">
+            <div class="col-sm-4"> 
+              <%= text_field_tag :search_name, params[:search_name],:class=>"form-control",:placeholder=>"Search by User Name"%>
+            </div>
+            <div class="col-sm-4">
+              <%= email_field_tag :search_email, params[:search_email],:class=>"form-control",:placeholder=>"Search by User Email"%>
+            </div>
+          <div class="col-sm-3"> 
+             <%=submit_tag "Search",:class =>"btn join_btn admin-submit-btn", :style=>"margin-top: 0px;"%>
+          </div>
+        </div>
+     <%end%>
+    </div>
+  </div>
+</div>
+  <br>
+  <div class="row">
+    <div class="col-sm-12">
+      <div class="grid-view table-responsive" id="student-grid">
+        <table class="items">
+          <thead>
+            <tr>
+              <!-- <th id="student-grid_c2">Name</th> -->
+              <th id="student-grid_c2" class="abc"><%= sortable "name" %></th>
+              <th id="student-grid_c5"><%= sortable "email" %></th>
+              <th id="student-grid_c5">Status</th>
+              <th id="student-grid_c5"><%= sortable "country" %></th>
+              <th id="student-grid_c5"><%= sortable "membership" %></th>
+              <th id="student-grid_c5"><%= sortable "created_at", "Joined" %></th>
+              <th id="student-grid_c3"><%= sortable "subscribed_on" %></th>
+              <th id="student-grid_c3"><%= sortable "Expired At" %></th>
+              <th id="student-grid_c5"><%= sortable "referred_by" %></th>
+              <th id="student-grid_c5"><%= sortable "coupon_name" %></th>
+              <th id="student-grid_c4"><%= sortable "target_exam_date" %></th>
+              <th id="student-grid_c4">Target Speciality</th>
+              <th id="student-grid_c4">Exam Reminder</th>
+              <th id="student-grid_c4">Not Join Message</th>
+              <th id="student-grid_c4">Paid Message</th>
+              <th class="button-column" id="student-grid_c7">Action</th>
+              <!-- <th class="student-grid_c8">Download</th> -->
+            </tr>
+          </thead>
+          <tbody class="hole-list">
+            <%=render :partial=> "user_list"%>
+          </tbody>
+        </table>
+        <% if @users.present? %>
+          <%= render partial: "admin/paginations/pagination", locals: {all_data: @users} %>
+        <% end %>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script type="text/javascript">
+$(document).ready(function(){
+  //here getting batch via course
+  $(".select-country").change(function(){
+    var url = '/admin/user/get_batch?course_id=' + $(this).val()
+    //$(".city_drop_down").removeOption(/./);
+    // $.get(url, function(data) {
+    //    $('.city_drop_down').addOption(data, false);
+    //  });
+    $.getJSON(url, function(data) {
+      $('.select-target_exam_date').html('<option>Select Exam Date</option>');
+      // $.each(data, function(index, batch) {   
+      //   //alert(batch.name);
+      //    $('.select-batch').append($('<option>', { value : batch.id }).text(batch.name)); 
+      // });
+    });
+    });
+  $(".select-country").change(function(){
+    $.ajax({
+      type:"get",
+      url:"/admin/users/get_filter_user_list",
+      data:{
+        "country":$(this).val()
+      }
+    });
+  });
+  $(".select-target_exam_date").change(function(){
+    $.ajax({
+      type:"get",
+      url:"/admin/users/get_filter_user_list",
+      data:{
+        "target_exam_date":$(".select-target_exam_date").val()      }
+    });
+  });
+});
+</script>
+
+<style>
+.fa {
+    font-weight: bold;
+}
+.btn {
+    position: relative;
+    border-radius: 2px;
+    margin-top: 10px;
+ }
+ 
+.col-sm-1 {
+    width: 8.3333333333%;
+    margin-left: -21px;
+    margin-top: -32px;
+}
+ .items th .current {
+  padding-right: 20px;
+  background-repeat: no-repeat;
+  background-position: right center;
+}
+
+.items th .asc {
+  background-image: url(https://img.icons8.com/small/16/000000/circled-up.png);
+  padding-left: 15px;
+}
+
+.items th .desc {
+  background-image: url(https://img.icons8.com/small/16/000000/circled-down.png);
+  /*https://img.icons8.com/material/10/000000/give-way--v1.png*/
+  padding-left: 15px;
+}
+.grid-view table.items td
+{
+  font-size: 10px;
+  font-weight: 500;
+}
+</style>

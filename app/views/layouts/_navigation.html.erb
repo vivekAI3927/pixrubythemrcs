@@ -1,0 +1,484 @@
+<!-- Navigation -->
+<nav class="navbar-default navbar-static-side" role="navigation">
+  <div class="sidebar-collapse">
+    <ul class="nav metismenu" id="side-menu">
+      <li class="nav-header">
+        <div class="dropdown profile-element">
+          <span>
+            <%= image_tag "frame.png", :class=>"logo_image", :style=>"width:70px; height:70px;border-radius:70%;" %>
+          </span>
+          <a data-toggle="dropdown" class="dropdown-toggle" href="#">
+            <span class="clear">
+              <span class="block m-t-xs">
+                <h6 class="text-semibold no-margin"></h6>
+              </span>
+              <% if current_admin.present? %>
+                <span class="text-muted text-xs block"><%=current_admin.email%><i class="fa fa-caret-down"></i></span>
+              <% end %>  
+            </span>
+          </a>
+          <ul class="dropdown-menu animated fadeInRight m-t-xs">
+            <li><%= link_to 'Dashboard', "/admin" %></li>
+           <!--  <li><%#=link_to "Edit Profile", "#"%></li>
+            <li><%#=link_to "Change Password", "#"%>
+            </li> -->
+            <li><%= link_to 'Logout', "/admins/sign_out", method: :delete %>
+            </li>
+          </ul>
+        </div>
+        <div class="logo-element" style="background: white;">
+          <!-- MRCS -->
+          <span ><img alt="Logo_hi" src="/favicon-32x32.png"  /></span>
+        </div>
+      </li>
+      <li class="<%= is_active_controller('admin/dashboard') %>">
+        <a href="/admin"><i class="fa fa-th-large"></i> <span class="nav-label" data-i18n="nav.dashboard">Dashboards</span></a>
+        <!-- <ul class="nav nav-second-level collapse <%#= is_active_controller('admin/dashboard', 'in') %>">
+          
+        </ul> -->
+      </li>
+      <% @all_models = ActiveRecord::Base.connection.tables.map{|model|model.capitalize.singularize.camelize}.sort %>
+      <% current_admin_access_model = current_admin.admin_access.allow_model_name rescue nil %>
+      <% if (current_admin.super_admin == true) || ((current_admin_access_model.present?) && (current_admin_access_model.include? "User")) || ((current_admin_access_model.present?) && (current_admin_access_model.include? "Admin")) %>
+        <li class="<%= is_active_controller('admin/users') %> || <%= is_active_controller('admin/admins') %>">
+          <a href="#"><i class="fa fa-users"></i> <span class="nav-label" data-i18n="nav.forms">Manage Users</span><span class="fa arrow"></span></a>
+          <ul class="nav nav-second-level collapse <%= is_active_controller('admin', 'in') %>">
+            <% if (current_admin.super_admin == true) || (current_admin_access_model.present?) && (current_admin_access_model.include? "User") %>
+              <li>
+                <a href="#"><i class="#">Users</i><span class="nav-label" data-i18n="nav.forms"></span><span class="fa arrow"></span></a>
+                <ul class="nav nav-second-level collapse <%= is_active_controller('admin/users', 'in') %>" style="z-index: 999;"> 
+                  <li class="<%= is_active_action('index') %>"><%= link_to "User List", admin_users_path %></li>
+                  <li class="<%= is_active_action('new') %>"><%= link_to "Add New User", new_admin_user_path %> </li>
+                </ul>
+              </li>
+            <% end %>
+            <% if (current_admin.super_admin == true) || (current_admin_access_model.present?) && (current_admin_access_model.include? "Admin") %>  
+              <li class="<%= is_active_controller('admin/admins') %>">
+                <a href="#"><i class="#"></i>Admin Users <span class="nav-label" data-i18n="nav.forms"></span><span class="fa arrow"></span></a>
+                <ul class="nav nav-second-level collapse <%= is_active_controller('admin/admins', 'in') %>">
+                  <li class="<%= is_active_action('index') %>"><%= link_to "Admin User List", admin_admins_path %></li>
+                  <li class="<%= is_active_action('new') %>"><%= link_to "Add New Admin User", new_admin_admin_path %></li>
+                </ul>
+              </li>
+            <% end %>
+            <% if (current_admin.super_admin == true) || (current_admin_access_model.present?) && (current_admin_access_model.include? "User") %>  
+              <li class="<%= is_active_action('active_user') %>"><%= link_to "Active Users", admin_active_users_path %></li>
+              <li class="<%= is_active_action('recent_lapse_user') %>"><%= link_to "Recent Lapse Users", admin_recent_lapse_users_path %></li>
+              <li class="<%= is_active_action('lapse_user') %>"><%= link_to "Lapse Users", admin_lapse_users_path %></li>
+              <li class="<%= is_active_action('sale_leads_user') %>"><%= link_to "Sale Leads Users", admin_sale_leads_users_path %></li>
+              <li class="<%= is_active_action('not_subscribed_user') %>"><%= link_to "Not Subscribed Users", admin_not_subscribed_users_path %></li>
+            <% end %>  
+         </ul>
+        </li>
+      <% end %>  
+      <% if (current_admin.super_admin == true) || (current_admin_access_model.present?) && (current_admin_access_model.include? "Category") %>  
+        <li class="<%= is_active_controller('admin/categories') %>">
+          <a href="#"><i class="fa fa-cog"></i> <span class="nav-label" data-i18n="nav.graphs">Categories</span><span class="fa arrow"></span></a>
+          <ul class="nav nav-second-level collapse <%= is_active_controller('admin/categories', 'in') %>">
+            <li class="<%= is_active_action('index') %>"><%= link_to "Category List", admin_categories_path %></li>
+            <li class="<%= is_active_action('new') %>"><%= link_to "New Category", new_admin_category_path  %> </li>
+          </ul>
+        </li>
+      <% end %>  
+      <% if (current_admin.super_admin == true) || (current_admin_access_model.present?) && (current_admin_access_model.include? "Coupon") %>
+        <li class="<%= is_active_controller('admin/coupons') %>">
+          <a href="#"><i class="fa fa-gift"></i> <span class="nav-label" data-i18n="nav.graphs">Coupons</span><span class="fa arrow"></span></a>
+          <ul class="nav nav-second-level collapse <%= is_active_controller('admin/coupons', 'in') %>">
+            <li class="<%= is_active_action('index') %>"><%= link_to "Coupon List", admin_coupons_path %></li>
+            <li class="<%= is_active_action('new') %>"><%= link_to "New Coupon", new_admin_coupon_path  %> </li>
+          </ul>
+        </li>
+      <% end %>  
+      <% if (current_admin.super_admin == true) || (current_admin_access_model.present?) && (current_admin_access_model.include? "Membership") %> 
+        <li class="<%= is_active_controller('admin/memberships') %>">
+          <a href="#"><i class="fa fa-user-plus"></i> <span class="nav-label" data-i18n="nav.graphs">Memberships</span><span class="fa arrow"></span></a>
+          <ul class="nav nav-second-level collapse <%= is_active_controller('admin/memberships', 'in') %>">
+            <li class="<%= is_active_action('index') %>"><%= link_to "Membership List", admin_memberships_path %></li>
+            <li class="<%= is_active_action('new') %>"><%= link_to "New Membership", new_admin_membership_path  %> </li>
+          </ul>
+        </li>
+      <% end %>  
+      <% if (current_admin.super_admin == true) || (current_admin_access_model.present?) && (current_admin_access_model.include? "Station") %>
+        <li class="<%= is_active_controller('admin/stations') %>">
+          <a href="#"><i class="fas fa-train"></i> <span class="nav-label" data-i18n="nav.appviews">Stations</span>  <span class="fa arrow"></span></a>
+          <ul class="nav nav-second-level collapse <%= is_active_controller('admin/stations', 'in') %>">
+            <li class="<%= is_active_action('index') %>"><%= link_to "Station List",admin_stations_path %> </li>
+            <li class="<%= is_active_action('new') %>"><%= link_to "Add New Station", new_admin_station_path %> </li>
+          </ul>
+        </li>
+      <% end %>  
+     <!--  <li class="<%#= is_active_controller('admin/settings') %>">
+        <a href="#"><i class="fas fa-user-cog"></i> <span class="nav-label" data-i18n="nav.appviews">Settings</span>  <span class="fa arrow"></span></a>
+        <ul class="nav nav-second-level collapse <%#= is_active_controller('admin/settings', 'in') %>">
+          <li class="<%#= is_active_action('index') %>"><%#= link_to "Setting List",admin_settings_path %> </li>
+          <li class="<%#= is_active_action('new') %>"><%#= link_to "Add New Setting", new_admin_setting_path %> </li>
+        </ul>
+      </li> -->
+      <!--wallet -->
+      <% if (current_admin.super_admin == true) || (current_admin_access_model.present?) && (current_admin_access_model.include? "Question") %>
+        <li class="<%= is_active_controller('admin/questions') %>">
+          <a href="#"><i class="fa fa-question"></i> <span class="nav-label" data-i18n="nav.forms">Questions</span><span class="fa arrow"></span></a>
+          <ul class="nav nav-second-level collapse <%= is_active_controller('admin/questions', 'in') %>">
+            <li class="<%= is_active_action('index') %>"><%= link_to "Question List", admin_questions_path %></li>
+            <li class="<%= is_active_action('new') %>"><%= link_to "Add New Question", new_admin_question_path %> </li>
+          </ul>
+        </li>
+      <% end %>  
+      <!--end of wallet-->
+      <% if (current_admin.super_admin == true) || (current_admin_access_model.present?) && (current_admin_access_model.include? "Course") %>
+        <li class="<%= is_active_controller('admin/courses') %>">
+          <a href="#"><i class="fa fa-certificate"></i> <span class="nav-label" data-i18n="nav.graphs">Courses</span><span class="fa arrow"></span></a>
+          <ul class="nav nav-second-level collapse <%= is_active_controller('admin/courses', 'in') %>">
+            <li class="<%= is_active_action('index') %>"><%= link_to "Course List", admin_courses_path %> </li>
+            <li class="<%= is_active_action('new') %>"><%= link_to "Add Course", new_admin_course_path %> </li>
+          </ul>
+        </li>
+      <% end %>
+      <% if (current_admin.super_admin == true) || (current_admin_access_model.present?) && (current_admin_access_model.include? "Coaching") %>  
+        <li class="<%= is_active_controller('admin/coachings') %>">
+          <a href="#"><i class="fa fa-certificate"></i> <span class="nav-label" data-i18n="nav.graphs">Coachings</span><span class="fa arrow"></span></a>
+          <ul class="nav nav-second-level collapse <%= is_active_controller('admin/coachings', 'in') %>">
+            <li class="<%= is_active_action('index') %>"><%= link_to "Coaching List", admin_coachings_path %> </li>
+            <li class="<%= is_active_action('new') %>"><%= link_to "Add Coaching", new_admin_coaching_path %> </li>
+          </ul>
+        </li>
+      <% end %>
+      <% if (current_admin.super_admin == true) || (current_admin_access_model.present?) && (current_admin_access_model.include? "Exam") %>  
+        <li class="<%= is_active_controller('admin/exams') %>">
+          <a href="#"><i class="fa fa-file-alt"></i> <span class="nav-label" data-i18n="nav.graphs">Exams</span><span class="fa arrow"></span></a>
+          <ul class="nav nav-second-level collapse <%= is_active_controller('admin/exams', 'in') %>">
+            <li class="<%= is_active_action('index') %>"><%= link_to "Exam List", admin_exams_path %> </li>
+            <li class="<%= is_active_action('new') %>"><%= link_to "Add Exam", new_admin_exam_path %> </li>
+          </ul>
+        </li>
+      <% end %>
+      <% if (current_admin.super_admin == true) || (current_admin_access_model.present?) && (current_admin_access_model.include? "Rating") %>  
+        <li class="<%= is_active_controller('admin/ratings') %>">
+          <a href="#"><i class="fa fa-star"></i> <span class="nav-label" data-i18n="nav.graphs">Ratings</span><span class="fa arrow"></span></a>
+          <ul class="nav nav-second-level collapse <%= is_active_controller('admin/ratings', 'in') %>">
+            <li class="<%= is_active_action('index') %>"><%= link_to "Rating List", admin_ratings_path %> </li>
+            <li class="<%= is_active_action('new') %>"><%= link_to "New Rating", new_admin_rating_path %> </li>
+          </ul>
+        </li>
+      <% end %>
+      <% if (current_admin.super_admin == true) || (current_admin_access_model.present?) && (current_admin_access_model.include? "Team") %>   
+        <li class="<%= is_active_controller('admin/teams') %>">
+          <a href="#"><i class="fa fa-users"></i> <span class="nav-label" data-i18n="nav.appviews">Teams</span>  <span class="fa arrow"></span></a>
+          <ul class="nav nav-second-level collapse <%= is_active_controller('admin/teams', 'in') %>">
+            <li class="<%= is_active_action('index') %>"><%= link_to "Team List", admin_teams_path %></li>
+            <li class="<%= is_active_action('new') %>"><%= link_to "New Team", new_admin_team_path %></li>
+          </ul>
+        </li>
+      <% end %>  
+     <!--  <li class="<%#= is_active_controller('admin/testimonials') %>">
+        <a href="#"><i class="fa fa-quote-left"></i> <span class="nav-label" data-i18n="nav.uielements">Testimonials</span><span class="fa arrow"></span></a>
+        <ul class="nav nav-second-level collapse <%#= is_active_controller('admin/testimonials', 'in') %>">
+          <li class="<%#= is_active_action('index') %>"><%#= link_to "Testimonial List", admin_testimonials_path %></li>
+          <li class="<%#= is_active_action('new') %>"><%#= link_to "New Testimonial", new_admin_testimonial_path %></li>
+        </ul>
+      </li> -->
+     <!--  <li class="<%#= is_active_controller('admin/books') %>">
+        <a href="#"><i class="fa fa-book-open"></i> <span class="nav-label" data-i18n="nav.tables">Books</span><span class="fa arrow"></span></a>
+        <ul class="nav nav-second-level collapse <%#= is_active_controller('admin/books', 'in') %>">
+          <li class="<%#= is_active_action('index') %>"><%#= link_to "Book List", admin_books_path %> </li>
+          <li class="<%#= is_active_action('new') %>"><%#= link_to "Add New Book", new_admin_book_path %></li>
+        </ul>
+      </li> -->
+      <!-- <li class="<%#= is_active_controller('admin/attempts') %>">
+        <a href="#"><i class="fa fa-file-alt"></i> <span class="nav-label" data-i18n="nav.ecommerce">Attempts</span><span class="fa arrow"></span></a>
+        <ul class="nav nav-second-level collapse <%#= is_active_controller('admin/attempts', 'in') %>">
+          <li class="<%#= is_active_action('index') %>"><%#= link_to "Attempt List", admin_attempts_path %> </li>
+          <li class="<%#= is_active_action('new') %>"><%#= link_to "Add New Attempt", new_admin_attempt_path %></li>
+        </ul>
+      </li> -->
+      <% if (current_admin.super_admin == true) || (current_admin_access_model.present?) && (current_admin_access_model.include? "Price") %>
+        <li class="<%= is_active_controller('admin/prices') %>">
+          <a href="#"><i class="fa fa-file-alt"></i> <span class="nav-label" data-i18n="nav.ecommerce">Pricing</span><span class="fa arrow"></span></a>
+          <ul class="nav nav-second-level collapse <%= is_active_controller('admin/prices', 'in') %>">
+            <li class="<%= is_active_action('index') %>"><%= link_to "All Pricing", admin_prices_path %> </li>
+            <li class="<%= is_active_action('new') %>"><%= link_to "Add New Pricing", new_admin_price_path %></li>
+          </ul>
+        </li>
+      <% end %>
+      <% if (current_admin.super_admin == true) || (current_admin_access_model.present?) && (current_admin_access_model.include? "PrivacyTerm") %>  
+        <li class="<%= is_active_controller('admin/privacy_terms') %>">
+          <a href="#"><i class="fa fa-gavel"></i> <span class="nav-label" data-i18n="nav.ecommerce">Privacy Terms</span><span class="fa arrow"></span></a>
+          <ul class="nav nav-second-level collapse <%= is_active_controller('admin/privacy_terms', 'in') %>">
+            <li class="<%= is_active_action('index') %>"><%= link_to "All Privacy Terms", admin_privacy_terms_path %> </li>
+           <li class="<%= is_active_action('new') %>"><%= link_to "Add New Privacy Terms", new_admin_privacy_term_path %></li>
+          </ul>
+        </li>
+      <% end %>
+      <% if (current_admin.super_admin == true) || (current_admin_access_model.present?) && (current_admin_access_model.include? "Faq") %>  
+        <li class="<%= is_active_controller('admin/faqs') %>">
+          <a href="#"><i class="fa fa-file-alt"></i> <span class="nav-label" data-i18n="nav.ecommerce">FAQ</span><span class="fa arrow"></span></a>
+          <ul class="nav nav-second-level collapse <%= is_active_controller('admin/faqs', 'in') %>">
+            <li class="<%= is_active_action('index') %>"><%= link_to "All FAQ", admin_faqs_path %> </li>
+            <li class="<%= is_active_action('new') %>"><%= link_to "Add New Faq", new_admin_faq_path %></li>
+          </ul>
+        </li>
+      <% end %>
+      <% if (current_admin.super_admin == true) || (current_admin_access_model.present?) && (current_admin_access_model.include? "Feedback") || (current_admin_access_model.present?) && (current_admin_access_model.include? "MemberFeedback") %>  
+        <li class="<%= is_active_controller('admin/feedbacks') %> || <%= is_active_controller('admin/member_feedbacks') %>">
+          <a href="#"><i class="fa fa-users"></i> <span class="nav-label" data-i18n="nav.forms">FEEDBACK</span><span class="fa arrow"></span></a>
+          <ul class="nav nav-second-level collapse <%= is_active_controller('admin', 'in') %>">
+            <% if (current_admin.super_admin == true) || (current_admin_access_model.present?) && (current_admin_access_model.include? "Feedback")%>
+              <li>
+                <a href="#"><i class="#"></i> Non Member Page <span class="nav-label" data-i18n="nav.forms"></span><span class="fa arrow"></span></a>
+                <ul class="nav nav-second-level collapse <%= is_active_controller('admin/feedbacks', 'in') %>" style="z-index: 999;"> 
+                  <li class="<%= is_active_action('index') %>"><%= link_to "Feedback List", admin_feedbacks_path %></li>
+                  <li class="<%= is_active_action('new') %>"><%= link_to "Add New Feedback", new_admin_feedback_path %> </li>
+                </ul>
+              </li>
+            <% end %>
+            <% if (current_admin.super_admin == true) || (current_admin_access_model.present?) && (current_admin_access_model.include? "MemberFeedback")%>  
+              <li class="<%= is_active_controller('admin/member_feedbacks') %>">
+                <a href="#"><i class="#"></i> Member Page <span class="nav-label" data-i18n="nav.forms"></span><span class="fa arrow"></span></a>
+                <ul class="nav nav-second-level collapse <%= is_active_controller('admin/member_feedbacks', 'in') %>" >
+                  <li class="<%= is_active_action('index') %>"><%= link_to "Feedback List", admin_member_feedbacks_path %></li>
+                </ul>
+              </li>
+            <% end %>   
+          </ul>
+        </li>
+      <% end %>  
+      <% if (current_admin.super_admin == true) || (current_admin_access_model.present?) && (current_admin_access_model.include? "Resource") %> 
+        <li class="<%= is_active_controller('admin/resources') %>">
+          <a href="#"><i class="fa fa-user"></i> <span class="nav-label" data-i18n="nav.ecommerce">Resource</span><span class="fa arrow"></span></a>
+          <ul class="nav nav-second-level collapse <%= is_active_controller('admin/resources', 'in') %>">
+            <li class="<%= is_active_action('index') %>"><%= link_to "All Resource", admin_resources_path %> </li>
+            <li class="<%= is_active_action('new') %>"><%= link_to "Add New Resource", new_admin_resource_path %></li>
+          </ul>
+        </li>
+      <% end %>
+      <% if (current_admin.super_admin == true) || (current_admin_access_model.present?) && (current_admin_access_model.include? "HomeLogoBanner") %>  
+        <li class="<%= is_active_controller('admin/home_logo_banners') %>">
+          <a href="#"><i class="fas fa-image"></i> <span class="nav-label" data-i18n="nav.ecommerce">Change Logo & Banner</span><span class="fa arrow"></span></a>
+          <ul class="nav nav-second-level collapse <%= is_active_controller('admin/home_logo_banners', 'in') %>">
+            <li class="<%= is_active_action('index') %>"><%= link_to "Logo Banner", admin_home_logo_banners_path %> </li>
+            <li class="<%= is_active_action('new') %>"><%= link_to "Add New Logo Banner", new_admin_home_logo_banner_path %></li>
+          </ul>
+        </li>
+      <% end %>
+      <% if (current_admin.super_admin == true) || (current_admin_access_model.present?) && (current_admin_access_model.include? "About") %>   
+        <li class="<%= is_active_controller('admin/abouts') %>">
+          <a href="#"><i class="fas fa-info"></i> <span class="nav-label" data-i18n="nav.ecommerce">About Us</span><span class="fa arrow"></span></a>
+          <ul class="nav nav-second-level collapse <%= is_active_controller('admin/abouts', 'in') %>">
+            <li class="<%= is_active_action('index') %>"><%= link_to "About us", admin_abouts_path %> </li>
+          </ul>
+        </li>
+      <% end %>  
+      <% if (current_admin.super_admin == true) || (current_admin_access_model.present?) && (current_admin_access_model.include? "MemberHomePage") %>
+        <li class="<%= is_active_controller('admin/member_home_pages') %>">
+          <a href="#"><i class="fa fa-users"></i> <span class="nav-label" data-i18n="nav.ecommerce">Change Member Page Text</span><span class="fa arrow"></span></a>
+          <ul class="nav nav-second-level collapse <%= is_active_controller('admin/member_home_pages', 'in') %>">
+            <li class="<%= is_active_action('index') %>"><%= link_to "Member Page Text", admin_member_home_pages_path %> </li>
+          </ul>
+        </li>
+      <% end %>
+      <% if (current_admin.super_admin == true) || (current_admin_access_model.present?) && (current_admin_access_model.include? "MockExam") %>  
+        <li class="<%= is_active_controller('admin/mock_exams') %>">
+          <a href="#"><i class="fa fa-university"></i> <span class="nav-label" data-i18n="nav.ecommerce">Change Mock Exam</span><span class="fa arrow"></span></a>
+          <ul class="nav nav-second-level collapse <%= is_active_controller('admin/mock_exams', 'in') %>">
+            <li class="<%= is_active_action('index') %>"><%= link_to "Mock Exam", admin_mock_exams_path %> </li>
+          </ul>
+        </li>
+      <% end %>
+      <% if (current_admin.super_admin == true) || (current_admin_access_model.present?) && (current_admin_access_model.include? "FullTermCondition") %>  
+        <li class="<%= is_active_controller('admin/full_term_conditions') %>">
+          <a href="#"><i class="fa fa-gavel"></i> <span class="nav-label" data-i18n="nav.ecommerce">Change Term & Condition</span><span class="fa arrow"></span></a>
+          <ul class="nav nav-second-level collapse <%= is_active_controller('admin/full_term_conditions', 'in') %>">
+            <li class="<%= is_active_action('index') %>"><%= link_to "Term & condition", admin_full_term_conditions_path %> </li>
+          </ul>
+        </li>
+      <% end %>
+      <% if (current_admin.super_admin == true) || (current_admin_access_model.present?) && (current_admin_access_model.include? "FooterRecord") %>  
+        <li class="<%= is_active_controller('admin/footer_records') %>">
+          <a href="#"><i class="fas fa-image"></i> <span class="nav-label" data-i18n="nav.ecommerce">Change Footer Text</span><span class="fa arrow"></span></a>
+          <ul class="nav nav-second-level collapse <%= is_active_controller('admin/footer_records', 'in') %>">
+            <li class="<%= is_active_action('index') %>"><%= link_to "Footer Text", admin_footer_records_path %> </li>
+          </ul>
+        </li>
+      <% end %>
+      <% if (current_admin.super_admin == true) || (current_admin_access_model.present?) && (current_admin_access_model.include? "EmailFormat") %>  
+        <li class="<%= is_active_controller('admin/email_formats') %>">
+          <a href="#"><i class="fa fa-envelope"></i> <span class="nav-label" data-i18n="nav.ecommerce">Change Email Message</span><span class="fa arrow"></span></a>
+          <ul class="nav nav-second-level collapse <%= is_active_controller('admin/email_formats', 'in') %>">
+            <li class="<%= is_active_action('index') %>"><%= link_to "Change Email", admin_email_formats_path %> </li>
+          </ul>
+        </li>
+      <% end %>
+      <% if (current_admin.super_admin == true) || (current_admin_access_model.present?) && (current_admin_access_model.include? "QuestionCategory") %>  
+        <li class="<%= is_active_controller('admin/question_categories') %>">
+          <a href="#"><i class="fa fa-list-alt"></i> <span class="nav-label" data-i18n="nav.ecommerce">Category Question</span><span class="fa arrow"></span></a>
+          <ul class="nav nav-second-level collapse <%= is_active_controller('admin/question_categories', 'in') %>">
+            <li class="<%= is_active_action('index') %>"><%= link_to "All Question Categories", admin_question_categories_path %> </li>
+            <li class="<%= is_active_action('new') %>"><%= link_to "Add Question Category", new_admin_question_category_path %></li>
+          </ul>
+        </li>
+      <% end %>
+      <% if (current_admin.super_admin == true) || (current_admin_access_model.present?) && (current_admin_access_model.include? "PaymentContent") %>  
+        <li class="<%= is_active_controller('admin/payment_contents') %>">
+          <a href="#"><i class="fa fa-credit-card"></i> <span class="nav-label" data-i18n="nav.ecommerce">Payment Contents</span><span class="fa arrow"></span></a>
+          <ul class="nav nav-second-level collapse <%= is_active_controller('admin/payment_contents', 'in') %>">
+            <li class="<%= is_active_action('index') %>"><%= link_to "List Payment Contents", admin_payment_contents_path %> </li>
+            <li class="<%= is_active_action('new') %>"><%= link_to "Add Payment Contents", new_admin_payment_content_path %></li>
+          </ul>
+        </li>
+      <% end %>
+      <% if (current_admin.super_admin == true) || (current_admin_access_model.present?) && (current_admin_access_model.include? "TargetSpeciality") %>  
+        <li class="<%= is_active_controller('admin/target_specialities') %>">
+          <a href="#"><i class="fas fa-train"></i> <span class="nav-label" data-i18n="nav.appviews">Target Specialities</span>  <span class="fa arrow"></span></a>
+          <ul class="nav nav-second-level collapse <%= is_active_controller('admin/target_specialities', 'in') %>">
+            <li class="<%= is_active_action('index') %>"><%= link_to "Target Speciality",admin_target_specialities_path %> </li>
+            <li class="<%= is_active_action('new') %>"><%= link_to "Add Target Speciality", new_admin_target_speciality_path %> </li>
+          </ul>
+        </li>
+      <% end %>  
+      <!-- <li class="<%#= is_active_controller('admin/reset_password_emails') %>">
+        <a href="#"><i class="fa fa-key"></i> <span class="nav-label" data-i18n="nav.appviews">Reset Password Email</span>  <span class="fa arrow"></span></a>
+        <ul class="nav nav-second-level collapse <%#= is_active_controller('admin/reset_password_emails', 'in') %>">
+          <li class="<%#= is_active_action('index') %>"><%#= link_to "Reset Password Email",admin_reset_password_emails_path %> </li>
+        </ul>
+      </li> -->
+      <% if (current_admin.super_admin == true) || (current_admin_access_model.present?) && (current_admin_access_model.include? "UserJoinEmail") %>
+        <li class="<%= is_active_controller('admin/user_join_emails') %>">
+          <a href="#"><i class="far fa-envelope"></i> <span class="nav-label" data-i18n="nav.appviews">User Join Email</span>  <span class="fa arrow"></span></a>
+          <ul class="nav nav-second-level collapse <%= is_active_controller('admin/user_join_emails', 'in') %>">
+            <li class="<%= is_active_action('index') %>"><%= link_to "User Join Email",admin_user_join_emails_path %> </li>
+          </ul>
+        </li>
+      <% end %>
+      <% if (current_admin.super_admin == true) || (current_admin_access_model.present?) && (current_admin_access_model.include? "CommunityCode") %>  
+        <li class="<%= is_active_controller('admin/community_codes') %>">
+          <a href="#"><i class="fa fa-object-group"></i> <span class="nav-label" data-i18n="nav.appviews">Community Code</span>  <span class="fa arrow"></span></a>
+          <ul class="nav nav-second-level collapse <%= is_active_controller('admin/community_codes', 'in') %>">
+            <li class="<%= is_active_action('index') %>"><%= link_to "Community Code",admin_community_codes_path %> </li>
+          </ul>
+        </li>
+      <% end %>
+      <% if (current_admin.super_admin == true) || (current_admin_access_model.present?) && (current_admin_access_model.include? "EndUserLicenseAgreement") %>
+        <li class="<%= is_active_controller('admin/end_user_license_agreements') %>">
+          <a href="#"><i class="fab fa-angular  "></i> <span class="nav-label" data-i18n="nav.appviews">EULA</span>  <span class="fa arrow"></span></a>
+          <ul class="nav nav-second-level collapse <%= is_active_controller('admin/end_user_license_agreements', 'in') %>">
+            <li class="<%= is_active_action('index') %>"><%= link_to "EULA",admin_end_user_license_agreements_path %> </li>
+          </ul>
+        </li>
+      <% end %>
+      <% if (current_admin.super_admin == true) || (current_admin_access_model.present?) && (current_admin_access_model.include? "CookiePolicy") %>  
+        <li class="<%= is_active_controller('admin/cookie_policies') %>">
+          <a href="#"><i class="fas fa-train"></i> <span class="nav-label" data-i18n="nav.appviews">Cookie Policy</span>  <span class="fa arrow"></span></a>
+          <ul class="nav nav-second-level collapse <%= is_active_controller('admin/cookie_policies', 'in') %>">
+            <li class="<%= is_active_action('index') %>"><%= link_to "Cookie Policy",admin_cookie_policies_path %> </li>
+          </ul>
+        </li>
+      <% end %>
+      <% if (current_admin.super_admin == true) || (current_admin_access_model.present?) && (current_admin_access_model.include? "Disclaimer") %>   
+        <li class="<%= is_active_controller('admin/disclaimers') %>">
+          <a href="#"><i class="fa fa-copyright"></i> <span class="nav-label" data-i18n="nav.appviews">Disclaimers</span>  <span class="fa arrow"></span></a>
+          <ul class="nav nav-second-level collapse <%= is_active_controller('admin/disclaimers', 'in') %>">
+            <li class="<%= is_active_action('index') %>"><%= link_to "Disclaimers",admin_disclaimers_path %> </li>
+          </ul>
+        </li>
+      <% end %>
+      <% if (current_admin.super_admin == true) || (current_admin_access_model.present?) && (current_admin_access_model.include? "MockExamText") %>  
+        <li class="<%= is_active_controller('admin/mock_exam_texts') %>">
+          <a href="#"><i class="fa fa-copyright"></i> <span class="nav-label" data-i18n="nav.appviews">Mock Exam Texts</span>  <span class="fa arrow"></span></a>
+          <ul class="nav nav-second-level collapse <%= is_active_controller('admin/mock_exam_texts', 'in') %>">
+            <li class="<%= is_active_action('index') %>"><%= link_to "Mock Exam Texts",admin_mock_exam_texts_path %> </li>
+            <li class="<%= is_active_action('new') %>"><%= link_to "Add Mock Exam Text", new_admin_mock_exam_text_path %> </li>
+          </ul>
+        </li>
+      <% end %>
+      <% if (current_admin.super_admin == true) || (current_admin_access_model.present?) && (current_admin_access_model.include? "Partner") %>  
+        <li class="<%= is_active_controller('admin/partners') %>">
+          <a href="#"><i class="fa fa-copyright"></i> <span class="nav-label" data-i18n="nav.appviews">Partner Page Text</span>  <span class="fa arrow"></span></a>
+          <ul class="nav nav-second-level collapse <%= is_active_controller('admin/partners', 'in') %>">
+            <li class="<%= is_active_action('index') %>"><%= link_to "Partner Text",admin_partners_path %> </li>
+            <li class="<%= is_active_action('new') %>"><%= link_to "Add New Partner Text", new_admin_partner_path %> </li>
+          </ul>
+        </li>
+      <% end %>
+      <% if (current_admin.super_admin == true) || (current_admin_access_model.present?) && (current_admin_access_model.include? "PartnerMember") %>   
+        <li class="<%= is_active_controller('admin/partner_members') %>">
+          <a href="#"><i class="fa fa-copyright"></i> <span class="nav-label" data-i18n="nav.appviews">Partner Member</span>  <span class="fa arrow"></span></a>
+          <ul class="nav nav-second-level collapse <%= is_active_controller('admin/partner_members', 'in') %>">
+            <li class="<%= is_active_action('index') %>"><%= link_to "Partners",admin_partner_members_path %> </li>
+            <li class="<%= is_active_action('new') %>"><%= link_to "Add New Partner Member", new_admin_partner_member_path %> </li>
+          </ul>
+        </li>
+      <% end %>  
+      <!-- <li class="<%= is_active_controller('admin/parta_users') %>">
+        <a href="#"><i class="fa fa-user"></i> <span class="nav-label" data-i18n="nav.forms">Part A</span>  <span class="fa arrow"></span></a>
+        <ul class="nav nav-second-level collapse <%= is_active_controller('admin/parta_users', 'in') %>">
+					<li class="<%= is_active_action('index') %>"><%= link_to "Part A User List", admin_parta_users_path %></li>
+					<li class="<%= is_active_action('new') %>"><%= link_to "Part A Info List", admin_parta_infos_path %></li>
+        </ul>
+        <ul class="nav nav-second-level collapse <%= is_active_controller('admin/parta_categories', 'in') %>">
+          <li class="<%= is_active_action('index') %>"><%= link_to "Part A Category List", admin_parta_categories_path %></li>
+          <li class="<%= is_active_action('new') %>"><%= link_to "Part A Create Category", new_admin_parta_category_path %></li>
+        </ul>
+         <ul class="nav nav-second-level collapse <%= is_active_controller('admin/parta_questions', 'in') %>">
+          <li class="<%= is_active_action('index') %>"><%= link_to "Part A Questions List", admin_parta_questions_path %></li>
+          <li class="<%= is_active_action('new') %>"><%= link_to "Part A Create Question", new_admin_parta_question_path %></li>
+        </ul>
+      </li> -->
+      <% if (current_admin.super_admin == true) ||
+        ((current_admin_access_model.present?) &&
+        ((current_admin_access_model.include? "PartaUser") ||
+        (current_admin_access_model.include? "PartaInfo") ||
+        (current_admin_access_model.include? "PartaCategory") ||
+        (current_admin_access_model.include? "PartaQuestion") ||
+        (current_admin_access_model.include? "PartaSetting"))) %>
+        <li class="<%= is_active_controller('admin/parta_users') %> || <%= is_active_controller('admin/parta_infos') %> || <%= is_active_controller('admin/parta/categories') %> || <%= is_active_controller('admin/parta/questions') %> || <%= is_active_controller('admin/parta/settings') %>">
+          <a href="#"><i class="fa fa-user"></i> <span class="nav-label" data-i18n="nav.forms">Part A</span><span class="fa arrow"></span></a>
+          <ul class="nav nav-second-level collapse <%= is_active_controller('admin', 'in') %>">
+            <% if (current_admin.super_admin == true) || (current_admin_access_model.present?) && (current_admin_access_model.include? "PartaUser") %>
+              <li>
+                <a href="#"><i class="#"></i>Part A Users <span class="nav-label" data-i18n="nav.forms"></span><span class="fa arrow"></span></a>
+                <ul class="nav nav-second-level collapse <%= is_active_controller('admin/parta_users', 'in') %>"> 
+                  <li class="<%= is_active_action('index') %>"><%= link_to "Part A User List", admin_parta_users_path %></li>
+                </ul>
+              </li>
+            <% end %>
+            <% if (current_admin.super_admin == true) || (current_admin_access_model.present?) && (current_admin_access_model.include? "PartaInfo") %>  
+              <li class="<%= is_active_controller('admin/parta_infos') %>">
+                <a href="#"><i class="#"></i>Part A Infos <span class="nav-label" data-i18n="nav.forms"></span><span class="fa arrow"></span></a>
+                <ul class="nav nav-second-level collapse <%= is_active_controller('admin/parta_infos', 'in') %>">
+                  <li class="<%= is_active_action('index') %>"><%= link_to "Part A Info List", admin_parta_infos_path %></li>
+                </ul>
+              </li>
+            <% end %>
+            <% if (current_admin.super_admin == true) || (current_admin_access_model.present?) && (current_admin_access_model.include? "PartaCategory") %>  
+              <li class="<%= is_active_controller('admin/parta/categories') %>">
+                <a href="#"><i class="#"></i> Part A Category<span class="nav-label" data-i18n="nav.forms"></span><span class="fa arrow"></span></a>
+                <ul class="nav nav-second-level collapse <%= is_active_controller('admin/parta/categories', 'in') %>" style="z-index: 999;">
+                  <li class="<%= is_active_action('index') %>"><%= link_to "Part A Category List", admin_parta_categories_path %></li>
+                  <li class="<%= is_active_action('new') %>"><%= link_to "Part A Create Category", new_admin_parta_category_path %></li>
+                </ul>
+              </li>
+            <% end %>
+            <% if (current_admin.super_admin == true) || (current_admin_access_model.present?) && (current_admin_access_model.include? "PartaQuestion") %>  
+              <li class="<%= is_active_controller('admin/parta/questions') %>">
+                <a href="#"><i class="#"></i> Part A Questions<span class="nav-label" data-i18n="nav.forms"></span><span class="fa arrow"></span></a>
+                <ul class="nav nav-second-level collapse <%= is_active_controller('admin/parta/questions', 'in') %>">
+                  <li class="<%= is_active_action('index') %>"><%= link_to "Part A Questions List", admin_parta_questions_path %></li>
+                  <li class="<%= is_active_action('new') %>"><%= link_to "Part A Create Question", new_admin_parta_question_path %></li>
+                </ul>
+              </li>
+            <% end %>
+            <% if (current_admin.super_admin == true) || (current_admin_access_model.present?) && (current_admin_access_model.include? "PartaSetting") %>  
+              <li class="<%= is_active_controller('admin/parta/settings') %>">
+                <a href="#"><i class="#"></i> Part A Home Page<span class="nav-label" data-i18n="nav.forms"></span><span class="fa arrow"></span></a>
+                <ul class="nav nav-second-level collapse <%= is_active_controller('admin/parta/settings', 'in') %>">
+                  <li class="<%= is_active_action('index') %>"><%= link_to "Part A Home Page", admin_parta_settings_path %></li>
+                  <li class="<%= is_active_action('new') %>"><%= link_to "Part A New Text", new_admin_parta_setting_path %></li>
+                </ul>
+              </li>
+            <% end %>  
+         </ul>
+        </li>
+      <% end %>   
+    </ul>
+  </div>
+</nav>

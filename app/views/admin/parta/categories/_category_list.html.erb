@@ -1,0 +1,27 @@
+<%@parta_categories.each_with_index do |x,index|%>
+  <tr>
+    <td width="15%"><%= x.id %></td>
+    <td width="15%"><%= link_to x.name, admin_parta_category_path(x.id) %></td>
+    <td width="15%">
+      <% if x.parent %>
+      <%= link_to x.parent.try(:name), admin_category_path(x.id) %>
+      <% end %>
+        
+      </td>
+    <td width="15%">
+      <%= x.position %>
+    </td>
+   
+    <td width="10%"> 
+      <%=link_to admin_parta_category_path(x.id) do%>
+        <span class="glyphicon glyphicon-eye-open"></span>
+      <%end%>
+      <%= link_to edit_admin_parta_category_path(x.id) do|| %>
+        <span class="glyphicon glyphicon-pencil" style="color:#1ab394"></span>
+      <% end %>
+      <%= link_to admin_parta_category_path(x.id), data: { confirm: 'Are you sure you want to delete category '+ x.name, "bootstrap-confirm": 'delete' }, method: :delete do|| %>
+        <span class="glyphicon glyphicon-trash" style="color:red"></span>
+      <% end %>
+    </td>
+  </tr>
+<% end %>

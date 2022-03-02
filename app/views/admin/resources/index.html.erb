@@ -1,0 +1,27 @@
+<%= render partial: "admin/breadcrumbs/breadcrumb", locals: {path: "resources", title: "Resouces", current_page: "Resources List"} %>
+<div class="content">
+  <div class="row">
+    <div class="col-sm-12">
+      <div class="grid-view table-responsive" id="student-grid">
+        <table class="items">
+          <thead>
+            <tr>
+              <th id="student-grid_c0"><%= sortable "id" %></th>
+              <th id="student-grid_c2"><%= sortable "title" %></th>
+              <th id="student-grid_c3"><%= sortable "description" %></th>
+              <th id="student-grid_c3">Image</th>
+              <th id="student-grid_c3"><%= sortable "available" %></th>
+              <th class="button-column" id="student-grid_c8">Action</th>
+            </tr>
+          </thead>
+          <tbody class="hole-list">
+            <%=render :partial=> "resource_list"%>
+          </tbody>
+        </table>
+        <%if @resources.present?%>
+          <%= render partial: "admin/paginations/pagination", locals: {all_data: @resources} %>
+        <% end %>
+      </div>
+    </div>
+  </div>
+</div>

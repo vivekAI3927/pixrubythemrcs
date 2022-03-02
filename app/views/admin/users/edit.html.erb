@@ -1,0 +1,108 @@
+<%= render partial: "admin/breadcrumbs/breadcrumb", locals: {path: "users", title: "Users", current_page: "Edit User"} %>
+<%= form_for @user, :url => "/admin/users/#{@user.id}", :html => { :multipart => true, :class => "p-20" } do |f| %>
+  <div class="row">
+    <div class="col-sm-12">
+      <div class="panel panel-default">
+         <div class="panel-heading">
+           <h4 class="panel-title"><%= @user.email %></h4>
+        </div>
+        <div class="panel-body">
+          <div class="row">  
+            <div class="form-group col-sm-6">
+              <label for="reg_input_name" class="req">Name</label>
+              <%=f.text_field :name, :class=>"form-control",:required=>'required' %>
+              <div class = "error error_msg"><%= @user.errors.messages[:name][0] %></div>
+            </div>
+            <div class="form-group col-sm-6">
+              <label for="reg_input_name" class="req">Email</label>
+              <%=f.email_field :email, :class=>"form-control",:required=>'required' %>
+              <div class = "error"><%= @user.errors.messages[:email][0] %></div>
+            </div>
+          </div>  
+          <div class="row">
+            <div class="form-group col-sm-6">
+             <label for="reg_input_name" class="reg">Referred By</label>
+              <%=f.text_field :referred_by, :class=>"form-control" %>
+              <div class = "error error_msg"><%= @user.errors.messages[:referred_by][0] %></div>
+            </div>
+            <div class="form-group col-sm-6">
+              <label for="reg_input_name" class="req">Target Exam Date</label>
+              <%=f.date_field :target_exam_date, :class=>"form-control",:required=>'required' %>
+              <div class = "error error_msg"><%= @user.errors.messages[:target_exam_date][0] %></div>
+            </div>
+          </div>
+
+          <div class="row">
+            <div class="form-group col-sm-6">
+             <label for="reg_input_name" class="reg">Password</label>
+              <%=f.password_field :password, :class=>"form-control" %>
+            </div>
+            <div class="form-group col-sm-6">
+              <label for="reg_input_name">Password confirmation</label>
+              <%=f.password_field :password_confirmation, :class=>"form-control" %>
+              <div class="school_val_error" id="Department_department_name_em_" style="display:none"></div>
+              <div class = "error error_msg"><%= @user.errors.messages[:password_confirmation][0] %></div>
+            </div>
+          </div>
+          <div class="row">
+            <!-- <div class="form-group col-sm-6">
+             <label for="reg_input_name" class="reg">Subscribed on</label>
+              <%#=f.date_field :subscribed_on, :class=>"form-control" %>
+            </div> -->
+            <div class="form-group col-sm-6">
+             <label for="reg_input_name" class="reg">Country</label>
+              <%= f.country_select :country, {priority_countries: ["GB"], include_blank: 'Select a country'}, { class: 'form-control' } %>
+                <div class="error error_msg"><%= 'Country '+ f.object.errors[:country].join(', ') if f.object.errors[:country].present?  %></div>
+
+            </div>
+            <div class="form-group col-sm-6">
+             <label for="reg_input_name" class="reg">Membership</label>
+              <%  Membership.available.order(:price).each do |membership| %>
+               <label for="reg_input_name" class="radio reg ">&nbsp;&nbsp;&nbsp;&nbsp;<%= membership.name %>
+                <%= f.radio_button :membership_id, membership.id %>
+                  <span class="checkround"></span>
+                </label>
+               <% end %>
+               <div class="error error_msg"><%= 'Membership ' + f.object.errors[:membership_id].join(' ') if f.object.errors[:membership_id].present? %></div>
+              <div class="school_val_error" id="Department_department_name_em_" style="display:none"></div>
+            </div>
+
+          </div>
+
+          <div class="row">
+            <div class="form-group col-sm-6">
+             <label for="reg_input_name" class="reg">Subscribed on</label>
+              <%=f.date_field :subscribed_on, :class=>"form-control" %>
+            </div>
+
+            <div class="form-group col-sm-6">
+              <label class="reg">Target Speciality:</label>
+              <%= f.collection_select :target_speciality_id, TargetSpeciality.all.order("name ASC"),:id,:name, {},include_blank: true, :class => "form-control" %>
+            </div>
+          </div>
+
+          <div class="row">
+            <div class="form-group col-sm-6">
+             <label for="reg_input_name" class="reg">Expired At</label>
+              <%=f.date_field :subscribed_expired_at, id: "datetimepicker", :class=>"form-control" %>
+            </div>
+          </div>
+
+          <div class="row">
+            <div class="col-sm-12 text-center">
+              <%= link_to "Cancel", :back, {:class=>"btn join_btn admin-submit-btn"} %>
+              <%= f.submit "Submit", :class=>"btn join_btn admin-submit-btn"%>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+<% end %>
+
+<!-- <script type="text/javascript">
+  // $('.datetimepicker').datetimepicker();
+
+  $(#datetimepicker).datetimepicker
+</script>
+ -->

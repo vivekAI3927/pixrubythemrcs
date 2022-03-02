@@ -1,0 +1,71 @@
+<%= render partial: "admin/breadcrumbs/breadcrumb", locals: {path: "courses", title: "Courses", current_page: "Courses List"} %> 
+<div class="content">
+  <div class="row">
+      <div class="col-sm-3">
+        <%= select_tag :title, options_for_select(Course.all.order("title ASC").collect{ |u| [u.title, u.title, :size => 22]}), {:prompt => "--Select Title--",:class =>"select_combobox form-control select-title"} %>
+        <div class="school_val_error" id="Student_courseid_em_" style="display:none">
+        </div>
+      </div>
+      <div class="col-sm-3">
+        <%= select_tag :member_code, options_for_select(Course.all.order("member_code ASC").collect{ |u| [u.member_code, u.member_code]}), {:prompt => "--Select Member Code--",:class =>"select_combobox form-control select-member_code"} %>
+      </div>
+      <div class="col-sm-6">
+        <%= form_tag @admin_courses_path,:method =>'get' do %>
+          <div class ="row">
+            <div class="col-sm-9"> 
+              <%= text_field_tag :search, params[:search],:class=>"form-control",:placeholder=>"Search by Description"%>
+            </div>
+            <div class="col-sm-3"> 
+              <%=submit_tag "Search",:class =>"btn join_btn admin-submit-btn", :style=>"margin-top: 0px;"%>
+            </div>
+          </div>
+        <%end%>
+      </div>
+    </div>
+  </div>
+  <br>
+  <div class="row">
+    <div class="col-sm-12">
+      <div class="grid-view table-responsive" id="student-grid">
+        <table class="items">
+          <thead>
+            <tr>
+              <th id="student-grid_c0"><%= sortable "id" %></th>
+              <th id="student-grid_c2"><%= sortable "title" %></th>
+              <th id="student-grid_c3"><%= sortable "created_at" %></th>
+              <th id="student-grid_c7"><%= sortable "available" %></th>
+              <th class="button-column" id="student-grid_c8">Action</th>
+            </tr>
+          </thead>
+          <tbody class="hole-list">
+            <%=render :partial=> "course_list"%>
+          </tbody>
+        </table>
+        <%if @courses.present?%>
+          <%= render partial: "admin/paginations/pagination", locals: {all_data: @courses} %>
+        <%end%>
+      </div>
+    </div>
+  </div>
+</div>
+<script type="text/javascript">
+	$(document).ready(function(){
+	  $(".select-title").change(function(){
+	    $.ajax({
+	      type:"get",
+	      url:"/admin/courses/get_filter_course",
+	      data:{
+	        "title":$(this).val()
+	      }
+	    });
+	  });
+	  $(".select-member_code").change(function(){
+	    $.ajax({
+	      type:"get",
+	      url:"/admin/courses/get_filter_course",
+	      data:{
+	        "member_code":$(".select-member_code").val()      }
+	    });
+	  });
+	});
+</script>

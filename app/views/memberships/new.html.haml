@@ -1,0 +1,20 @@
+%section.organic-breadcrumb
+  .container
+    .breadcrumb-banner.d-flex.flex-wrap.align-items-center.justify-content-end
+      .col-first
+        %h1 Renew your membership
+        Please select a membership option to renew your membership
+%section#how-it-works.how-it-works.about-box.about-title
+  .container
+    .sign-form.signup-form
+      = simple_form_for @user do |f|        
+        .form-group
+          %label.feld-nm Current membership options:
+          - Membership.on_renewal.order(:price).each do |membership|
+            %label.radio
+              = membership.name
+              = f.radio_button :membership_id, membership.id, selected: Membership.on_renewal.first
+              %span.checkround
+          .error= 'Membership ' + f.object.errors[:membership_id].join(' ') if f.object.errors[:membership_id].present?
+
+        = f.submit 'Renew your membership', class: 'btn btn-warning'

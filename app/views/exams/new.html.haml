@@ -1,0 +1,47 @@
+%section.organic-breadcrumb
+  .container
+    .breadcrumb-banner.d-flex.flex-wrap.align-items-center.justify-content-end
+      .col-first
+        %h1 New Exam
+%section#how-it-works.how-it-works.pb-50{style: "padding-top: 85px;"}
+  .container
+    .row
+      .how-it-work-in
+        = @mock_text.try(:title).try(:html_safe)
+        %br
+        = @mock_text.try(:description).try(:html_safe)
+        %ul
+          - @question_categories.order("title ASC").each do |category|
+            %li
+              = category.no_of_question
+              = category.title
+
+        %p{style: "margin-top: 30px;"}
+          = link_to "Start the exam", exam_station_path(@exam.id, @first_station), class: "join_btn btn-large trading-btn" 
+
+:javascript
+  $(document).ready(function(){
+    $('ul.nav li.active').removeClass('active');
+    $('li#exams').addClass('active')
+  })           
+
+/ :javascript
+/   $(document).ready(function(){
+/     $('ul.nav li.active').removeClass('active');
+/     $('li#exams').addClass('active')
+/   })
+
+/ .hero-unit
+/   %p You will now proceed through 18 stations that have been selected at random from our library.
+/   %p There will be:
+/   %ul
+/     %li 3 Anatomy
+/     %li 2 Communication Skills
+/     %li 3 Critical Care
+/     %li 3 History
+/     %li 2 Operative
+/     %li 1 Pathology
+/     %li 4 Examination
+
+/   %p{style: "margin-top: 30px;"}
+/     = link_to "Start the exam", exam_station_path(@exam.id, @first_station), class: "btn btn-large btn-primary"

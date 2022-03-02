@@ -1,0 +1,25 @@
+<%@settings.each_with_index do |x,index|%>
+  <tr>
+    <td width="5%"><%= x.id %></td>
+    <td width="15%"><%= link_to x.name, admin_setting_path(x.id) %></td>
+    <td width="15%"><%=x.price%></td>
+    <td width="10%"> 
+      <%if x.name.present?%>
+        <%=link_to admin_setting_path(x) do%>
+          <span class="glyphicon glyphicon-eye-open"></span>
+        <%end%>
+        <%= link_to edit_admin_setting_path(x) do|| %>
+          <span class="glyphicon glyphicon-pencil" style="color:#1ab394"></span>
+        <% end %>
+        <%= link_to admin_setting_path(x), data: { confirm: 'Are you sure you want to delete Setting '+ x.name, "bootstrap-confirm": 'delete' }, method: :delete do|| %>
+         <span class="glyphicon glyphicon-trash" style="color:red"></span>
+        <% end %>
+      <%end%>
+    </td>
+    <td width="15%" id="pdf_link">
+       <%= link_to admin_setting_download_pdf_path(x.id), :class => "btn btn-primary" do %>
+        Download as Pdf <i class="fa fa-download"></i></a> 
+      <% end %>
+    </td>
+  </tr>
+<%end%>

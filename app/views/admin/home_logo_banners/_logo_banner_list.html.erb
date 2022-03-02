@@ -1,0 +1,22 @@
+<%@home_logo_banners.each_with_index do |x,index|%>
+  <tr>
+    <td width="5%"><%= x.id %></td>
+    <td width="15%"><%= x.first_title%></td>
+    <td width="15%"><%= x.second_title%></td>
+    <td width="15%"><%= truncate(x.description, :escape => false, length:60) %></td>
+    <td width="10%">
+      <%= link_to image_tag(x.logo.url, alt: "Facebook", size: "50x50"), x.logo.url, target: :_blank rescue nil %>
+    </td>
+    <td width="10%">
+      <%= link_to image_tag(x.banner.url, alt: "Facebook", size: "50x50"), x.banner.url, target: :_blank rescue nil %>
+    </td>
+    <td width="10%"> 
+      <%=link_to admin_home_logo_banner_path(x) do%>
+        <span class="glyphicon glyphicon-eye-open"></span>
+      <%end%>
+      <%= link_to edit_admin_home_logo_banner_path(x) do|| %>
+        <span class="glyphicon glyphicon-pencil" style="color:#1ab394"></span>
+      <% end %>
+    </td>
+  </tr>
+<%end%>

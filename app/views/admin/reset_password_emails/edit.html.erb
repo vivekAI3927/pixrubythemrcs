@@ -1,0 +1,44 @@
+<%= render partial: "admin/breadcrumbs/breadcrumb", locals: {path: "reset_password_emails", title: "Reset Password Emails", current_page: "Reset Password Email"} %>
+<%= form_for(@reset_password_email, as: @reset_password_email, url: admin_reset_password_email_path(@reset_password_email), html: { method: :put, :class => "p-20" }) do |f| %>
+  <div class="row">
+    <div class="col-sm-12">
+      <div class="panel panel-default">
+         <div class="panel-heading">
+           <h4 class="panel-title">Edit Reset Password Email</h4>
+        </div>
+        <div class="panel-body">
+          <div class="row">  
+            <div class="form-group col-sm-12">
+              <label for="reg_input_name" class="req">Title</label>
+              <%=f.text_area :title, :class=>"form-control",:required=>'required', id: "editor" %>
+            </div>
+          </div>  
+          <div class="row">
+             <div class="form-group col-sm-12">
+              <label for="reg_input_name" class="req">Description</label>
+              <%=f.text_area :description, :class => "form-control", id: "editor_description", :required=>'required'  %>
+            </div> 
+          </div>
+          <div class="row">
+            <div class="col-sm-12 text-center">
+              <%= link_to "Cancel", :back, {:class=>"btn join_btn admin-submit-btn"} %>
+              <%= f.submit "Submit", :class=>"btn join_btn admin-submit-btn"%>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    
+  </div>
+<% end %>
+<script>
+  CKEDITOR.replace('editor', {
+    height: 250,
+    extraPlugins: 'colorbutton,colordialog'
+  });
+  CKEDITOR.replace('editor_description', {
+    height: 250,
+    extraPlugins: 'colorbutton,colordialog'
+  });
+</script>  
+

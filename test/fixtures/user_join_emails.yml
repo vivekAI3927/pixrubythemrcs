@@ -1,0 +1,18 @@
+# == Schema Information
+#
+# Table name: user_join_emails
+#
+#  id          :bigint           not null, primary key
+#  subject     :string
+#  description :text
+#  created_at  :datetime         not null
+#  updated_at  :datetime         not null
+#
+
+one:
+  subject: MyString
+  description: MyText
+
+two:
+  subject: MyString
+  description: MyText

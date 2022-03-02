@@ -1,0 +1,28 @@
+<%= render partial: "admin/breadcrumbs/breadcrumb", locals: {path: "home_logo_banners", title: "Home Page Logo Banner", current_page: "Home Page Logo And Banner List"} %>
+<div class="content">
+  <div class="row">
+    <div class="col-sm-12">
+      <div class="grid-view table-responsive" id="student-grid">
+        <table class="items">
+          <thead>
+            <tr>
+              <th id="student-grid_c0"><%= sortable "id" %></th>
+              <th id="student-grid_c2"><%= sortable "first_title" %></th>
+              <th id="student-grid_c2"><%= sortable "second_title" %></th>
+              <th id="student-grid_c1"><%= sortable "description" %></th>
+              <th id="student-grid_c3">Logo</th>
+              <th id="student-grid_c3">Banner</th>
+              <th class="button-column" id="student-grid_c7">Action</th>
+            </tr>
+          </thead>
+          <tbody class="hole-list">
+            <%=render :partial=> "logo_banner_list"%>
+          </tbody>
+        </table>
+        <%if @home_logo_banners.present?%>
+          <%= render partial: "admin/paginations/pagination", locals: {all_data: @home_logo_banners} %>
+        <% end %>
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,61 @@
+<%= render partial: "admin/breadcrumbs/breadcrumb", locals: {path: "prices", title: "Prices", current_page: "Price List"} %>
+<div class="content">
+  <div class="row">
+      <div class="col-sm-6">
+        <%= select_tag :price, options_for_select(Price.all.order("price ASC").collect{ |u| [u.price, u.price, :size => 22]}.uniq), {:prompt => "--Select Price--",:class =>"select_combobox form-control select-price"} %>
+        <div class="school_val_error" id="Student_courseid_em_" style="display:none">
+        </div>
+      </div>
+      <div class="col-sm-6">
+        <%= select_tag :status, options_for_select(Price.all.order("status ASC").collect{ |u| [u.status, u.status]}.uniq), {:prompt => "--Select Status--",:class =>"select_combobox form-control select-status"} %>
+      </div>
+    </div>
+  </div>
+  <br>
+  <div class="row">
+    <div class="col-sm-12">
+      <div class="grid-view table-responsive" id="student-grid">
+        <table class="items">
+          <thead>
+            <tr>
+              <th id="student-grid_c0"><%= sortable "id" %></th>
+              <th id="student-grid_c2"><%= sortable "title" %></th>
+              <th id="student-grid_c3"><%= sortable "price" %></th>
+              <th id="student-grid_c3">Icon</th>
+              <th id="student-grid_c3"><%= sortable "status" %></th>
+              <th class="button-column" id="student-grid_c8">Action</th>
+            </tr>
+          </thead>
+          <tbody class="hole-list">
+            <%=render :partial=> "price_list"%>
+          </tbody>
+        </table>
+        <%if @prices.present?%>
+          <%= render partial: "admin/paginations/pagination", locals: {all_data: @prices} %>
+        <% end %>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script type="text/javascript">
+	$(document).ready(function(){
+	  $(".select-price").change(function(){
+	    $.ajax({
+	      type:"get",
+	      url:"/admin/prices/get_filter_price",
+	      data:{
+	        "price":$(this).val()
+	      }
+	    });
+	  });
+	  $(".select-status").change(function(){
+	    $.ajax({
+	      type:"get",
+	      url:"/admin/prices/get_filter_price",
+	      data:{
+	        "status":$(".select-status").val()      }
+	    });
+	  });
+	});
+</script>

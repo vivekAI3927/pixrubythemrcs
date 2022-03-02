@@ -1,0 +1,47 @@
+<%= render partial: "admin/breadcrumbs/breadcrumb", locals: {path: "email_formats", title: "Emails", current_page: "New Email Format"} %>
+<%= form_for @email_format, :url => '/admin/email_formats', :html => { :multipart => true, :class => "p-20" } do |f| %>
+  <div class="row">
+    <div class="col-sm-12">
+      <div class="panel panel-default">
+         <div class="panel-heading">
+           <h4 class="panel-title">Add New Email Format</h4>
+        </div>
+        <div class="panel-body">
+          <div class="row">  
+            <div class="form-group col-sm-12">
+              <label for="reg_input_name">Exam Reminder</label>
+              <%=f.text_area :exam_reminder, :class => 'ckeditor', :placeholder => "Enter Content" %>
+            </div>
+          </div>  
+          <div class="row">
+            <div class="form-group col-sm-12">
+              <label for="reg_input_name">Not Join Message</label>
+               <%=f.text_area :not_join_message, :class => 'ckeditor',id: "not_join_message", :placeholder => "Enter Content" %>
+            </div>
+          </div>
+          <div class="row">
+            <div class="form-group col-sm-12">
+              <label for="reg_input_name">Paid Message</label>
+              <%=f.text_area :paid_message, :class => 'ckeditor', :placeholder => "Enter Image Text" %>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-sm-12 text-center">
+              <%= f.submit "Submit", :class=>"btn btn-info"%>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    
+  </div>
+<%end%>
+<script type="text/javascript">
+$( document ).on('turbolinks:load', function() {
+console.log("It works on each visit!")
+$('.ckeditor1').ckeditor({
+// optional config
+});
+})
+</script>
+         

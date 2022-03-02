@@ -1,0 +1,11 @@
+.hero-unit
+  %h1 Congratulations. The exam is over!
+  %p You may now review the key information for each station
+
+
+- @stations.each_with_index do |station, index|
+  .well
+    %h1= "Station #{index + 1} - #{station.title}"
+  #explanation_container
+    = simple_format(station.questions.last.answer_text)
+  %br

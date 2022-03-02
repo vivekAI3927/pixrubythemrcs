@@ -1,0 +1,86 @@
+<div class="page-header">
+  <div class="breadcrumb-line upper_header">
+    <ul class="breadcrumb" style="height: 34px;">
+     <li style="margin-top: 9px;">&nbsp;&nbsp;&nbsp; <a><%=link_to "HOME", "/admin", :class=>"fa fa-home" %></a></li>
+      <li><a href="/admin/settings"><b>Settings</b></a></li>
+      <li class="active">Settings List</li>
+    </ul>
+    <a class="breadcrumb-elements-toggle"><i class="icon-menu-open"></i></a>
+  </div>
+</div>
+<br>
+<div class="content">
+  <div class="row">
+      <div class="col-sm-3">
+        <%= select_tag :name, options_for_select(Setting.all.order("name ASC").collect{ |u| [u.name, u.name, :size => 22]}), {:prompt => "--Select Name--",:class =>"select_combobox form-control select-name"} %>
+        <div class="school_val_error" id="Student_courseid_em_" style="display:none">
+        </div>
+      </div>
+      <div class="col-sm-3">
+        <%= select_tag :price, options_for_select(Setting.all.order("price ASC").collect{ |u| [u.price, u.price]}), {:prompt => "--Select Price--",:class =>"select_combobox form-control select-price"} %>
+      </div>
+      <div class="col-sm-6">
+      <%= form_tag @admin_settings_path,:method =>'get' do %>
+      <div class ="row">
+      <div class="col-sm-9"> 
+        <%= text_field_tag :search, params[:search],:class=>"form-control",:placeholder=>"Search by Name"%>
+        
+       </div>
+      <div class="col-sm-3"> 
+         <%=submit_tag "Search",:class =>"btn btn-info", :style=>"margin-top: 0px;"%>
+      </div>
+    </div>
+     <%end%>
+      </div>
+      </div>
+  </div>
+  <br>
+  <div class="row">
+    <div class="col-sm-12">
+      <div class="grid-view table-responsive" id="student-grid">
+        <table class="items">
+          <thead>
+            <tr>
+              <th id="student-grid_c0">Id</th>
+              <th id="student-grid_c2">Name</th>
+              <th id="student-grid_c1"> Price</th>
+              <th class="button-column" id="student-grid_c7">Action</th>
+              <th class="student-grid_c8">Download</th>
+            </tr>
+          </thead>
+          <tbody class="hole-list">
+            <%=render :partial=> "setting_list"%>
+          </tbody>
+        </table>
+        <%if @settins.present?%>
+          <div class="digg_pagination">
+             <%= will_paginate @settins %>
+
+          </div>
+        <%end%>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script type="text/javascript">
+$(document).ready(function(){
+  $(".select-name").change(function(){
+    $.ajax({
+      type:"get",
+      url:"/admin/settings/get_filter_setting",
+      data:{
+        "name":$(this).val()
+      }
+    });
+  });
+  $(".select-price").change(function(){
+    $.ajax({
+      type:"get",
+      url:"/admin/settings/get_filter_setting",
+      data:{
+        "price":$(".select-price").val()      }
+    });
+  });
+});
+</script>

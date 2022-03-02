@@ -1,0 +1,13 @@
+<% if current_user.present? %>
+    <% @rating = Rating.new %>
+<% end %>
+<div class="text-center">
+  <button type="submit" class="pop_up_close_btn pop_up_btn" id="button_id">Submit</button>
+</div>
+ 
+<script type="text/javascript">
+	$('#button_id').on('click', function(event) {        
+    $('#ratings').toggle('hide');
+    $('.thanks_message').show();
+   });
+</script>

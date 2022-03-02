@@ -1,0 +1,9 @@
+.row
+  .col-md-12.text-center
+    = link_to update_status_station_path(@station, status: STATION_TODO), remote: true do
+      %span#todo{class: "badge #{@station_status.todo ? 'badge-danger' : 'badge-secondary'}" } TO-DO
+    = link_to update_status_station_path(@station, status: STATION_FLAGGED), remote: true do
+      %span#flagged{class: "badge #{@station_status.flagged ? 'badge-warning' : 'badge-secondary'}" } FLAGGED
+    = link_to update_status_station_path(@station, status: STATION_DONE), remote: true do
+      %span#done{class: "badge #{@station_status.done ? 'badge-success' : 'badge-secondary'}" } DONE
+%br/

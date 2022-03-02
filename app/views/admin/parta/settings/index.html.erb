@@ -1,0 +1,43 @@
+<%= render partial: "admin/breadcrumbs/breadcrumb", locals: {path: "parta/settings", title: "Part A Home Page", current_page: "Part A Home Page Text"} %>
+<div class="content">
+  <div class="row">
+    <div class="col-sm-12">
+      <div class="grid-view table-responsive" id="student-grid">
+        <table class="items">
+          <thead>
+            <tr>
+              <th id="student-grid_c0">Id</th>
+              <th id="student-grid_c2">Title</th>
+              <th id="student-grid_c1"> Description</th>
+              <th class="button-column" id="student-grid_c7">Action</th>
+            </tr>
+          </thead>
+          <tbody class="hole-list">
+            <%@parta_home_pages.each_with_index do |x,index|%>
+              <tr>
+                <td width="5%"><%= x.id %></td>
+                <td width="15%"><%= x.title.html_safe %></td>
+                <td width="15%"><%= x.banner_text.html_safe rescue nil %></td>
+                <td width="10%"> 
+                  <%=link_to admin_parta_setting_path(x.id) do%>
+                    <span class="glyphicon glyphicon-eye-open"></span>
+                  <%end%>
+                  <%= link_to edit_admin_parta_setting_path(x.id) do|| %>
+                    <span class="glyphicon glyphicon-pencil" style="color:#1ab394"></span>
+                  <% end %>
+                  <%= link_to admin_parta_setting_path(x.id), data: { confirm: 'Are you sure you want to delete', "bootstrap-confirm": 'delete' }, method: :delete do|| %>
+                    <span class="glyphicon glyphicon-trash" style="color:red"></span>
+                  <% end %>
+                </td>
+              </tr>
+            <% end %>
+          </tbody>
+        </table>
+        <%if @parta_home_pages.present?%>
+          <div class="pager">
+          </div>
+        <% end %>
+      </div>
+    </div>
+  </div>
+</div>

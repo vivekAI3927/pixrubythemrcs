@@ -1,0 +1,64 @@
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
+
+<div class="container">
+  <h2>Rating Details</h2>
+  <h2><%= @rating.question.content %></h2>
+  <table class="table">
+    <tbody>
+      <tr class=" table-success">
+        <td style="font-weight:bold">Id</td>
+        <td><%= @rating.id %></td>
+        <td></td>
+      </tr>
+      <tr class=" table-danger">
+        <td style="font-weight:bold">Question</td>
+        <td><%= @rating.question.content %></td>
+        <td></td>
+      </tr>
+      <tr class=" table-info">
+        <td style="font-weight:bold">Created At</td>
+        <td><%=@rating.created_at.strftime("%b %d, %Y %l:%M") rescue nil %></td>
+        <td></td>
+      </tr>
+      <tr class=" table-warning">
+        <td style="font-weight:bold">Updated At</td>
+        <td><%=@rating.updated_at.strftime("%b %d, %Y %l:%M") rescue nil %></td>
+        <td></td>
+      </tr>
+      <tr class=" table-active">
+        <td style="font-weight:bold">Station</td>
+        <td><%= @rating.station.title %></td>
+        <td></td>
+      </tr>
+      <tr class=" table-success">
+        <td style="font-weight:bold">Rating:</td>
+        <td><%= @rating.rating %></td>
+        <td></td>
+      </tr>
+      <tr class=" table-info">
+        <td style="font-weight:bold">Review</td>
+        <td><%=@rating.review %></td>
+        <td></td>
+      </tr>
+      <tr class=" table-warning">
+        <td style="font-weight:bold">User</td>
+        <td><%= @rating.user.name %></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+<style type="text/css">
+    #header { 
+        border-bottom: 1px solid #DDDDDD; 
+    }
+    .category-img-circular{
+     width: 100px;
+     height: 100px;
+     background-size: cover;
+     display: block;
+     border-radius: 100px;
+     -webkit-border-radius: 100px;
+     -moz-border-radius: 100px;
+    }
+</style>

@@ -1,0 +1,26 @@
+<%= render partial: "admin/breadcrumbs/breadcrumb", locals: {path: "faqs", title: "FAQ", current_page: "FAQ List"} %>
+<div class="content">
+  <div class="row">
+    <div class="col-sm-12">
+      <div class="grid-view table-responsive" id="student-grid">
+        <table class="items">
+          <thead>
+            <tr>
+              <th id="student-grid_c0"><%= sortable "id" %></th>
+              <th id="student-grid_c2"><%= sortable "title" %></th>
+              <th id="student-grid_c2"><%= sortable "rank" %></th>
+              <th id="student-grid_c3"><%= sortable "status" %></th>
+              <th class="button-column" id="student-grid_c8">Action</th>
+            </tr>
+          </thead>
+          <tbody class="hole-list">
+            <%=render :partial=> "faq_list"%>
+          </tbody>
+        </table>
+        <%if @faqs.present?%>
+          <%= render partial: "admin/paginations/pagination", locals: {all_data: @faqs} %>
+        <% end %>
+      </div>
+    </div>
+  </div>
+</div>

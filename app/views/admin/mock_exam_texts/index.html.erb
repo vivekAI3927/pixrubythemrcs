@@ -1,0 +1,44 @@
+<%= render partial: "admin/breadcrumbs/breadcrumb", locals: {path: "mock_exam_texts", title: "Mock Exam Text", current_page: "Mock Exam Text"} %>
+<div class="content">
+  <div class="row">
+    <div class="col-sm-12">
+      <div class="grid-view table-responsive" id="student-grid">
+        <table class="items">
+          <thead>
+            <tr>
+              <th id="student-grid_c0">Id</th>
+              <th id="student-grid_c2">Title</th>
+              <th id="student-grid_c1"> Description</th>
+              <th class="button-column" id="student-grid_c7">Action</th>
+            </tr>
+          </thead>
+          <tbody class="hole-list">
+            <%@mock_exam_texts.each_with_index do |x,index|%>
+                <tr>
+                  <td width="5%"><%= x.id %></td>
+                  <td width="15%"><%= x.title.html_safe %></td>
+                  <td width="15%"><%= x.description.html_safe %></td>
+                  <td width="10%"> 
+                    <%=link_to admin_mock_exam_text_path(x) do%>
+                      <span class="glyphicon glyphicon-eye-open"></span>
+                    <%end%>
+                    <%= link_to edit_admin_mock_exam_text_path(x) do|| %>
+                      <span class="glyphicon glyphicon-pencil" style="color:#1ab394"></span>
+                    <% end %>
+                    <%= link_to admin_mock_exam_text_path(x), data: { confirm: 'Are you sure you want to delete Mock Text ', "bootstrap-confirm": 'delete' }, method: :delete do|| %>
+                      <span class="glyphicon glyphicon-trash" style="color:red"></span>
+                    <% end %>
+                  </td>
+                </tr>
+              <%end%>
+          </tbody>
+        </table>
+        <%if @mock_exam_texts.present?%>
+          <div class="digg_pagination">
+
+          </div>
+        <%end%>
+      </div>
+    </div>
+  </div>
+</div>

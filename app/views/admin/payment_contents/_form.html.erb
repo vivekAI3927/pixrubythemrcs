@@ -1,0 +1,52 @@
+<%= form_for @payment_content, :url => url, :html => { :multipart => true, :class => "p-20" },  method: method do |f| %>
+  <div class="row">
+    <div class="col-sm-12">
+      <div class="panel panel-default">
+         <div class="panel-heading">
+           <h4 class="panel-title">Contents</h4>
+        </div>
+        <div class="panel-body">
+          <div class="row">  
+            <div class="form-group col-sm-12">
+              <label for="reg_input_name" class="req">Stripe</label>
+              <%=f.text_area :stripe, :class=>"form-control",:required=>'required' %>
+            </div>
+          </div>
+          <div class="row">  
+            <div class="form-group col-sm-12">
+              <label for="reg_input_name" class="req">Paypal</label>
+              <%=f.text_area :paypal, :class=>"form-control",:required=>'required' %>
+            </div>
+          </div>
+          <div class="row">  
+            <div class="form-group col-sm-12">
+              <label for="reg_input_name" class="req">Discount</label>
+              <%=f.text_area :discount, :class=>"form-control",:required=>'required' %>
+            </div>
+          </div>
+
+          <div class="row">  
+            <div class="form-group col-sm-12">
+              <label for="reg_input_name" class="req">Stripe Declaration</label>
+              <%=f.text_area :stripe_declaration, :class=>"form-control",:required=>'required', id: "stripe_declaration" %>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-sm-12 text-center">
+              <%= f.submit "Save", :class=>"btn join_btn admin-submit-btn"%>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+<% end %>
+<script type="text/javascript">
+ CKEDITOR.replace( 'all_right_editor', {
+    extraAllowedContent: 'style;*[id,rel](*){*}'
+  } );
+
+  CKEDITOR.replace( 'stripe_declaration', {
+    extraAllowedContent: 'style;*[id,rel](*){*}'
+  } );
+</script>

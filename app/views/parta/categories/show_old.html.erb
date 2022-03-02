@@ -1,0 +1,159 @@
+<section class='organic-breadcrumb'>
+  <div class='container'>
+    <div class='breadcrumb-banner d-flex flex-wrap align-items-center justify-content-end'>
+      <div class='col-first'>
+        <h1>
+          <%= @parta_category.name %>
+        </h1>
+      </div>
+    </div>
+  </div>
+</section>
+<section class='how-it-works pt-100 pb-50'>
+  <div class='container theme-bg question_bd_format' id='question-box'>
+    <div class='row'>
+      <div class='col-md-12 next_question_scroll'>
+        <!-- = link_to "RESTART OSCE", 'javascript:history.back()', :class => 'btn trading-btn' -->
+        <span style='color: #534f4f;'>
+        Question 1 of  17
+        </span>
+        <br>
+        <h3>
+          <small>
+            This MRCS Part B station tests your knowledge of the anatomy of the thyroid gland and surrounding structures.
+            For more Anatomy practice, head to Acland's via the link above (Pass the MRCS members get access for free) 
+            <hr>
+          </small>
+        </h3>
+      </div>
+    </div>
+    <div class='row'>
+      <div class='col-md-12'>
+        <div id='questions'>
+          <p>What is this?</p>
+          <div class='row'>
+            <div class='col-md-12'>
+              <div id='question_container'>
+                <img style="max-width: 100%; height:auto;" src="https://passmrcs-production.s3.amazonaws.com/questions/1756/original/thyroidcad.jpg" />
+                <div class='annotation'>
+                </div>
+              </div>
+            </div>
+            <div class='col-md-12' id='question_box'>
+              <div id='question_container'>
+                <a class='click_here_icon ques que_answer join_btn page-scroll trading-btn-see-answer que_answer' data-class='ques btn page-scroll que_answer' data-target='#answer' data-toggle='collapse' id='see_answer' style='color: white;'>SEE ANSWER</a>
+                <!-- /= link_to "RESTART OSCE", station_path(@station.id), :class => 'join_btn page-scroll trading-btn que_answer' -->
+                &nbsp;
+                <a class="join_btn skip-btn que_answer" id="next_question_link" style="margin-top: 30px;" href="/stations/28/questions/491">SKIP
+                <i class='icon-arrow-right'></i>
+                </a>
+              </div>
+            </div>
+          </div>
+          <div class='collapse' data-examstate='not penultimate' data-status='not last' id='answer'>
+            <hr>
+            <div class='row' id='answer_text'>
+              <div class='col-md-12'>
+                <div id='explanation_container'>
+                  <p>- This is the thyroid gland.</p>
+                  <p>- The thyroid gland is located below the thyroid cartilage with the thyroid isthmus below the cricoid cartilage, invested in pretracheal fascia.</p>
+                  <p>- It is attached to the 2nd to 4th tracheal rings by Berry&#39;s ligament, hence why it moves up on swallowing.</p>
+                  <p>- During development, the thyroid gland descends from the foramen caecum (2/3 along the length of the tongue from the tip) to pass forward and loop around beneath the hyoid bone.</p>
+                  <p>- Incomplete descent, therefore, can lead to a lingual or pyramidal thyroid gland.</p>
+                  <p>- An enlarged thyroid may expand downwards, resulting in a retrosternal thyroid.</p>
+                  <p>- Incomplete closure of the pathway of descent may also result in a thyroglossal duct cyst, which can become infected.</p>
+                  <p>- During removal, the middle 1/3 of the hyoid bone should also be excised to prevent recurrence.</p>
+                  <p>- A thyroglossal cyst is a differential for a midline neck mass.</p>
+                  <p>- It will rise up on protrusion of the tongue on examination.</p>
+                </div>
+              </div>
+              <div class='col-md-12'></div>
+            </div>
+            <div class='row'>
+              <div class='col-md-12'>
+                <a class="join_btn trading-btn que_answer" id="next_question_link" style="margin-top: 30px;" href="/stations/28/questions/491">Next question
+                <i class='icon-arrow-right'></i>
+                </a><br>
+                <a class="join_btn skip-btn" href="javascript:history.back()">Previous question</a>
+                &nbsp;
+                <a class="join_btn skip-btn que_answer" href="/stations/28">RESTART</a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+<style>
+  var $myGroup = $('#myGroup');
+  $myGroup.on('show','.collapse', function() {
+  $myGroup.find('.collapse.in').collapse('hide');
+  });
+</style>
+<script>
+  $(document).ready(function () {
+    $('html, body').animate({scrollTop: $('.next_question_scroll').offset().top - 122 }, 1000);
+  })
+</script>
+<footer class="footer-area section_gap">
+  <div class="container">
+    <div class="row">
+      <div class="col-lg-8  col-md-6 col-sm-6 newslater-form">
+        <div class="single-footer-widget">
+          <p class="m-0">
+            <a class="trms-link fa-vertical-line new_tab_format" href="/terms-and-conditions" target="_blank"> Terms &amp; Conditions </a>
+            <a class="trms-link fa-vertical-line new_tab_format" href="/terms-and-privacy" target="_blank"> Privacy </a>
+            <a class="trms-link fa-vertical-line new_tab_format" href="/community_code" target="_blank"> Community Code </a>
+            <!--  <a class="trms-link fa-vertical-line new_tab_format" href="#" data-toggle="modal" data-target="#eula" style="text-decoration: none;"> EULA </a> -->
+            <a class="trms-link fa-vertical-line new_tab_format" href="/cookie_policies" target="_blank"> Cookies </a>
+            <a class="trms-link new_tab_format" href="/disclaimer" target="_blank"> Disclaimer </a>
+          </p>
+          <p class="m-0">
+            Copyright © 2010-2020 Pass the MRCS™ &amp; EduSurg Ltd. All rights reserved.<br> 
+          <p><a href="//www.dmca.com/Protection/Status.aspx?ID=b266150a-f326-46f7-9d7e-21fd1dcf49a7" target="_blank"><img alt="DMCA.com Protection Status" src="https://images.dmca.com/Badges/dmca_protected_sml_120m.png?ID=b266150a-f326-46f7-9d7e-21fd1dcf49a7" /></a></p>
+          </p> 
+          <button allow-preference-non-eu=“true" class="termly-cookie-preference-button cookie_privacy_policy cookie_privacy_policy_btn" type="button"  onclick="displayPreferenceModal()">Manage Cookie Preferences</button>
+        </div>
+      </div>
+      <!-- <div class="col-lg-4  col-md-6 col-sm-6 insta-feeds">
+        </div> -->
+      <div class="col-lg-4 col-md-6 col-sm-6 social-links">
+        <div class="single-footer-widget">
+          <h6 class="follow_us">Follow Us</h6>
+          <div class="footer-social d-flex align-items-center footer_facebook_link">
+            <a onclick="Open_facebook_link()" ><i class="fa fa-facebook" ></i></a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</footer>
+<div class="modal fade screen_greyed" id="copy-paste" tabindex="-1" role="dialog" aria-labelledby="termconditionTitle" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered aa" role="document" style="margin-top: 0px !important;">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" >Notice</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+        <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body notice_pop_up">
+        Copying from this website is in breach of the Terms & Conditions. Your profile has been identified. Please contact us if this was an honest mistake.
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="pop_up_close_btn pop_up_btn" data-dismiss="modal">Close</button>
+      </div>
+    </div>
+  </div>
+</div>
+<script type="text/javascript">
+  $('document').ready(function() {
+  setTimeout(function() {
+    $('#flash').slideUp();
+  }, 3000);
+  });
+  $(".alert" ).fadeOut(5000);
+   $(".alert-success" ).fadeOut(5000);
+   $(".alert-danger" ).fadeOut(5000);
+</script>

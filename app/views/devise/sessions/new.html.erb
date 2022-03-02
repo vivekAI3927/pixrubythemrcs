@@ -1,0 +1,126 @@
+<section class="organic-breadcrumb">
+    <div class="container">
+        <div class="breadcrumb-banner d-flex flex-wrap align-items-center justify-content-end">
+            <div class="col-first">
+                <h1>Sign In</h1></div>
+        </div>
+    </div>
+</section>
+<div class="container">
+    <div class="sign-form signup-form">
+            <%= form_for(resource, as: resource_name, url: session_path(resource_name), html: {class: "simple_form form-horizontal"}) do |f| %>
+              <%= render "devise/shared/error_messages", resource: resource %>
+
+          
+            <div class="form-group">
+                <label class="feld-nm">Email:</label>             
+                <%= f.email_field :email, autofocus: true, autocomplete: "email", class: "form-control" %>
+                <div class="error"></div>
+            </div>
+           
+          
+            <div class="form-group">
+                <label class="feld-nm">Password:</label>
+                <%= f.password_field :password, autocomplete: "current-password" , class: "form-control" %>
+                <div class="error"></div>
+            </div>
+            <!-- request.env['REQUEST_URI'] -->
+            <div class="form-group"><div class="row"><div class="col-6 col-sm-6 checkbx-align pad-right-0"><table><tbody><tr><td width="18px"></td><td></td></tr></tbody></table></div><div class="col-6 col-sm-6"><div class="forget-pass">
+              <% if request.env['REQUEST_URI'] == "/users/sign_in" %>
+                <a href="/users/password/new">Forgot Password?</a>
+              <% end %>
+              <% if request.env['REQUEST_URI'] == "/admins/sign_in" %>
+                <a href="/admins/password/new">Forgot Password?</a>
+              <% end %>   
+
+              </div></div></div></div>
+                  <div class="form-group">
+                <div class="row">
+                    <div class="col-xs-12 col-sm-12 checkbx-align">
+                        <table>
+                            <tbody>
+                              <div>
+                                <label for="chkTypeOfReportError">By using this site you agree to our: <a class="trms-link" href="/terms-and-conditions" style="text-decoration: none;" target="_blank"> Terms & Conditions, </a><a class="trms-link" href="/terms-and-privacy" target="_blank" style="text-decoration: none;"> Privacy, </a><a class="trms-link" href="/community_code" style="text-decoration: none;" target="_blank"> Community Code </a>
+                                  <!-- <a class="trms-link" href="/end_user_license_agreement" style="text-decoration: none;" target="_blank"> EULA</a> -->
+                                </label>
+                              </div>
+                              <!-- <div>
+                                <label for="chkTypeOfReportError"><input type="checkbox" id="chkTypeOfReportError" name="label[]" value="Error" required> By clicking here you agree to our: <a class="trms-link" href="/terms-and-conditions" style="text-decoration: none;" target="_blank"> Terms & Conditions</a></label>
+                              </div>
+                              <div>
+                                <label for="chkTypeOfReportError"><input type="checkbox" id="chkTypeOfReportError" name="label[]" value="Error" required> By clicking here you agree to our: <a class="trms-link" href="/community_code" style="text-decoration: none;" target="_blank"> Community Code</a></label>
+                              </div>
+                              <div>
+                                <label for="chkTypeOfReportError"><input type="checkbox" id="chkTypeOfReportError" name="label[]" value="Error" required> By clicking here you agree to our: <a class="trms-link" href="/end_user_license_agreement" style="text-decoration: none;" target="_blank"> EULA</a></label>
+                              </div> -->
+                                <tr>
+                                    <!-- <td width="18px">
+                                        <label class="check-bx">
+                                            <input type="checkbox"><span class="checkmark"></span></label>
+                                    </td>
+                                    <td><font>By clicking here you agree to our<a class="trms-link" href="#"> privacy  terms</a></font></td> -->
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="form-group">
+              <%= f.submit "Log in", class:"sign-frm-btn" %>
+            </div>
+            <div class="form-group"><input class="sign-frm-btn" onclick="location.href = '/users/sign_up';" type="button" value="Create an account"></div>
+            <div class="form-group">
+                <div class="row">
+                    <div class="col-xs-12 col-sm-12 checkbx-align">
+                       <%#= render "devise/shared/links" %>
+
+                    </div>
+                </div>
+            </div>
+        <% end %>
+    </div>
+    <!-------setting ends here-------->
+</div>
+
+<!-- <script type="text/javascript">
+  (function ($) {
+  $(function () {
+    var $requiredCheckboxes = $("input[type='checkbox'][required]");
+
+    /* init all checkbox lists */
+    $requiredCheckboxes.each(function (i, el) {
+      //this could easily be changed to suit different parent containers
+      var $checkboxList = $(this).closest("div, span, p, ul, td");
+
+      if (!$checkboxList.hasClass("requiredCheckboxList"))
+        $checkboxList.addClass("requiredCheckboxList");
+    });
+
+    var $requiredCheckboxLists = $(".requiredCheckboxList");
+
+    $requiredCheckboxLists.each(function (i, el) {
+      var $checkboxList = $(this);
+      $checkboxList.on("change", "input[type='checkbox']", function (e) {
+        updateCheckboxesRequired($(this).parents(".requiredCheckboxList"));
+      });
+
+      updateCheckboxesRequired($checkboxList);
+    });
+
+    function updateCheckboxesRequired($checkboxList) {
+      var $chk = $checkboxList.find("input[type='checkbox']").eq(0),
+        cblName = $chk.attr("name"),
+        cblNameAttr = "[name='" + cblName + "']",
+        $checkboxes = $checkboxList.find("input[type='checkbox']" + cblNameAttr);
+
+      if ($checkboxList.find(cblNameAttr + ":checked").length > 0) {
+        $checkboxes.prop("required", false);
+      } else {
+        $checkboxes.prop("required", true);
+      }
+    }
+
+  });
+})(jQuery);
+</script> -->

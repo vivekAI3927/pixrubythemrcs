@@ -1,0 +1,2 @@
+<%= render partial: "admin/breadcrumbs/breadcrumb", locals: {path: "memberships", title: "Memberships", current_page: "Edit Membership"} %>
+<%= render partial: 'form', locals: {url: admin_membership_path(@membership), method: :put} %> 

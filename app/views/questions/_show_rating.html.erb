@@ -1,0 +1,27 @@
+<ul class="list-group">
+  <% question.ratings.order("ratings.created_at DESC").each do |rating|%>
+  <li class="list-group-item">
+  <div class="row">
+
+      <div class="col-xs-2 col-md-1">
+        <div class="review-block-name"><a href="#"><%= rating.user.try(:name) %></a></div>
+        
+      </div>
+      <div class="col-xs-1 col-md-1" ></div>
+      <div class="col-xs-9 col-md-10">
+        <div class="mic-info">
+          <%= rating.created_at.strftime('%d %b %Y')%>
+          <%= time_ago_in_words(rating.created_at, include_seconds: true) %> Ago
+        </div>
+        <div class="comment-text">
+          <% if rating.rating %>
+            <%= rating.rating %>
+          <% else %>
+            <%= rating.review %>
+          <% end %>
+        </div>
+    </div>
+  </div>
+  </li>
+  <% end %>
+</ul>

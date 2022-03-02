@@ -1,0 +1,7 @@
+<h3>Comments</h3>
+<% commentable.comments.each do |comment| %>
+  <div class="well">
+    <h4><%=link_to comment.admin.email, admin_admin_path(comment.admin.id) %> (<%= comment.created_at.strftime("%d %b, %Y") %>)</h4>
+    <p><%= comment.body %></p>
+  </div>
+<% end %>

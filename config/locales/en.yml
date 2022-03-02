@@ -1,0 +1,268 @@
+# Files in the config/locales directory are used for internationalization
+# and are automatically loaded by Rails. If you want to use locales other
+# than English, add the necessary files in this directory.
+#
+# To use the locales, use `I18n.t`:
+#
+#     I18n.t 'hello'
+#
+# In views, this is aliased to just `t`:
+#
+#     <%= t('hello') %>
+#
+# To use a different locale, set it with `I18n.locale`:
+#
+#     I18n.locale = :es
+#
+# This would use the information in config/locales/es.yml.
+#
+# The following keys must be escaped otherwise they will not be retrieved by
+# the default I18n backend:
+#
+# true, false, on, off, yes, no
+#
+# Instead, surround them with single quotes.
+#
+# en:
+#   'true': 'foo'
+#
+# To learn more, please read the Rails Internationalization guide
+# available at https://guides.rubyonrails.org/i18n.html.
+
+en:
+  hello: "Hello world"
+  mailers:
+    users:
+      paid_message_subject: "Thank you for joining Pass The MRCS"
+      exam_reminder_subject: "How is your revision going?"
+      not_join_message_subject: "Join Pass The MRCS"
+      password_reset_subject: "Password Reset"
+      recommend_email: "Recommend Us"
+
+  controllers:
+    categories:
+      only_login_user: "Sorry, user needs to be logged in to see that page."
+    gocardless:
+      name: "Premium Subscription to PassTheMRCS"
+    password_reset: 
+      create: "Email sent with password reset instructions"
+      error_message: "Email sent with password reset instructions"
+      update_error: "Password reset has expired."
+      update_password: "Password has been reset!"
+    application:
+      register_message: "Thanks for registering. Let's sort out your payment details"
+      trial_false: "Sorry, user needs to be logged in to see that page."
+    paypal_payment_notifications:
+      create: "Unfortunately your payment was not completed. Please contact us to find out why."    
+    users:
+      welcome_message: "Thanks for registering. Let's sort out your payment details."
+      pending: "Please make sure you select a membership option before proceeding"
+      create: "User account was successfully created."
+      update: "User account was successfully updated."
+      destroy: "User account was successfully deleted."
+      exam_reminder: "Exam reminder sent to user."
+      not_join_message: "Exam reminder sent to user."
+      paid_message: "Paid message email sent to user."
+    questions:
+      not_authorised: "Not authorised"  
+    stations:
+      update_status: "Status updated."
+    sessions:
+      successfully: "Logged in successfully."
+      renew_membership: "Your membership has now expired. Please choose a membership option to renew."
+      invalid: "Invalid email or pasword."
+    recommends:
+      sent_message: "Email sent to your friend."
+    gocardless:
+      coupon_applied: "Coupon applied!"
+      coupon_not_found: "Coupon not found. Please try again"         
+    admin: 
+      users:
+        create: "User was successfully created." 
+        update: "User was successfully updated."
+        destroy: "User was successfully deleted."
+        exam_reminder: "Exam reminder sent to user."
+        not_join_message: "Exam reminder sent to user."
+        paid_message: "Paid message email sent to user."
+      admins:
+        create: "Admin was successfully created." 
+        update: "Admin was successfully updated."
+        destroy: "Admin was successfully deleted."    
+      coupons:
+        create: "Coupon was successfully created." 
+        update: "Coupon was successfully updated."
+        destroy: "Coupon was successfully deleted."
+      categories:  
+        create: "Category was successfully created." 
+        update: "Category was successfully updated."
+        destroy: "Category was successfully deleted."
+      memberships:  
+        create: "Membership was successfully created." 
+        update: "Membership was successfully updated."
+        destroy: "Membership was successfully deleted."
+      stations:  
+        create: "Station was successfully created." 
+        update: "Station was successfully updated."
+        destroy: "Station was successfully deleted."
+      questions:  
+        create: "Question was successfully created." 
+        update: "Question was successfully updated."
+        destroy: "Question was successfully deleted."
+      courses:  
+        create: "Course was successfully created." 
+        update: "Course was successfully updated."
+        destroy: "Course was successfully deleted."
+      exams:  
+        create: "Exam was successfully created." 
+        update: "Exam was successfully updated."
+        destroy: "Exam was successfully deleted."
+      teams:  
+        create: "Team was successfully created." 
+        update: "Team was successfully updated."
+        destroy: "Team was successfully deleted."
+      prices:  
+        create: "Price was successfully created." 
+        update: "Price was successfully updated."
+        destroy: "Price was successfully deleted." 
+      privacy_terms:  
+        create: "Privacy was successfully created." 
+        update: "Privacy was successfully updated."
+        destroy: "Privacy was successfully deleted."
+      faqs:  
+        create: "FAQ was successfully created." 
+        update: "FAQ was successfully updated."
+        destroy: "FAQ was successfully deleted." 
+      feedbacks:  
+        create: "Feedback was successfully created." 
+        update: "Feedback was successfully updated."
+        destroy: "Feedback was successfully deleted."
+      member_feedbacks:  
+        create: "Feedback was successfully created." 
+        update: "Feedback was successfully updated."
+        destroy: "Feedback was successfully deleted."
+      resources:  
+        create: "Resource was successfully created." 
+        update: "Resource was successfully updated."
+        destroy: "Resource was successfully deleted."
+      home_logo_banners:
+        create: "Logo Banner was successfully created." 
+        update: "Logo Banner was successfully updated."
+        destroy: "Logo Banner was successfully deleted."
+      abouts:
+        create: "About Us was successfully created." 
+        update: "About Us was successfully updated."
+        destroy: "About Us was successfully deleted."
+      member_home_pages:
+        create: "Member Home Page Text was successfully created." 
+        update: "Member Home Page Text was successfully updated."
+        destroy: "Member Home Page Text was successfully deleted."
+      mock_exams:
+        create: "Mock Exam Page Text was successfully created." 
+        update: "Mock Exam Page Text was successfully updated."
+        destroy: "Mock Exam Page Text was successfully deleted."
+      full_term_conditions:
+        create: "Term & Condition Text was successfully created." 
+        update: "Term & Condition Text was successfully updated."
+        destroy: "Term & Condition Text was successfully deleted."
+      footer_records:
+        create: "Footer Data was successfully created." 
+        update: "Footer Data was successfully updated."
+        destroy: "Footer Data was successfully deleted."
+      email_formats:
+        create: "User List Email was successfully created." 
+        update: "User List Email was successfully updated."
+        destroy: "User List Email was successfully deleted."
+      question_categories:
+        create: "Question Category was successfully created." 
+        update: "Question Category was successfully updated."
+        destroy: "Question Category was successfully deleted."
+      payment_contents:
+        create: "Payment Content was successfully created." 
+        update: "Payment Content was successfully updated."
+        destroy: "Payment Content was successfully deleted."
+      target_specialities:
+        create: "Target Speciality was successfully created." 
+        update: "Target Speciality was successfully updated."
+        destroy: "Target Speciality was successfully deleted."
+      reset_password_emails:
+        create: "Reset Password Email was successfully created." 
+        update: "Reset Password Email was successfully updated."
+        destroy: "Reset Password Email was successfully deleted."
+      user_join_emails:
+        create: "Welcome Email was successfully created." 
+        update: "Welcome Email was successfully updated."
+        destroy: "Welcome Email was successfully deleted."
+      community_codes:
+        create: "Community Code was successfully created." 
+        update: "Community Code was successfully updated."
+        destroy: "Community Code was successfully deleted."
+      end_user_license_agreements:
+        create: "End User License Agreement was successfully created." 
+        update: "End User License Agreement was successfully updated."
+        destroy: "End User License Agreement was successfully deleted."
+      cookie_policies:
+        create: "Cookie Policy was successfully created." 
+        update: "Cookie Policy was successfully updated."
+        destroy: "Cookie Policy was successfully deleted."
+      disclaimers:
+        create: "Disclaimer was successfully created." 
+        update: "Disclaimer was successfully updated."
+        destroy: "Disclaimer was successfully deleted." 
+      mock_exam_texts:
+        create: "Mock Exam Text was successfully created." 
+        update: "Mock Exam Text was successfully updated."
+        destroy: "Mock Exam Text was successfully deleted."
+      books:
+        create: "Book was successfully created." 
+        update: "Book was successfully updated."
+        destroy: "Book was successfully deleted." 
+      settings:
+        create: "Setting was successfully created." 
+        update: "Setting was successfully updated."
+        destroy: "Setting was successfully deleted."
+      partners:
+        create: "Partner was successfully created." 
+        update: "Partner was successfully updated."
+        destroy: "Partner was successfully deleted."
+      partner_members:
+        create: "Partner Member was successfully created." 
+        update: "Partner Member was successfully updated."
+        destroy: "Partner Member was successfully deleted."
+      about_us_images:
+        create: "Image was successfully created." 
+        update: "Image was successfully updated."
+        destroy: "Image was successfully deleted."
+      attempts:
+        create: "Attempt was successfully created." 
+        update: "Attempt was successfully updated."
+        destroy: "Attempt was successfully deleted."
+      ratings:
+        create: "Rating was successfully created." 
+        update: "Rating was successfully updated."
+        destroy: "Rating was successfully deleted."
+      subscriptions:
+        create: "Subscription was successfully created." 
+        update: "Subscription was successfully updated."
+        destroy: "Subscription was successfully deleted."
+      testimonials:
+        create: "Testimonial was successfully created." 
+        update: "Testimonial was successfully updated."
+        destroy: "Testimonial was successfully deleted."
+      errors:
+        message: "One or more required fields are missing"                   
+        destroy: "Testimonial was successfully deleted."                 
+      parta_users:
+        create: "Part-A User was successfully created." 
+        update: "Part-A User was successfully updated."
+        destroy: "Part-A User was successfully deleted."
+      parta_infos:
+        create: "Part A Info was successfully created." 
+        update: "Part A Info was successfully updated."
+        destroy: "Part A Info was successfully deleted."
+      parta_settings:
+        create: "Part A Text was successfully created." 
+        update: "Part A Text was successfully updated."
+        destroy: "Part A Text was successfully deleted."
+      admin_allow_access:
+        message: "You have not access"    
+

@@ -1,0 +1,104 @@
+  <!-- Start Header Area -->
+  <% @home_logo_banner ||= HomeLogoBanner.last %>
+  <header id="header" class="header_area">
+    
+    <div class="main_menu">
+        
+      <nav class="navbar navbar-expand-lg navbar-light main_box">
+          <div class="container">
+          <div class="main-outer">
+            <a href="mailto:contact@passthemrcs.co.uk"><i class="material-icons">mail</i><span>Contact us</span></a>
+        
+          </div>
+          
+          <div class="header-bottom">
+            <!-- <a class="navbar-brand logo_h" href="/"><img src="<%#= asset_path("full-logo.png")%>" alt=""></a> -->
+            <% if user_signed_in? %>
+              <a class="navbar-brand logo_h" href="/categories">
+                <%= image_tag @home_logo_banner.logo.url rescue nil %>
+              </a>
+            <% else %>
+              <a class="navbar-brand logo_h" href="/">
+                <%= image_tag @home_logo_banner.logo.url rescue nil %>
+              </a>
+            <% end %>  
+            <ul class="sign-registr-btn">
+              <% unless (user_signed_in? || parta_user_signed_in?) %>
+                <li><a href="/users/sign_in"><i class="material-icons">exit_to_app</i>LOGIN</a></li>
+                <li><a href="/users/sign_up" ><i class="material-icons">insert_drive_file</i>REGISTER</a></li>
+              <% else %>                
+                <% if current_parta_user.present? %>                
+                  <li>
+                    <!-- <a href="/users/edit"><i class="material-icons">settings</i>Setting</a> -->
+                    <!-- <a href="/feedback"><i class="material-icons"></i>FEEDBACK</a> -->
+                    <a href="/"><i class="material-icons"></i>FEEDBACK</a>
+                    <%= link_to destroy_parta_user_session_path, method: :delete do %>
+                      <i class="material-icons">exit_to_app</i>LOGOUT
+                    <% end %>
+                  </li>
+                <% elsif current_user.present? %>
+                  <li>
+                    <!-- <a href="/users/edit"><i class="material-icons">settings</i>Setting</a> -->
+                    <!-- <a href="/feedback"><i class="material-icons"></i>FEEDBACK</a> -->
+                    <%= link_to destroy_user_session_path, method: :delete do %>
+                      <i class="material-icons">exit_to_app</i>LOGOUT
+                    <% end %>
+                    <a href="/coaching" class="coaching_btn"><i class="material-icons"></i>COACHING</a>
+                  </li>
+                <% end %>  
+              <% end %>
+            </ul>
+              
+            <div class="menu">
+              <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
+               aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+              <!-- Collect the nav links, forms, and other content for toggling -->
+              <div class="collapse navbar-collapse offset" id="navbarSupportedContent">
+                <ul class="nav navbar-nav menu_nav ml-auto">
+                  <% if user_signed_in? %>
+        					 <li class="nav-item <%= current_class?(categories_path) %>"><a class="nav-link" href="/categories">Home</a></li>
+                  <% elsif parta_user_signed_in? %>
+                    <!-- <li class="nav-item <%#= current_class?(parta_root_path) %>"><a class="nav-link" href="/parta">Home</a></li> -->
+                    <li class="nav-item <%= current_class?(root_path) %>"><a class="nav-link" href="/">Home</a></li>
+                  <% else %>
+                    <li class="nav-item <%= current_class?(root_path) %>"><a class="nav-link" href="/">Home</a></li>  
+                  <% end %>    
+        					<li class="nav-item <%= current_class?(about_us_path) %>"><a class="nav-link" href="/about_us">About</a></li>
+                  <li class="nav-item <%= current_class?(partner_path) %>"><a class="nav-link" href="/partners">Partners</a></li>
+        					<li class="nav-item <%= current_class?(new_parta_user_registration_path) %>"><a class="nav-link" href="/parta_users/sign_up">PART A</a></li>
+        					<li class="nav-item <%= current_class?(faq_path) %>"><a class="nav-link" href="/faq">FAQ</a></li>
+                  <% if user_signed_in? %>
+                    <!-- <li class="nav-item <%= current_class?(categories_path) %>">
+                      <%#= link_to "Stations", categories_path, class: "nav-link" %>
+                    </li> -->
+                    <!--  <li class="nav-item <%= current_class?(mock_exams_path) %>">
+                      <%#= link_to "Mock Exams", mock_exams_path, class: "nav-link" %>
+                    </li>  -->
+                    <!-- <li class="nav-item <%= current_class?(feedback_path) %>">
+                      <%#= link_to "Feedback", feedback_path, class: "nav-link" %>
+                    </li>  -->
+                  <% else %>
+                  <!--  <li class="nav-item">
+                      <%= link_to "Trial Stations", trial_path, class: "nav-link" %>
+                    </li>
+                     <li class="nav-item">
+                      <%= link_to "Acland's 3D Anatomy", anatomy_path, class: "nav-link" %>                    
+                    </li> -->
+
+
+                  <% end %>
+
+      				  </ul>
+              </div>
+            </div>
+          </div>
+        </div>
+      </nav>
+    </div>
+
+  </header>
+  <!-- End Header Area -->

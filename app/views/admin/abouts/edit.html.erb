@@ -1,0 +1,48 @@
+<%= render partial: "admin/breadcrumbs/breadcrumb", locals: {path: "abouts", title: "About Us", current_page: "Edit About Us"} %>
+<%= form_for(@about_us, as: @about_us, url: admin_about_path(@about_us.id), html: { method: :put, :class => "p-20" }) do |f| %>
+  <div class="row">
+    <div class="col-sm-12">
+      <div class="panel panel-default">
+         <div class="panel-heading">
+           <h4 class="panel-title">Edit About Us</h4>
+        </div>
+        <div class="panel-body">
+          <div class="row">  
+            <div class="form-group col-sm-12">
+              <label for="reg_input_name">Description</label>
+              <%=f.text_area :description, :class=>"form-control", id: "editor" %>
+              <div class = "error error_msg"><%= @about_us.errors.messages[:description_one][0] %></div>
+            </div>
+            <div class="form-group col-sm-6">
+              <label for="reg_input_name" >Image</label>
+               <%=f.file_field :image, :class => "form-control",id: "image" %>
+               <%=image_tag(@about_us.image_url, size: "80x80") rescue nil%>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-sm-12 text-center">
+              <%= link_to "Cancel", :back, {:class=>"btn join_btn admin-submit-btn"} %>
+              <%= f.submit "Submit", :class=>"btn join_btn admin-submit-btn"%>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    
+  </div>
+<% end %>
+
+<style type="text/css">
+  .req:after {
+  content: "*";
+  font-size: 15px;
+  color: #cc0000;
+  padding-left: 4px;
+}
+</style>
+<script>
+  CKEDITOR.replace('editor', {
+    height: 250,
+    extraPlugins: 'colorbutton,colordialog'
+  });
+</script>           

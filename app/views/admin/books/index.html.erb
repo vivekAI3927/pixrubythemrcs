@@ -1,0 +1,95 @@
+<%= render partial: "admin/breadcrumbs/breadcrumb", locals: {path: "books", title: "Books", current_page: "Book List"} %>
+<div class="content">
+  <div class="row">
+      <div class="col-sm-3">
+        <%= select_tag :name, options_for_select(Book.all.order("name ASC").collect{ |u| [u.name, u.name, :size => 22]}), {:prompt => "--Select Name--",:class =>"select_combobox form-control select-name"} %>
+        <div class="school_val_error" id="Student_courseid_em_" style="display:none">
+        </div>
+      </div>
+      <div class="col-sm-3">
+        <%= select_tag :cost, options_for_select(Book.all.order("cost ASC").collect{ |u| [u.cost, u.cost]}.uniq), {:prompt => "--Select Cost--",:class =>"select_combobox form-control select-cost"} %>
+      </div>
+      <div class="col-sm-6">
+      <%= form_tag @admin_books_path,:method =>'get' do %>
+      <div class ="row">
+      <div class="col-sm-9"> 
+        <%= text_field_tag :search, params[:search],:class=>"form-control",:placeholder=>"Search by Cost"%>
+       </div>
+      <div class="col-sm-3"> 
+         <%=submit_tag "Search",:class =>"btn btn-info", :style=>"margin-top: 0px;"%>
+      </div>
+    </div>
+     <%end%>
+      </div>
+      </div>
+  </div>
+  <br>
+  <div class="row">
+    <div class="col-sm-12">
+      <div class="grid-view table-responsive" id="student-grid">
+        <table class="items">
+          <thead>
+            <tr>
+              <th id="student-grid_c0">Id</th>
+              <th id="student-grid_c2">Name</th>
+              <th id="student-grid_c3">Description</th>
+              <th id="student-grid_c3">Link</th>
+              <th id="student-grid_c3">Cost</th>
+              <th id="student-grid_c3">Image File Name</th>
+              <th id="student-grid_c3">Image Content Type</th>
+              <th id="student-grid_c3">Image File Size</th>
+              <th id="student-grid_c3">Image Updated At</th>
+              <th id="student-grid_c3">Available</th>
+              <th class="button-column" id="student-grid_c8">Action</th>
+            </tr>
+          </thead>
+          <tbody class="hole-list">
+            <%=render :partial=> "book_list"%>
+          </tbody>
+        </table>
+        <%if @books.present?%>
+          <%= render partial: "admin/paginations/pagination", locals: {all_data: @books} %>
+        <% end %>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script type="text/javascript">
+	$(document).ready(function(){
+	  $(".select-name").change(function(){
+	    $.ajax({
+	      type:"get",
+	      url:"/admin/books/get_filter_book",
+	      data:{
+	        "name":$(this).val()
+	      }
+	    });
+	  });
+	  $(".select-cost").change(function(){
+	    $.ajax({
+	      type:"get",
+	      url:"/admin/books/get_filter_book",
+	      data:{
+	        "cost":$(".select-cost").val()      }
+	    });
+	  });
+	});
+</script>
+
+<style>
+.fa {
+    font-weight: bold;
+}
+.btn {
+    position: relative;
+    border-radius: 2px;
+    margin-top: 10px;
+ }
+ 
+.col-sm-1 {
+    width: 8.3333333333%;
+    margin-left: -21px;
+    margin-top: -32px;
+}
+</style>

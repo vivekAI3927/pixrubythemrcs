@@ -1,0 +1,45 @@
+%section.faq.col-md-12#member
+  .container
+    .row
+      .bs-example
+        #accordionExample.accordion
+          .card
+            #headingTwo.card-header
+              %h2.mb-0
+                %button.btn.btn-link{"data-target" => "#demo#{category.id}", "data-toggle" => "collapse", :type => "button"}
+                  #{category.name}
+                  - percentage = category.percentage(category.id, current_user.id)
+                  %span
+                    .progress
+                      .progress-bar.bg-warning{"aria-valuemax" => "100", "aria-valuemin" => "0", "aria-valuenow" => "#{percentage}", :role => "progressbar", :style => "width: #{percentage}%;"}  #{percentage}%
+
+                  %i.fa.fa-plus
+            .collapse{"aria-labelledby" => "headingTwo", :id => "demo#{category.id}"}
+              .card-body
+                = category.advice.html_safe
+                %br/
+                = link_to 'Practice', category_path(category), class: 'join_btn trading-btn'
+                - if category.name == "Anatomy"
+                  = link_to "Open Acland’s Anatomy", " https://www.aclandanatomy.com", :class => 'join_btn trading-btn', target: :_blank
+
+
+
+
+/ .col-lg-3.col-md-6.col-sm-6.col-xs-12
+/   =link_to category_path(category), id: "image_clicker" do
+/     .product-portfolio-detail
+/       .product-image-portfolio
+/         -if category.image?
+/           = image_tag(category.image.url)  rescue nil
+/           .progress
+/             - percentage = category.percentage(category.id, current_user.id)
+/             .progress-bar.bg-success{:style => "width:100%"}
+/               %span #{percentage} %    
+         
+/         - else
+/           %img{src: "https://placehold.it/260x180"}
+
+:javascript
+  $("body").on("click","[data-toggle='collapse']" ,function () {  
+    $(".collapse").collapse("hide")
+  });

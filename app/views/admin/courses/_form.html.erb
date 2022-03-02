@@ -1,0 +1,49 @@
+<%= form_for @course, :url => url, :html => { :multipart => true, :class => "p-20" },  method: method do |f| %>
+  <div class="row">
+    <div class="col-sm-12">
+      <div class="panel panel-default">
+        <div class="panel-heading">
+          <h4 class="panel-title">Course</h4>
+        </div>
+        <div class="panel-body">
+          <div class="row">  
+            <div class="form-group col-sm-6">
+              <label for="reg_input_name" class="req">Title</label>
+              <%=f.text_field :title, :class=>"form-control", :placeholder => "Enter Title" %>
+              <div class = "error error_msg"><%= @course.errors.messages[:title][0] %></div>
+            </div>
+            <div class="form-group col-sm-6">
+              <label for="reg_input_name">Image</label>
+              <%=f.file_field :image_file_name, :class=>"form-control" %>
+              <div class = "error error_msg"><%= @course.errors.messages[:image_file_name][0] %></div>
+            </div>
+          </div>  
+          <div class="row">
+            <div class="form-group col-sm-12">
+              <label for="reg_input_name" class="req">Description</label>
+              <%=f.text_area :description, :class => "form-control",id: "editor_description", :placeholder => "Enter Description"  %>
+              <div class = "error error_msg"><%= @course.errors.messages[:description][0] %></div>
+            </div>
+          </div>
+          <div class="row">
+            <div class="form-group col-sm-6">
+              <label for="reg_input_name">Available</label>
+              <%= f.check_box :available %>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-sm-12 text-center">
+              <%= f.submit "Save", :class=>"btn join_btn admin-submit-btn"%>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+<% end %>
+<script>
+  CKEDITOR.replace('editor_description', {
+    height: 250,
+    extraPlugins: 'colorbutton,colordialog'
+  });
+</script> 

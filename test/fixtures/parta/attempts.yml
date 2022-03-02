@@ -1,0 +1,13 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  user: one
+  parta_category: one
+  started: false
+  completed: false
+
+two:
+  user: two
+  parta_category: two
+  started: false
+  completed: false

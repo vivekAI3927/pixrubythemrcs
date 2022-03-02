@@ -1,0 +1,32 @@
+:javascript
+  $(document).ready(function(){
+    $('ul.nav li.active').removeClass('active');
+    $('li#anatomy').addClass('active')
+  })
+
+.hero-unit
+  %h1 Acland's 3D Anatomy
+
+.row-fluid
+  .span8
+    %h2 Members get access for free!
+    %p Acland anatomy needs no introduction. It has been the leading anatomy dissection video for decades, and has a special relevance to surgeons taking the MRCS Part B. The Video Atlas presents expertly dissected human specimens as three-dimensional objects—just as they appear in the living body, or more importantly as they appear in your exam.
+
+    %p Complete an anatomy station and follow it up with the Acland video clip so that you form a visual memory of the important structures that you will be asked to identify in the MRCS OSCE. Alternatively, watch an Acland clip and then complete the relevant station, placing the 3D structures in their clinical context, and allowing you to answer MRCS OSCE questions based on those structures you have just seen.
+
+    %p This is the best way to learn anatomy for the MRCS Part B OSCE.
+
+    %p PassTheMRCS members get Acland's access for free (1 year subscription with Acland's is normally $99.95).
+
+    %p{style: "margin-top: 30px;"}
+      - if current_user
+        = link_to "https://www.aclandanatomy.com", class: "btn btn-large", target: "_blank" do
+          %i.icon-arrow-right
+          Go to Acland
+      - else
+        = link_to "Join Now", signup_path, class: "btn btn-large"
+  .span4
+    = image_tag('acland.jpg')
+
+= content_for :footer do
+  = render 'layouts/footer'

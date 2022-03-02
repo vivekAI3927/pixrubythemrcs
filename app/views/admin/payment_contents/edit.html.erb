@@ -1,0 +1,2 @@
+<%= render partial: "admin/breadcrumbs/breadcrumb", locals: {path: "payment_contents", title: "Payment Contents", current_page: "Edit Payment Contents"} %>
+<%= render partial: 'form', locals: {url: admin_payment_content_path(@payment_content.id), method: :put} %>

@@ -1,0 +1,62 @@
+<%= render partial: "admin/breadcrumbs/breadcrumb", locals: {path: "email_formats", title: "Emails", current_page: "Email"} %>
+<%= form_for(@email_format, as: @email_format, url: admin_email_format_path(@email_format.id), html: { method: :put, :class => "p-20" }) do |f| %>
+  <div class="row">
+    <div class="col-sm-12">
+      <div class="panel panel-default">
+         <div class="panel-heading">
+           <h4 class="panel-title">Edit Email</h4>
+        </div>
+        <div class="panel-body">
+          <div class="row">  
+            <div class="form-group col-sm-12">
+              <label for="reg_input_name">Exam Reminder</label>
+              <%=f.text_area :exam_reminder, id: "editor_exam_reminder", :placeholder => "Enter Content" %>
+            </div>
+          </div>  
+          <div class="row">
+            <div class="form-group col-sm-12">
+              <label for="reg_input_name">Not Join Message</label>
+               <%=f.text_area :not_join_message,id: "editor_not_join_message", :placeholder => "Enter Content" %>
+            </div>
+          </div>
+          <div class="row">
+            <div class="form-group col-sm-12">
+              <label for="reg_input_name">Paid Message</label>
+              <%=f.text_area :paid_message, id: "editor_paid_message", :placeholder => "Enter Image Text" %>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-sm-12 text-center">
+              <%= link_to "Cancel", :back, {:class=>"btn join_btn admin-submit-btn"} %>
+              <%= f.submit "Submit", :class=>"btn join_btn admin-submit-btn"%>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    
+  </div>
+<%end%>
+<script type="text/javascript">
+$( document ).on('turbolinks:load', function() {
+console.log("It works on each visit!")
+$('.ckeditor1').ckeditor({
+// optional config
+});
+})
+</script>
+<script>
+  CKEDITOR.replace('editor_exam_reminder', {
+    height: 250,
+    extraPlugins: 'colorbutton,colordialog'
+  });
+  CKEDITOR.replace('editor_not_join_message', {
+    height: 250,
+    extraPlugins: 'colorbutton,colordialog'
+  });
+  CKEDITOR.replace('editor_paid_message', {
+    height: 250,
+    extraPlugins: 'colorbutton,colordialog'
+  });
+</script>   
+         

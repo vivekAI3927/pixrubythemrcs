@@ -1,0 +1,212 @@
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.3.0/css/datepicker.min.css">
+<% @privacy_term =  PrivacyTerm.where(status: true).last %>
+<section class="organic-breadcrumb">
+  <div class="container">
+    <div class="breadcrumb-banner d-flex flex-wrap align-items-center justify-content-end">
+      <div class="col-first">
+        <h1>Sign Up</h1>
+      </div>
+    </div>
+  </div>
+</section>
+<div class="container">
+  <div class="sign-form signup-form">
+    <%= form_for(resource, as: resource_name, url: registration_path(resource_name), html: {class: "simple_form form-horizontal"}) do |f| %>
+      <%#= render "devise/shared/error_messages", resource: resource %>
+      <div class="form-group">
+        <label class="feld-nm">Name:</label>
+        <%= f.text_field :name, autofocus: true, placeholder: "Enter Name", class: "form-control" %>
+        <div class="error"><%= 'Name '+ f.object.errors[:name].join(', ') if f.object.errors[:name].present?  %></div>
+      </div>
+      <div class="form-group">
+        <label class="feld-nm">Email Address:</label>
+        <%= f.email_field :email, autofocus: true, placeholder: "Enter Email", autocomplete: "email", class: "form-control" %>
+          <div class="error"><%= 'Email '+  f.object.errors[:email].join(', ') if f.object.errors[:email].present?  %></div>
+      </div>
+      <div class="form-group">
+        <label class="feld-nm">Password:</label>
+        <%= f.password_field :password, autocomplete: "new-password", placeholder: "Enter Password",  class: "form-control", :required=>'required' %>
+        <div class="error"><%= 'Password '+ f.object.errors[:password].join(', ') if f.object.errors[:password].present?  %></div>
+      </div>
+      <div class="form-group">
+        <label class="feld-nm">Confirm Password:</label>
+        <%= f.password_field :password_confirmation, autocomplete: "new-password", placeholder: "Confirm Password",class: "form-control", :required=>'required' %>
+        <div class="error"><%= 'Password confirmation '+ f.object.errors[:password_confirmation].join(', ') if f.object.errors[:password_confirmation].present?  %></div>
+      </div>
+      <div class="form-group">
+        <label class="feld-nm">Country:</label>
+        <%= f.country_select :country, {priority_countries: ["GB"]}, { class: 'form-control' } %>
+        <div class="error"><%= 'Country '+ f.object.errors[:country].join(', ') if f.object.errors[:country].present?  %></div>
+      </div>
+      <div class="form-group">
+        <label class="feld-nm">How did you hear about us?
+        </label>
+        <%= f.text_field :referred_by, class: "form-control", placeholder: "Referred by" %>
+        <div class="error"><%='Referred by '+ f.object.errors[:referred_by].join(' ') if f.object.errors[:referred_by].present?  %></div>
+      </div>        
+      <div class="form-group">
+        <label class="feld-nm"> Target exam date:</label>
+        <div class="input-group date" id="datetimepicker1" data-target-input="nearest">
+          <%= f.text_field :target_exam_date, class:"form-control datetimepicker-input", 'data-target'=>"#datetimepicker1", 'data-format'=>"dd-mm-yyyy", placeholder: "Enter a date" %>
+          <div class="input-group-append" data-target="#datetimepicker1" data-toggle="datetimepicker">
+            <div class="input-group-text date-design"><i style="font-size:24px" class="fa">&#xf073;</i></div>
+          </div>
+          
+        </div>
+        <div class="error"><%= 'Target Exam Date ' +f.object.errors[:target_exam_date].join(', ') if f.object.errors[:target_exam_date].present?  %></div>
+      </div>
+      <div class="form-group">
+        <label class="feld-nm">Target Speciality:</label>
+        <%= f.collection_select :target_speciality_id, TargetSpeciality.all.order("name ASC"),:id,:name, {},include_blank: true, :class => "form-control" %>
+      </div>
+      <div class="form-group">
+          <label class="feld-nm">Membership:</label>
+         <%  Membership.on_create.order(:price).each do |membership| %>
+         <label class="radio"><%= membership.name %>
+          <%= f.radio_button :membership_id, membership.id  %>
+            <span class="checkround"></span>
+          </label>
+         <% end %>
+          <div class="error"><%= 'Membership ' + f.object.errors[:membership_id].join(' ') if f.object.errors[:membership_id].present? %></div>
+      </div>
+      <div class="form-group">
+        <div class="row">
+          <div class="col-xs-12 col-sm-12 checkbx-align">
+            <table>
+              <tbody>
+                <!-- <div>
+                  <label for="chkTypeOfReportError"><input type="checkbox" id="chkTypeOfReportError" name="label[]" value="Error" required> By clicking here you agree to our: <a class="trms-link" href="/terms-and-privacy" target="_blank" style="text-decoration: none;"> Privacy  Terms</a></label>
+                </div> -->
+                <div>
+                  <label for="chkTypeOfReportError"><input type="checkbox" id="chkTypeOfReportError" name="label[]" value="Error" required> By clicking here you agree to our: <a class="trms-link" href="/terms-and-conditions" style="text-decoration: none;" target="_blank"> Terms & Conditions, </a> <a class="trms-link" href="/terms-and-privacy" target="_blank" style="text-decoration: none;"> Privacy, </a> <a class="trms-link" href="/community_code" style="text-decoration: none;" target="_blank"> Community Code </a>
+                    <!-- <a class="trms-link" href="/end_user_license_agreement" style="text-decoration: none;" target="_blank"> EULA</a> --> 
+                  </label>
+                </div>
+                <!-- <div>
+                  <label for="chkTypeOfReportError"><input type="checkbox" id="chkTypeOfReportError" name="label[]" value="Error" required> By clicking here you agree to our: <a class="trms-link" href="/community_code" style="text-decoration: none;" target="_blank"> Community Code</a></label>
+                </div>
+                <div>
+                  <label for="chkTypeOfReportError"><input type="checkbox" id="chkTypeOfReportError" name="label[]" value="Error" required> By clicking here you agree to our: <a class="trms-link" href="/end_user_license_agreement" style="text-decoration: none;" target="_blank"> EULA</a></label>
+                </div> -->
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+      <div class="form-group">
+        <!-- <input class="sign-frm-btn" type="submit" value="Submit"> -->
+        <input type="submit" class="sign-frm-btn" name="email_submit" value="submit"  />
+      </div>
+      <div class="form-group">
+        <div class="row">
+            <div class="col-xs-12 col-sm-12 checkbx-align">
+                <table>
+                    <tbody>
+                        <tr>
+                          <td><font>Please note: After registration you will proceed to a one-off payment.</a></font></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+      </div> 
+    <% end %>
+    <!-- <div class="modal fade" id="termconditionss" tabindex="-1" role="dialog" aria-labelledby="termconditionTitle" aria-hidden="true">
+      <div class="modal-dialog modal-dialog-centered aa" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="exampleModalLongTitle">Privacy Terms</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body" style="overflow-x: auto; max-height: 400px;">
+            <%= @privacy_term.try(:term_and_condition).try(:html_safe) %>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-warning" data-dismiss="modal">Close</button>
+          </div>
+        </div>
+      </div>
+    </div> -->
+  </div>
+    <!-------setting ends here-------->
+</div>
+
+<!-- <script type="text/javascript">
+  document
+  .querySelector('[name="user[password_confirmation]"]')
+  .addEventListener('input', check)
+
+function check() {
+  var password = document.querySelector('[name="user[password]"]')
+  var confirm = document.querySelector('[name="user[password_confirmation]"]')
+  if (
+    password.value !== confirm.value) {
+      confirm.setCustomValidity('Confirm Password does not.match Password.');
+  } else {
+    confirm.setCustomValidity('');
+  }
+}
+</script> -->
+
+
+
+<script type="text/javascript">
+  $(function() {
+      $('#datetimepicker1').datetimepicker({
+          format: 'DD/MM/YYYY'
+      });
+  });
+
+</script>
+<script type="text/javascript">
+  (function ($) {
+  $(function () {
+    var $requiredCheckboxes = $("input[type='checkbox'][required]");
+
+    /* init all checkbox lists */
+    $requiredCheckboxes.each(function (i, el) {
+      //this could easily be changed to suit different parent containers
+      var $checkboxList = $(this).closest("div, span, p, ul, td");
+
+      if (!$checkboxList.hasClass("requiredCheckboxList"))
+        $checkboxList.addClass("requiredCheckboxList");
+    });
+
+    var $requiredCheckboxLists = $(".requiredCheckboxList");
+
+    $requiredCheckboxLists.each(function (i, el) {
+      var $checkboxList = $(this);
+      $checkboxList.on("change", "input[type='checkbox']", function (e) {
+        updateCheckboxesRequired($(this).parents(".requiredCheckboxList"));
+      });
+
+      updateCheckboxesRequired($checkboxList);
+    });
+
+    function updateCheckboxesRequired($checkboxList) {
+      var $chk = $checkboxList.find("input[type='checkbox']").eq(0),
+        cblName = $chk.attr("name"),
+        cblNameAttr = "[name='" + cblName + "']",
+        $checkboxes = $checkboxList.find("input[type='checkbox']" + cblNameAttr);
+
+      if ($checkboxList.find(cblNameAttr + ":checked").length > 0) {
+        $checkboxes.prop("required", false);
+      } else {
+        $checkboxes.prop("required", true);
+      }
+    }
+
+  });
+})(jQuery);
+</script>
+<style type="text/css">
+  .date-design{
+    border: 0px !important;
+    background-color: #f2f5f6 !important;
+  }
+  .aa{
+    margin: 0rem auto 0rem !important;
+  }
+</style>

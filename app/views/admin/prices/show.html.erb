@@ -1,0 +1,56 @@
+<%= render partial: "admin/breadcrumbs/breadcrumb", locals: {path: "prices", title: "Prices", current_page: "View Price"} %>  
+<div class="content">
+  <div class="panel panel-white">
+    <div class="panel-heading admin-pannel">
+      <%= link_to "Edit Price", edit_admin_price_path(@price), class: "join_btn admin-trading-btn" %>
+      <%= link_to "Delete Price", admin_price_path(@price), data: { confirm: 'Are you sure you want to delete this price', "bootstrap-confirm": 'delete' }, method: :delete, class: "join_btn admin-trading-btn" %>
+    </div>
+    <div class="panel-body">
+      <div class="row">
+        <div class="col-sm-12">
+          <form class="form-horizontal">
+            <div class="row">
+              <div class="form-group col-sm-5" >
+                <label class="col-sm-5 control-label text-muted admin_font">Id:</label>
+                <div class="form-group col-sm-6">
+                  <p class="form-control-static"><%= @price.id %></p>
+                </div>
+              </div>
+              <div class="form-group col-sm-5" >
+                <label class="col-sm-5 control-label text-muted admin_font">Title:</label>
+                <div class="form-group col-sm-6">
+                  <p class="form-control-static"><%= @price.title %></p>
+                </div>
+              </div>
+            </div>
+            <div id="header"></div>
+            <div class="row">
+              <div class="form-group col-sm-5" >
+                <label class="col-sm-5 control-label text-muted admin_font">Price:</label>
+                <div class="form-group col-sm-6">
+                  <p class="form-control-static"><%= @price.price %></p>
+                </div>
+              </div>
+              <div class="form-group col-sm-5">
+                <label class="col-sm-5 control-label text-muted admin_font">Status:</label>
+                <div class="form-group col-sm-6">
+                  <p class="form-control-static"><%=@price.status %></p>
+                </div>
+              </div>
+            </div>
+            <div id="header"></div>
+            <div class="row">
+              <div class="form-group col-sm-5">
+                <label class="col-sm-5 control-label text-muted admin_font">Icon:</label>
+                <div class="form-group col-sm-6">
+                  <p class="form-control-static"><%=image_tag(@price.icon.url, size: "100x100") rescue nil %></p>
+                </div>
+              </div>
+            </div>
+            <div id="header"></div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>  

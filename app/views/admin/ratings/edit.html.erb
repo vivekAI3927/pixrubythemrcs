@@ -1,0 +1,46 @@
+<%= render partial: "admin/breadcrumbs/breadcrumb", locals: {path: "ratings", title: "Ratings", current_page: "Edit Rating"} %>
+<%= form_for(@rating, as: @rating, url: admin_rating_path(@rating), html: { method: :put, :class => "p-20" }) do |f| %>
+  <div class="row">
+    <div class="col-sm-12">
+      <div class="panel panel-default">
+         <div class="panel-heading">
+           <h4 class="panel-title">Edit Rating</h4>
+        </div>
+        <div class="panel-body">
+          <div class="row">  
+            <div class="form-group col-sm-6">
+              <label for="reg_input_name" class="req">Question</label>
+              <%= f.collection_select :question_id, Question.all.order(:content),:id,:content, {},
+                                                           include_blank: true, :class => "form-control" %>
+            </div>
+            <div class="form-group col-sm-6">
+              <label for="reg_input_name" class="req">Station</label>
+              <%= f.collection_select :station_id, Station.all.order(:title),:id,:title, {},
+                                                           include_blank: true, :class => "form-control" %>
+            </div>
+          </div>  
+          <div class="row">
+         
+            <div class="form-group col-sm-12">
+              <label for="reg_input_name" class="req">Review</label>
+              <%=f.text_area :review, :class => "form-control", rows: 5,id: "review",  "data-validation-confirm" => "required" %>
+              <div class = "error error_msg"><%= @rating.errors.messages[:review][0] %></div>
+            </div>
+          </div>
+          <div class="row">
+            <div class="form-group col-sm-6">
+              <label for="reg_input_name" class="req">User</label>
+              <%= f.collection_select :user_id, User.all.order(:name),:id,:name, {},
+                                                           include_blank: true, :class => "form-control" %>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-sm-12 text-center">
+              <%= f.submit "Submit", :class=>"btn join_btn admin-submit-btn"%>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+<% end %>

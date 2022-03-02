@@ -1,0 +1,29 @@
+<%= render partial: "admin/breadcrumbs/breadcrumb", locals: {path: "parta/questions", title: "Part A Questions", current_page: "New Question"} %>
+
+<%= render partial: 'form', locals: {url: '/admin/parta/questions', method: :post} %> 
+
+
+
+<style type="text/css">
+  .req:after {
+  content: "*";
+  font-size: 15px;
+  color: #cc0000;
+  padding-left: 4px;
+}
+</style>
+<script>
+  CKEDITOR.replace('editor_answer_text', {
+    height: 250,
+    extraPlugins: 'colorbutton,colordialog'
+  });
+  CKEDITOR.replace('editor_image_text', {
+    height: 250,
+    extraPlugins: 'colorbutton,colordialog'
+  });
+  CKEDITOR.replace('editor_content', {
+    height: 250,
+    extraPlugins: 'colorbutton,colordialog'
+  });
+</script> 
+          

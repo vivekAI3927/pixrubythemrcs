@@ -1,0 +1,23 @@
+# == Schema Information
+#
+# Table name: teams
+#
+#  id         :bigint           not null, primary key
+#  name       :string
+#  title      :string
+#  image      :string
+#  created_at :datetime         not null
+#  updated_at :datetime         not null
+#  bio        :text
+#  position   :integer
+#
+
+one:
+  name: MyString
+  title: MyString
+  image: MyString
+
+two:
+  name: MyString
+  title: MyString
+  image: MyString

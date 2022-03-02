@@ -1,0 +1,302 @@
+<%#= render partial: "admin/breadcrumbs/breadcrumb", locals: {path: "parta/categories", title: "Part A Categories", current_page: "View Category"} %> 
+<div class="page-header">
+  <div class="breadcrumb-line upper_header">
+    <ul class="breadcrumb" style="height: 34px;">
+      <li style="margin-top: 9px;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<%=link_to "HOME", "/admin", :class=>"fa fa-home" %></li>
+      <li><a href="/admin/parta/categories"><b>Part A Categories</b></a></li>
+      <li><a href="#" data-toggle="modal" data-target="#addquestion"><b><i>Add a new question for this part a category</i></b></a></li>
+    </ul>
+    <a class="breadcrumb-elements-toggle"><i class="icon-menu-open"></i></a>
+  </div>
+</div><br>
+
+<div class="content">
+  <div class="panel panel-white">
+    <div class="panel-heading admin-pannel">
+      <%= link_to "Edit Category", edit_admin_parta_category_path(@parta_category.id), class: "join_btn admin-trading-btn" %>
+    </div>
+    <div class="panel-body">
+      <div class="row">
+        <div class="col-sm-12">
+          <form class="form-horizontal">
+            <div class="row">
+              <div class="form-group col-sm-5" >
+                <label class="col-sm-5 control-label text-muted admin_font">Id.:</label>
+                <div class="form-group col-sm-6">
+                  <p class="form-control-static"><%= @parta_category.id %></p>
+                </div>
+              </div>
+              <div class="form-group col-sm-5" >
+                <label class="col-sm-5 control-label text-muted admin_font">Name:</label>
+                <div class="form-group col-sm-6">
+                  <p class="form-control-static"><%= @parta_category.name %></p>
+                </div>
+              </div>
+            </div>
+            <div id="header"></div>
+            <div class="row">
+              <div class="form-group col-sm-5">
+                <label class="col-sm-5 control-label text-muted admin_font">Created At:</label>
+                <div class="form-group col-sm-6">
+                  <p class="form-control-static"><%=@parta_category.created_at.strftime("%d-%m-%Y") rescue nil %></p>
+                </div>
+              </div>
+              <div class="form-group col-sm-5" >
+                <label class="col-sm-5 control-label text-muted admin_font">Updated At:</label>
+                <div class="form-group col-sm-6">
+                  <p class="form-control-static"><%=@parta_category.updated_at.strftime("%d-%m-%Y") rescue nil %></p>
+                </div>
+              </div>
+            </div>
+            <div id="header"></div>
+            <div class="row">
+              <div class="form-group col-sm-5" >
+                <label class="col-sm-5 control-label text-muted admin_font">Image:</label>
+                <div class="form-group col-sm-6">
+                  <p class="form-control-static"><td width="15%">
+                    <%= link_to image_tag(@parta_category.image.url, alt: "Facebook", :class=> "category-img-circular"), @parta_category.image.url, target: :_blank  rescue nil %>
+                      </td>
+                  </p>
+                </div>
+              </div>
+              <div class="form-group col-sm-5">
+                <label class="col-sm-5 control-label text-muted admin_font">Position:</label>
+                <div class="form-group col-sm-6">
+                  <p class="form-control-static"><%= @parta_category.position %></p>
+                </div>
+              </div>
+            </div>
+            <div id="header"></div>
+            <div class="row">
+              <div class="form-group col-sm-5">
+                <label class="col-sm-5 control-label text-muted admin_font">Childrens</label>
+                <div class="form-group col-sm-6">
+                  <% @parta_category.childrens.each do |children| %>
+                  <p class="form-control-static"><%= @children.name rescue nil %></p>
+                  <% end %>
+                </div>
+              </div>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<% @parta_category.questions.order(:position).each_with_index do |part_a_question, index| %>
+  <div class="page-header">
+    <br>
+    <div class="content">
+      <div class="panel panel-white">
+        <div class="panel-heading">
+          <h6 class="panel-title"> <b><i>Question <%= index + 1 %></i></b>  / <b><i><%= link_to "Edit this question", edit_admin_parta_question_path(part_a_question, via_station: "true"), style: "color: white;" %></i></b> / <b><i><%= link_to "Remove Question", admin_parta_question_destroy_question_path(part_a_question),data: { confirm: 'Are you sure you want to delete question ', "bootstrap-confirm": 'delete' }, method: :delete, style: "color: white;" %> </i></b> / <b><i><%= link_to "Move up", admin_parta_question_move_up_path(part_a_question.id), style: "color: white;" %></i></b> / <b><i><%= link_to "Move down", admin_parta_question_move_down_path(part_a_question.id), style: "color: white;" %></i></b>
+          </h6>
+        </div>
+        <div class="panel-body">
+          <div class="row">
+            <div class="col-sm-12">
+              <form class="form-horizontal">
+                <div class="row">
+                  <div class="form-group col-sm-5" >
+                    <label class="col-sm-5 control-label text-muted admin_font">Id.:</label>
+                    <div class="form-group col-sm-6">
+                      <p class="form-control-static"><%= part_a_question.id %></p>
+                    </div>
+                  </div>
+                </div>
+                <div id="header"></div>
+                <div class="row">  
+                  <div class="form-group col-sm-12" >
+                    <label class="col-sm-12 control-label text-muted admin_font">Content:</label>
+                    <div class="form-group col-sm-12">
+                      <p class="form-control-static"><%= part_a_question.content.html_safe %></p>
+                    </div>
+                  </div>
+                </div>
+                <div id="header"></div>
+                <div class="row">
+                  <div class="form-group col-sm-5" >
+                    <label class="col-sm-5 control-label text-muted admin_font">Position:</label>
+                    <div class="form-group col-sm-6">
+                      <p class="form-control-static"><%= part_a_question.position %></p>
+                    </div>
+                  </div>
+                  <div class="form-group col-sm-5">
+                    <label class="col-sm-5 control-label text-muted admin_font">Part A Category:</label>
+                    <div class="form-group col-sm-6">
+                      <p class="form-control-static"><%= part_a_question.parta_category.name rescue nil %></p>
+                    </div>
+                  </div>
+                </div>
+                <div id="header"></div>
+                <div class="row">
+                  <div class="form-group col-sm-12">
+                    <label class="col-sm-12 control-label text-muted admin_font">Image Text:</label>
+                    <div class="form-group col-sm-12">
+                      <p class="form-control-static"><%= part_a_question.image_text.html_safe rescue nil%></p>
+                    </div>
+                  </div>
+                </div>
+                <div id="header"></div>
+                <div class="row">
+                  <div class="form-group col-sm-12" >
+                    <label class="col-sm-12 control-label text-muted admin_font">Answer Text:</label>
+                    <div class="form-group col-sm-12">
+                      <p class="form-control-static"><%= part_a_question.answer_text.html_safe %></p>
+                    </div>
+                  </div>
+                </div>
+                <div id="header"></div>
+                <div class="row">
+                  <div class="form-group col-sm-5">
+                    <label class="col-sm-5 control-label text-muted admin_font">Image:</label>
+                    <div class="form-group col-sm-6">
+                      <p class="form-control-static">
+                        <%= link_to image_tag(part_a_question.image.url, alt: "Facebook", :class=> "category-img-circular"), part_a_question.image.url, target: :_blank rescue nil%>
+                      </p>
+                    </div>
+                  </div>
+                  <div class="form-group col-sm-5" >
+                    <label class="col-sm-5 control-label text-muted admin_font">Answer Image:</label>
+                    <div class="form-group col-sm-6">
+                      <p class="form-control-static">
+                        <%= link_to image_tag(part_a_question.answer_image.url, alt: "Facebook", :class=> "category-img-circular"), part_a_question.answer_image.url, target: :_blank rescue nil%>
+                      </p>
+                    </div>
+                  </div>
+                </div>
+                <div id="header"></div>
+                <div class="row">
+                  <div class="form-group col-sm-5">
+                    <label class="col-sm-5 control-label text-muted admin_font">Created At:</label>
+                    <div class="form-group col-sm-6">
+                      <p class="form-control-static"><%=@question.created_at.strftime("%d-%m-%Y") rescue nil %></p>
+                    </div>
+                  </div>
+                  <div class="form-group col-sm-5" >
+                    <label class="col-sm-5 control-label text-muted admin_font">Updated At:</label>
+                    <div class="form-group col-sm-6">
+                      <p class="form-control-static"><%=@question.updated_at.strftime("%d-%m-%Y") rescue nil %></p>
+                    </div>
+                  </div>
+                </div>
+                <div id="header"></div>
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+  </div>
+<% end %>  
+
+
+<div id="addquestion" class="modal fade" role="dialog">
+  <div class="modal-dialog">
+      <!-- Modal content-->
+    <div class="modal-content">
+        <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal">&times;</button>
+            <h4 class="modal-title" style="text-align-last: center">Id: <%= @parta_category.id %></h4>
+        </div>
+        <div class="modal-body">
+          <%= form_for @question, :url => '/admin/parta/questions', :html => { :multipart => true, :class => "p-20" } do |f| %>
+            <%= f.hidden_field :via_station, :value => "true" %>
+            <div class="row">
+              <div class="col-sm-12">
+                <div class="panel panel-default">
+                   <div class="panel-heading">
+                     <h4 class="panel-title">Add New Question</h4>
+                  </div>
+                  <div class="panel-body">
+                    <div class="row">  
+                      <div class="form-group col-sm-12">
+                        <label for="reg_input_name" class="req">Content</label>
+                        <%=f.text_area :content, :class=>"form-control", id: "editor_content", :required=>'required', :placeholder => "Enter Content" %>
+                        <div class = "error error_msg"><%= @question.errors.messages[:content][0] %></div>
+                      </div>
+                    </div>
+                    <div class="row">
+                      <div class="form-group col-sm-6">
+                        <label for="reg_input_name" class="req">Position</label>
+                        <%=f.number_field :position, :class => "form-control", :placeholder => "Enter Position", id: "position"  %>
+                        <div class = "error error_msg"><%= @question.errors.messages[:position][0] %></div>
+                      </div>
+                      <div class="form-group col-sm-6">
+                        <label for="reg_input_name">Answer Image</label>
+                        <%=f.file_field :answer_image, :class=>"form-control" %>
+                        <div class = "error error_msg"><%= @question.errors.messages[:answer_image][0] %></div>
+                      </div>
+                    </div>
+                    <div class="row">  
+                      <div class="form-group col-sm-12">
+                        <label for="reg_input_name" class="req">Answer Text</label>
+                         <%=f.text_area :answer_text, :class => "form-control",id: "editor_answer_text", :placeholder => "Enter Answer Text" %>
+                          <div class="content_answer_text error_msg"></div> 
+                        <div class = "error error_msg"><%= @question.errors.messages[:answer_text][0] %></div>
+                      </div>
+                    </div>
+                    <div class="row">
+                      <div class="form-group col-sm-6">
+                        <label for="reg_input_name">Image</label>
+                        <%=f.file_field :image, :class=>"form-control" %>
+                        <div class = "error error_msg"><%= @question.errors.messages[:image][0] %></div>
+                      </div>
+                    </div>
+                    <div class="row">  
+                      <div class="form-group col-sm-12">
+                        <label for="reg_input_name">Image Text</label>
+                        <%=f.text_area :image_text, :class=>"form-control",id: "editor_image_text", :placeholder => "Enter Image Text" %>
+                        <div class = "error error_msg"><%= @question.errors.messages[:image_text][0] %></div>
+                      </div>
+                    </div>
+                    <div class="row">
+                       <div class="form-group col-sm-6">
+                        <%= f.hidden_field :parta_category_id, value: @parta_category.id %>
+                        <!-- <label for="reg_input_name" class="req">Select Parta Categories</label> -->
+                        <%#= f.collection_select :parta_category_id, Parta::Category.all.order(:name),:id,:name, {},
+                                                                     include_blank: true, :class => "form-control" %>
+                        <div class = "error error_msg"><%#= @category.errors.messages[:image_file_name][0] %></div>
+                      </div>
+                    </div>
+                    <div class="row">
+                      <div class="col-sm-12 text-center">
+                        <%= f.submit "Save", :class=>"btn join_btn admin-submit-btn", onClick: "return empty()"%>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          <% end %>
+        </div>
+        <div class="modal-footer">
+            <button type="button" class="btn join_btn admin-submit-btn" data-dismiss="modal">Close</button>
+        </div>
+    </div>
+  </div>
+</div>
+
+<style type="text/css">
+  .req:after {
+  content: "*";
+  font-size: 15px;
+  color: #cc0000;
+  padding-left: 4px;
+}
+</style>
+<script>
+  CKEDITOR.replace('editor_answer_text', {
+    height: 250,
+    extraPlugins: 'colorbutton,colordialog'
+  });
+  CKEDITOR.replace('editor_image_text', {
+    height: 250,
+    extraPlugins: 'colorbutton,colordialog'
+  });
+  CKEDITOR.replace('editor_content', {
+    height: 250,
+    extraPlugins: 'colorbutton,colordialog'
+  });
+</script>

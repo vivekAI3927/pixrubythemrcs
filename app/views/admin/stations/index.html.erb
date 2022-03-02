@@ -1,0 +1,73 @@
+<%= render partial: "admin/breadcrumbs/breadcrumb", locals: {path: "stations", title: "Stations", current_page: "Stations List"} %>
+<div class="content">
+  <div class="row">
+    <div class="col-sm-3">
+      <%= select_tag :title, options_for_select(Station.all.order("title ASC").collect{ |u| [u.title, u.title, :size => 22]}), {:prompt => "--Select Title--",:class =>"select_combobox form-control select-title"} %>
+      <div class="school_val_error" id="Student_courseid_em_" style="display:none">
+      </div>
+    </div>
+    <div class="col-sm-3">
+      <%= select_tag :name, options_for_select(@categories.collect{ |u| [u.name, u.id]}), {:prompt => "--Select Category--",:class =>"select_combobox form-control select-name"} %>
+    </div>
+    <div class="col-sm-6">
+      <%= form_tag @admin_stations_path,:method =>'get' do %>
+        <div class ="row">
+          <div class="col-sm-9"> 
+            <%= text_field_tag :search, params[:search],:class=>"form-control",:placeholder=>"Search by Title"%>
+          </div>
+          <div class="col-sm-3"> 
+            <%=submit_tag "Search",:class =>"btn join_btn admin-submit-btn", :style=>"margin-top: 0px;"%>
+          </div>
+        </div>
+      <%end%>
+    </div>
+  </div>
+  <br>
+  <div class="row">
+    <div class="col-sm-12">
+      <div class="grid-view table-responsive" id="student-grid">
+        <table class="items">
+          <thead>
+            <tr>
+              <th id="student-grid_c0"><%= sortable "id" %></th>
+              <th id="student-grid_c2"><%= sortable "title" %></th>
+              <th id="student-grid_c3"><%= sortable "category_id" %></th>
+              <th id="student-grid_c4"><%= sortable "trial" %></th>
+              <th id="student-grid_c5">Question count </th>
+              <th id="student-grid_c5">Last Date updated</th>
+              <th class="button-column" id="student-grid_c8">Action</th>
+            </tr>
+          </thead>
+          <tbody class="hole-list">
+            <%=render :partial=> "station_list"%>
+          </tbody>
+        </table>
+        <%if @stations.present?%>
+          <%= render partial: "admin/paginations/pagination", locals: {all_data: @stations} %>
+        <% end %>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script type="text/javascript">
+	$(document).ready(function(){
+	  $(".select-title").change(function(){
+	    $.ajax({
+	      type:"get",
+	      url:"/admin/stations/get_filter_station",
+	      data:{
+	        "title":$(this).val()
+	      }
+	    });
+	  });
+	  $(".select-name").change(function(){
+	    $.ajax({
+	      type:"get",
+	      url:"/admin/stations/get_filter_station",
+	      data:{
+	        "id":$(".select-name").val()      }
+	    });
+	  });
+	});
+</script>

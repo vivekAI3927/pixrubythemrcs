@@ -1,0 +1,116 @@
+%section.organic-breadcrumb
+  .container
+    .breadcrumb-banner.d-flex.flex-wrap.align-items-center.justify-content-end
+      .col-first
+        %h1
+          = category.name rescue nil
+        - if current_parta_user
+          .row
+            .col-md-12.text-center
+              = link_to parta_update_status_parta_category_path(category, status: CATEGORY_TODO) do
+                %span#todo{class: "badge #{@parta_category_status.todo ? 'badge-danger' : 'badge-secondary'}" } TO-DO
+              = link_to parta_update_status_parta_category_path(category, status: CATEGORY_FLAGGED) do
+                %span#flagged{class: "badge #{@parta_category_status.flagged ? 'badge-warning' : 'badge-secondary'}" } FLAGGED
+              = link_to parta_update_status_parta_category_path(category, status: CATEGORY_DONE) do
+                %span#done{class: "badge #{@parta_category_status.done ? 'badge-success' : 'badge-secondary'}" } DONE  
+%section.how-it-works.pt-done
+  .container.theme-bg.question_bd_format
+    .row             
+      .col-md-12
+        #category_advice
+          %h4 Overall score
+          - percentage = category.correct_ans_percentage(category.id, current_parta_user.id) rescue nil
+          %section.account-inner-sec.cat-inner-section
+            .bs-example
+              %span
+                .progress
+                  .progress-bar.bg-warning{"aria-valuemax" => "100", "aria-valuemin" => "0", "aria-valuenow" => "#{percentage}", :role => "progressbar", :style => "width: #{percentage}%;"}  #{percentage}%
+- if @question.present?                  
+  - if Parta::AnswersOption.all.where(question_id: @question.id, user_id: current_parta_user.id).present?                   
+    %section.how-it-works.pt-done
+      .container.theme-bg.question_bd_format
+        .row             
+          .col-md-12
+            #category_advice
+              %h4 Question stats
+              - all_users = Parta::AnswersOption.all.where(question_id: @question.id).count
+              - answers = @question.answers
+              - correct_answer = @question.answers.where(correct: true).last
+              - answers.order("id ASC").each_with_index do |ans, index|
+                %div.parta-account-inner-sec
+                  /= ('a'..'z').to_a[index].capitalize
+                  - how_many_users_attempt_this_question = Parta::AnswersOption.where(question_id: @question.id, answer_id: ans.id).count
+                  - actual_percentage = ((how_many_users_attempt_this_question.to_f/all_users.to_f)*100)
+                  - percentage = sprintf "%.2f", actual_percentage
+                  - if (correct_answer.id == ans.id)
+                    %span
+                      .progress
+                        .progress-bar{"aria-valuemax" => "100", "aria-valuemin" => "0", "aria-valuenow" => "#{percentage}", :role => "progressbar", :style => "width: #{percentage}%; background-color: #5daf5d;"} #{('a'..'z').to_a[index].capitalize} :  #{percentage}% 
+                  - else
+                    %span
+                      .progress
+                        .progress-bar{"aria-valuemax" => "100", "aria-valuemin" => "0", "aria-valuenow" => "#{percentage}", :role => "progressbar", :style => "width: #{percentage}%; background-color: #eb5555;"} #{('a'..'z').to_a[index].capitalize} : #{percentage}% 
+              %br/        
+              - answers.order("id ASC").each_with_index do |ans, index| 
+                - if (correct_answer.id == ans.id)
+                  - how_many_users_attempt_this_question = Parta::AnswersOption.where(question_id: @question.id, answer_id: ans.id).count
+                  - actual_percentage = ((how_many_users_attempt_this_question.to_f/all_users.to_f)*100)
+                  - percentage = sprintf "%.2f", actual_percentage
+                  = "#{percentage}% of users answered this question correctly"      
+
+%section.how-it-works.pt-done
+  .container.theme-bg.question_bd_format
+    %h4 Dashboard
+    .grid-container2-prta.col-md-12
+      - category.questions.order("id ASC").each_with_index do |ques, index|
+        - @question = Parta::Question.find_by(id: ques)
+        - answers = @question.answers
+        - correct_answer = @question.answers.where(correct: true).last
+        - attempt_question = Parta::AnswersOption.where(question_id: @question.id,user_id:current_parta_user.id).last rescue nil
+        %a{:href => "/parta/categories/#{category.id}/questions/#{@question.id}?position=#{index}"}
+          - if (params[:position] == index.to_s)
+            .grid-item2-parta{style: "background: #e8f0f2;"}
+              = index + 1
+              - if (attempt_question.present?) && (correct_answer.present?) && (attempt_question.answer_id.present?) && (attempt_question.answer_id == correct_answer.id)
+                %i.fa.fa-check{"aria-hidden" => "true", style: "color: green;"}
+              - elsif (attempt_question.present?) && (correct_answer.present?) && (attempt_question.answer_id.present?) && (attempt_question.answer_id != correct_answer.id)
+                %i.fa.fa-times{"aria-hidden" => "true", style: "color: red;"}
+              - else
+                %i.fas.fa-question-circle
+          - else
+            .grid-item2-parta.ans_hover
+              = index + 1
+              - if (attempt_question.present?) && (correct_answer.present?) && (attempt_question.answer_id.present?) && (attempt_question.answer_id == correct_answer.id)
+                %i.fa.fa-check{"aria-hidden" => "true", style: "color: green;"}
+              - elsif (attempt_question.present?) && (correct_answer.present?) && (attempt_question.answer_id.present?) && (attempt_question.answer_id != correct_answer.id)
+                %i.fa.fa-times{"aria-hidden" => "true", style: "color: red;"}
+              - else
+                %i.fas.fa-question-circle       
+                     
+%section.how-it-works.part-aquestion.pb-50
+  .container.theme-bg.question_bd_format
+    .row
+      .col-md-12.next_question_scroll
+        Question #{@pos} of  #{category.questions.count}
+        %br/
+        %h3
+          %small
+            = question.content.html_safe rescue nil
+            %hr
+    .row
+      .col-md-12
+        - if question.present? && question.image?
+          = image_tag question.image.url, style: "max-width: 100%; height:auto;"
+          %hr/
+
+    = render 'parta/categories/parta_question', :question => question, :category => category, pos: @pos
+
+    %hr/
+
+
+    // modals for showing the markscheme, actor brief, exam brief
+:javascript
+  $(document).ready(function () {
+    $('html, body').animate({scrollTop: $('.next_question_scroll').offset().top - 122 }, 1000);
+  })
+  

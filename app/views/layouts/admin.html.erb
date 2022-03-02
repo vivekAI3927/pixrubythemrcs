@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html>
+<head>
+   <%= stylesheet_link_tag 'admin',
+'https://fonts.googleapis.com/css?family=Open+Sans:400&subset=latin',
+ media: 'all', 'data-turbolinks-track' => true %>
+ <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.13/css/all.css" integrity="sha384-DNOHZ68U8hZfKXOrtjWvjxusGo9WQnrNx2sqG0tfsghAvtVlRW3tvkXWZh58N9jp" crossorigin="anonymous">
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+
+    <!-- Include style per-controller - vendor plugins -->
+    <%#= stylesheet_link_tag params[:controller] if ::Rails.application.assets.find_asset("#{params[:controller]}.css") %>
+    <!-- Main css styles -->
+    <%= stylesheet_link_tag    'admin', media: 'all', 'data-turbolinks-track' => true %>
+    <!-- <script src="https://cdn.ckeditor.com/4.14.0/standard/ckeditor.js"></script> -->
+    <script src="https://cdn.ckeditor.com/4.14.0/standard-all/ckeditor.js"></script>
+    <link rel="icon" type="image/png" sizes="32x32" href="/new_favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="/new_favicon-16x16.png">
+    <!-- Main javascript files -->
+    <%= javascript_include_tag 'admin', 'data-turbolinks-track' => true %>
+    <%= csrf_meta_tags %>
+
+
+</head>
+
+<body>
+<!-- Skin configuration box -->
+<!-- <%#= render 'layouts/skinconfig' %> -->
+
+    <!-- Wrapper-->
+    <div id="wrapper" class="<%= params[:controller] %>.<%= params[:action] %>">
+
+        <!-- Navigation -->
+        <%= render 'layouts/navigation' %>
+
+        <!-- Page wraper -->
+        <div id="page-wrapper" class="gray-bg <%= @extra_class %>">
+
+            <!-- Page wrapper -->
+            <%= render 'layouts/topnavbar' %>
+            <%= render :partial => 'layouts/flash_messages'%>
+            <!-- Main view  -->
+            <%= yield %>
+
+            <!-- Footer -->
+            <%#= render 'layouts/footer' %>
+
+        </div>
+        <!-- End page wrapper-->
+
+        <!-- Right sidebar -->
+        <%#= render 'layouts/rightsidebar' %>
+
+    </div>
+    <!-- End wrapper-->
+
+    <!-- Include javascript per-controller - vendor plugins -->
+    <%#= javascript_include_tag params[:controller] if ::Rails.application.assets.find_asset("#{params[:controller]}.js") %>
+
+    <!-- Include javascript per-view -->
+    <!-- For demo purpose we include javascript in view but you can easily start SeedProject and organize it with Rails asset pipeline as you want -->
+    <%= yield :javascript %>
+
+</body>
+</html>
+<script type="text/javascript">
+  $('document').ready(function() {
+  setTimeout(function() {
+    $('#flash').slideUp();
+  }, 3000);
+});
+  $(".alert" ).fadeOut(5000);
+   $(".alert-success" ).fadeOut(5000);
+   $(".alert-danger" ).fadeOut(5000);
+</script>

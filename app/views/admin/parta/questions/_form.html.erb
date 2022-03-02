@@ -1,0 +1,79 @@
+<%= nested_form_for @question, :url => url, :html => { :multipart => true, :class => "p-20" } do |f| %>
+  <div class="row">
+    <div class="col-sm-12">
+      <div class="panel panel-default">
+         <div class="panel-heading">
+           <h4 class="panel-title">Add New Question</h4>
+        </div>
+        <div class="panel-body">
+          <div class="row">  
+            <div class="form-group col-sm-12">
+              <label for="reg_input_name" class="req">Content</label>
+              <%=f.text_area :content, :class=>"form-control", id: "editor_content", :required=>'required', :placeholder => "Enter Content" %>
+              <div class = "error error_msg"><%= @question.errors.messages[:content][0] %></div>
+            </div>
+          </div>
+          <div class="row">
+            <div class="form-group col-sm-6">
+              <label for="reg_input_name" class="req">Position</label>
+              <%=f.number_field :position, :class => "form-control", :placeholder => "Enter Position", id: "position"  %>
+              <div class = "error error_msg"><%= @question.errors.messages[:position][0] %></div>
+            </div>
+            <div class="form-group col-sm-6">
+              <label for="reg_input_name">Answer Image</label>
+              <%=f.file_field :answer_image, :class=>"form-control" %>
+              <div class = "error error_msg"><%= @question.errors.messages[:answer_image][0] %></div>
+            </div>
+          </div>
+          <div class="row">  
+            <div class="form-group col-sm-12">
+              <label for="reg_input_name" class="req">Answer Text</label>
+               <%=f.text_area :answer_text, :class => "form-control",id: "editor_answer_text", :placeholder => "Enter Answer Text" %>
+                <div class="content_answer_text error_msg"></div> 
+              <div class = "error error_msg"><%= @question.errors.messages[:answer_text][0] %></div>
+            </div>
+          </div>
+          <div class="row">
+            <div class="form-group col-sm-6">
+              <label for="reg_input_name">Image</label>
+              <%=f.file_field :image, :class=>"form-control" %>
+              <div class = "error error_msg"><%= @question.errors.messages[:image][0] %></div>
+            </div>
+          </div>
+          <div class="row">  
+            <div class="form-group col-sm-12">
+              <label for="reg_input_name">Image Text</label>
+              <%=f.text_area :image_text, :class=>"form-control",id: "editor_image_text", :placeholder => "Enter Image Text" %>
+              <div class = "error error_msg"><%= @question.errors.messages[:image_text][0] %></div>
+            </div>
+          </div>
+          <div class="row">
+             <div class="form-group col-sm-6">
+              <label for="reg_input_name" class="req">Select Parta Categories</label>
+              <%= f.collection_select :parta_category_id, Parta::Category.all.order(:name),:id,:name, {},include_blank: true, :class => "form-control" %>
+              <div class = "error error_msg"><%#= @category.errors.messages[:image_file_name][0] %></div>
+            </div>
+          </div>
+
+          <div class="row">
+             <div class="form-group col-sm-6">
+              <label for="reg_input_name" class="req">Add Answers </label>
+              <%= f.fields_for :answers do |builder| %>
+                <%= render 'answer', f: builder %>
+              <% end %>
+              <div class = "error error_msg"><%#= @category.errors.messages[:image_file_name][0] %></div>
+              <p><%= f.link_to_add "Add more answers", :answers, class: "btn btn-primary" %></p>
+
+            </div>
+          </div>
+
+          <div class="row">
+            <div class="col-sm-12 text-center">
+              <%= f.submit "Save", :class=>"btn join_btn admin-submit-btn", onClick: "return empty()"%>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+<%end%>

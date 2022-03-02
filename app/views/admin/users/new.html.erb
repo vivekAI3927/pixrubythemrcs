@@ -1,0 +1,86 @@
+<%= render partial: "admin/breadcrumbs/breadcrumb", locals: {path: "users", title: "Users", current_page: "New User"} %>
+<%= form_for @user, :url => '/admin/users', :html => { :multipart => true, :class => "p-20" } do |f| %>
+  <div class="row">
+    <div class="col-sm-12">
+      <div class="panel panel-default">
+         <div class="panel-heading">
+           <h4 class="panel-title">Add New User</h4>
+        </div>
+        <div class="panel-body">
+          <div class="row">  
+            <div class="form-group col-sm-6">
+              <label for="reg_input_name" class="req">Name</label>
+              <%=f.text_field :name, :class=>"form-control",:placeholder => "Enter Name" %>
+              <div class = "error error_msg"><%= @user.errors.messages[:name][0] %></div>
+            </div>
+            <div class="form-group col-sm-6">
+              <label for="reg_input_name" class="req">Email</label>
+              <%=f.email_field :email, :class=>"form-control",:placeholder => "Enter Email"  %>
+              <div class = "error error_msg"><%= @user.errors.messages[:email][0] %></div>
+            </div>
+          </div>  
+          <div class="row">
+            <div class="form-group col-sm-6">
+              <label for="reg_input_name" class="req">Password</label>
+              <%=f.password_field :password, :class => "form-control",id: "password", "data-validation" => "required", :placeholder => "Enter Password"  %>
+              <div class = "error error_msg"><%= @user.errors.messages[:password][0] %></div>
+
+              <div class="school_val_error" id="Department_department_name_em_" style="display:none"></div>
+            </div>
+            <div class="form-group col-sm-6">
+              <label for="reg_input_name" class="req">Password Confirmation</label>
+
+               <%=f.password_field :password_confirmation, :class => "form-control",id: "password_confirmation",  "data-validation-confirm" => "required", :placeholder => "Enter Password Confirmation"  %>
+                    <div class = "error error_msg"><%= @user.errors.messages[:password_confirmation][0] %></div>
+
+              <div class="school_val_error" id="Department_department_name_em_" style="display:none"></div>
+            </div>
+          </div>
+          <div class="row">
+            <div class="form-group col-sm-6">
+
+              <label for="reg_input_name" class="reg">Membership</label>
+             <%= f.select :membership_id,Membership.available.order(:price).collect {|p| [ p.name, p.id] }, {}, class: 'form-control' %>
+
+            <!--  
+             <label for="reg_input_name" class="reg">How did you hear about us?</label>
+              <%#=f.text_field :referred_by, :class=>"form-control" %>
+              <div class="school_val_error" id="Department_department_name_em_" style="display:none"></div> -->
+            </div>
+            <div class="form-group col-sm-6">
+             <label for="reg_input_name" class="reg">Subscribed on</label>
+              <%=f.date_field :subscribed_on, :class=>"form-control" %>
+            </div>
+            
+          </div>
+          <div class="row">
+            
+            <div class="form-group col-sm-6">
+              <label for="reg_input_name" class="req">Target Exam Date</label>
+              <%=f.date_field :target_exam_date, :class=>"form-control" %>
+              <div class = "error error_msg"><%= @user.errors.messages[:target_exam_date][0] %></div>
+            </div>
+            <div class="form-group col-sm-6">
+             <label for="reg_input_name" class="reg">Country</label>
+              <%= f.country_select :country, {priority_countries: ["GB"]}, { class: 'form-control' } %>
+                <div class="error error_msg"><%= 'Country '+ f.object.errors[:country].join(', ') if f.object.errors[:country].present?  %></div>
+            </div> 
+          </div>
+          <div class="row">
+            <div class="form-group col-sm-6">
+              <label class="reg">Target Speciality:</label>
+              <%= f.collection_select :target_speciality_id, TargetSpeciality.all.order("name ASC"),:id,:name, {},include_blank: true, :class => "form-control" %>
+            </div>
+          </div>   
+
+          <div class="row">
+            <div class="col-sm-12 text-center">
+              <%= f.submit "Save", :class=>"btn join_btn admin-submit-btn"%>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    
+  </div>
+<% end %>

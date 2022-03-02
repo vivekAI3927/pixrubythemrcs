@@ -1,0 +1,31 @@
+#questions
+	- if question
+		%div{data: {toggle: "collapse", target: "#answer"}}
+			.row
+				.col-md-12
+					#question_container
+						%h3
+						 = "Question #{question.position}"
+						 %span.small= "out of #{question.station.questions.count}"
+
+						= question.content.html_safe
+		#answer.collapse{"data-status" => question.string_last?(question.station)}
+			%hr
+			.row-
+				.span6
+					%h4= question.answer_text.html_safe
+			.row-fluid
+				.span6
+					- unless question.last?(station)
+						=link_to station_question_path(station, question.next), class: "btn btn-large", style: "margin-top: 30px;" do
+							Next question
+							%i.icon-arrow-right
+					- else
+						- if current_user
+							= link_to categories_path, class: "btn trading-btn btn-large" do
+								%i.icon-share-alt.icon-white
+								Return to module list
+						- else
+							= link_to '/', class: "btn trading-btn btn-large" do
+								%i.icon-share-alt.icon-white
+								RETURN TO HOME PAGE

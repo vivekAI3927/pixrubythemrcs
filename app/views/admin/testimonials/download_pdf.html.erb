@@ -1,0 +1,49 @@
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
+
+<div class="container">
+  <h2>Testimonial Details</h2>
+  <h2><%= @testimonial.author %></h2>
+  <table class="table">
+    <tbody>
+      <tr class=" table-success">
+        <td style="font-weight:bold">Id</td>
+        <td><%= @testimonial.id %></td>
+        <td></td>
+      </tr>
+      <tr class=" table-danger">
+        <td style="font-weight:bold">Name</td>
+        <td><%= @testimonial.author %></td>
+        <td></td>
+      </tr>
+      <tr class=" table-success">
+        <td style="font-weight:bold">Content:</td>
+        <td><%= @testimonial.content %></td>
+        <td></td>
+      </tr>
+       <tr class=" table-info">
+        <td style="font-weight:bold">Created At</td>
+        <td><%=@testimonial.created_at.strftime("%b %d, %Y %l:%M") rescue nil %></td>
+        <td></td>
+      </tr>
+      <tr class=" table-warning">
+        <td style="font-weight:bold">Updated At</td>
+        <td><%=@testimonial.updated_at.strftime("%b %d, %Y %l:%M") rescue nil %></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+<style type="text/css">
+    #header { 
+        border-bottom: 1px solid #DDDDDD; 
+    }
+    .category-img-circular{
+     width: 100px;
+     height: 100px;
+     background-size: cover;
+     display: block;
+     border-radius: 100px;
+     -webkit-border-radius: 100px;
+     -moz-border-radius: 100px;
+    }
+</style>

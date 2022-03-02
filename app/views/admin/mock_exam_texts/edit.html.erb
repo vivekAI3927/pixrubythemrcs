@@ -1,0 +1,2 @@
+<%= render partial: "admin/breadcrumbs/breadcrumb", locals: {path: "mock_exam_texts", title: "Mock Exam Text", current_page: "Edit Mock Exam Text"} %>
+<%= render partial: 'form', locals: {url: admin_mock_exam_text_path(@mock_exam_text.id), method: :put} %>          

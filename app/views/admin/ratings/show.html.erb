@@ -1,0 +1,72 @@
+<%= render partial: "admin/breadcrumbs/breadcrumb", locals: {path: "ratings", title: "Ratings", current_page: "View Rating"} %>
+  <div class="content">
+    <div class="panel panel-white">
+      <div class="panel-heading">
+        <h6 class="panel-title">Rating Details</h6>
+      </div>
+      <div class="panel-body">
+        <div class="row">
+          <div class="col-sm-12">
+            <form class="form-horizontal">
+              <div class="row">
+                <div class="form-group col-sm-5" >
+                  <label class="col-sm-5 control-label text-muted admin_font">Id.:</label>
+                  <div class="form-group col-sm-6">
+                    <p class="form-control-static"><%= @rating.id %></p>
+                  </div>
+                </div>
+                <div class="form-group col-sm-5" >
+                  <label class="col-sm-5 control-label text-muted admin_font">Question:</label>
+                  <div class="form-group col-sm-6">
+                    <p class="form-control-static"><%= @rating.question.content.html_safe %></p>
+                  </div>
+                </div>
+              </div>
+              <div id="header"></div>
+              <div class="row">
+                <div class="form-group col-sm-5" >
+                  <label class="col-sm-5 control-label text-muted admin_font">Station:</label>
+                  <div class="form-group col-sm-6">
+                    <p class="form-control-static"><%= @rating.station.title %></p>
+                  </div>
+                </div>
+               
+              </div>
+              <div id="header"></div>
+              <div class="row">
+                <div class="form-group col-sm-5">
+                  <label class="col-sm-5 control-label text-muted admin_font">Review:</label>
+                  <div class="form-group col-sm-6">
+                    <p class="form-control-static"><%=@rating.review %></p>
+                  </div>
+                </div>
+                <div class="form-group col-sm-5" >
+                  <label class="col-sm-5 control-label text-muted admin_font">User:</label>
+                  <div class="form-group col-sm-6">
+                    <p class="form-control-static"><%= @rating.user.name %></p>
+                  </div>
+                </div>
+              </div>
+              <div id="header"></div>
+              <div class="row">
+                <div class="form-group col-sm-5">
+                  <label class="col-sm-5 control-label text-muted admin_font">Created At:</label>
+                  <div class="form-group col-sm-6">
+                    <p class="form-control-static"><%=@rating.created_at.strftime("%d-%m-%Y") rescue nil %></p>
+                  </div>
+                </div>
+                <div class="form-group col-sm-5" >
+                  <label class="col-sm-5 control-label text-muted admin_font">Updated At:</label>
+                  <div class="form-group col-sm-6">
+                    <p class="form-control-static"><%=@rating.updated_at.strftime("%d-%m-%Y") rescue nil %></p>
+                  </div>
+                </div>
+              </div>
+              
+              <div id="header"></div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+</div>  

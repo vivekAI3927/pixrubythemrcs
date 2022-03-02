@@ -1,0 +1,49 @@
+<%= render partial: "admin/breadcrumbs/breadcrumb", locals: {path: "payment_contents", title: "Payment Contents", current_page: "View Payment Contents"} %>  
+<div class="content">
+    <div class="panel panel-white">
+      <div class="panel-heading admin-pannel">
+        <%= link_to "Edit Payment Contents", edit_admin_payment_content_path(@payment_content), class: "join_btn admin-trading-btn" %>
+      </div>
+      <div class="panel-body">
+        <div class="row">
+          <div class="col-sm-12">
+            <form class="form-horizontal">
+              <div class="row">
+                <div class="form-group col-sm-5" >
+                  <label class="col-sm-5 control-label text-muted admin_font">Id.:</label>
+                  <div class="form-group col-sm-6">
+                    <p class="form-control-static"><%= @payment_content.id %></p>
+                  </div>
+                </div>
+                <div class="form-group col-sm-5" >
+                  <label class="col-sm-5 control-label text-muted admin_font">Stripe:</label>
+                  <div class="form-group col-sm-6">
+                    <p class="form-control-static"><%= @payment_content.stripe.html_safe %></p>
+                  </div>
+                </div>
+              </div>
+              <div id="header"></div>
+              <div class="row">
+                <div class="form-group col-sm-5" >
+                  <label class="col-sm-5 control-label text-muted admin_font">Paypal:</label>
+                  <div class="form-group col-sm-5">
+                    <p class="form-control-static"><%= @payment_content.paypal.html_safe %></p>
+                  </div>
+                </div>
+              </div>
+               <div id="header"></div>
+              <div class="row">
+                <div class="form-group col-sm-5" >
+                  <label class="col-sm-5 control-label text-muted admin_font">Discount:</label>
+                  <div class="form-group col-sm-5">
+                    <p class="form-control-static"><%= @payment_content.discount.html_safe %></p>
+                  </div>
+                </div>
+              </div>
+              <div id="header"></div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+</div>  

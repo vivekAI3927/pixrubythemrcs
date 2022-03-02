@@ -1,0 +1,19 @@
+<div class="row">
+	<div class="col-md-4">
+	<%= f.label :content, "Answer" %>
+	<%= f.text_field :content, class: "form-control" %>
+	</div>
+	<div class="col-md-4">
+	<%#= f.radio_button :correct, true %>
+	<%= radio_button_tag "question[answers_attributes][correct]", f.index, f.object.correct, required: true %>
+	<%#= radio_button_tag "parta_question[answers_attributes]#{f.index}[correct]",f.index, f.object.correct %>
+	<%= f.label :correct, "correct" %>
+	</div>
+	<div class="col-md-4">
+	 <%= f.link_to_remove "Remove this Answer", class: "btn btn-primary" %>
+
+	</div>
+</div>
+
+
+

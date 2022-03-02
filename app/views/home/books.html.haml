@@ -1,0 +1,28 @@
+:javascript
+  $(document).ready(function(){
+    $('ul.nav li.active').removeClass('active');
+    $('li#books').addClass('active')
+  })
+
+.hero-unit
+  %h1 Books - Special Offers
+- if @books.empty?
+  %h6 No books currently available
+- else
+  - @books.each do |book|
+    .row-fluid{style: "margin: 20px 0px;"}
+      .span8
+        %h2= book.name
+        %h4= number_to_currency(book.cost, unit: "£")
+        .books_content
+          = book.description).html_safe
+        .buy_book
+          - if current_user
+            = link_to 'Buy Now', book.paypal_url(books_url), class: "btn btn-large btn-danger"
+          - else
+            = link_to "Login to buy books", new_session_path, class: "btn btn-large btn-danger"
+      .span4
+        - if book.image?
+          = image_tag(book.image, size: "260x180")
+        - else
+          %img{src: "https://placeholder.it/260x180"}

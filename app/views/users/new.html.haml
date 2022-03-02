@@ -1,0 +1,100 @@
+= stylesheet_link_tag "//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css"
+
+:javascript
+  $(document).ready(function(){
+    $('ul.nav li.active').removeClass('active');
+    $('li#register').addClass('active')
+  })
+
+
+.page-header
+  %h1
+    Registration
+    %small
+      You are nearly there...
+
+.row-fluid
+  .span4
+    #registation-form.well
+      = simple_form_for @user do |f|
+        =f.input :name
+        =f.input :email
+        =f.input :password
+        =f.input :password_confirmation, label: 'Confirm password'
+        =f.input :country, priority: ['United Kingdom']
+        =f.input :referred_by, label: "How did you hear about us?"
+        =f.input :target_exam_date, input_html: {class: "datepicker1"}, as: :string, placeholder: "dd/mm/yyyy"
+        =f.association :membership, collection: Membership.available.order(:price), as: :radio_buttons
+
+        =f.submit 'Register', class: 'btn btn-large'
+
+        %p
+          Please note: After registration is complete you will proceed to a one-off payment.
+  .span4#membership-benefits
+    %h2 Membership Benefits
+    #tick-container
+      .tick-element
+        .tick
+          %i.icon-ok
+        .tick-text-container
+          %h4 Targeted revision
+          %p based on themes from recent MRCS Part B OSCEs
+      .tick-element
+        .tick
+          %i.icon-ok
+        .tick-text-container
+          %h4 All your revision in one place
+          %p allowing you to work as efficiently as possible
+      .tick-element
+        .tick
+          %i.icon-ok
+        .tick-text-container
+          %h4 Simple, intuitive interface
+          %p that adapts to your learning style
+      .tick-element
+        .tick
+          %i.icon-ok
+        .tick-text-container
+          %h4 Anatomy in 3D
+          %p Access Acland for free
+      .tick-element
+        .tick
+          %i.icon-ok
+        .tick-text-container
+          %h4 Guaranteed
+          %p Free renewal if you don't pass first time          
+      .tick-element
+        .tick
+          %i.icon-ok
+        .tick-text-container
+          %h4 Use your study leave budget
+          %p
+            %a{href: "https://passmrcs-production.s3.amazonaws.com/Using%20study%20budget%20for%20Pass%20the%20MRCS.pdf",target:"_blank"}
+              Download the PDF
+
+  .span4
+    #registration-description
+      %p
+        We believe Pass the MRCS is the most relevant resource available for the MRCS Part B OSCE and one that will provide you with the core revision material you need to pass the exam first time.
+
+      %p
+        We provide you with well over 3000 questions based specifically on recent MRCS Part B OSCEs. Each is accompanied by a model answer and extensive teaching notes which build to form a key reference library for your revision.
+
+      %p
+        Access the first site of its kind and start revising quickly and efficiently towards MRCS success!
+      %p
+        If you need access for a different period of time or for a group, please contact us directly by emailing <a href="mailto:contact@passthemrcs.co.uk">contact@passthemrcs.co.uk</a>
+      %h3 Current Membership Options
+      %ul.membership_options
+        - Membership.available.each do |option|
+          %li= "#{number_to_currency(option.price, unit: '£', precision: 0)} for #{option.length} months"
+
+= content_for :footer do
+  = render 'layouts/footer'
+
+:javascript
+  $(document).ready(function(){
+    $('.datepicker1').datepicker({
+      dateFormat: 'dd/mm/yy'
+    });
+  });

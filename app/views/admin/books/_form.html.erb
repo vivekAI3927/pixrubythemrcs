@@ -1,0 +1,65 @@
+<%= form_for @book, :url => url, :html => { :multipart => true, :class => "p-20" },  method: method do |f| %>
+  <div class="row">
+    <div class="col-sm-12">
+      <div class="panel panel-default">
+         <div class="panel-heading">
+           <h4 class="panel-title">Book</h4>
+        </div>
+        <div class="panel-body">
+          <div class="row">  
+            <div class="form-group col-sm-6">
+              <label for="reg_input_name" class="req">Name</label>
+              <%=f.text_field :name, :class=>"form-control", :placeholder => "Enter Name" %>
+              <div class = "error error_msg"><%= @book.errors.messages[:name][0] %></div>
+            </div>
+            <div class="form-group col-sm-6">
+              <label for="reg_input_name">Image</label>
+              <%=f.file_field :image_file_name, :class=>"form-control" %>
+              <div class = "error error_msg"><%= @book.errors.messages[:image][0] %></div>
+            </div>
+           
+          </div>  
+          <div class="row">
+            <div class="form-group col-sm-6">
+              <label for="reg_input_name">Cost</label>
+              <%=f.text_field :cost, :class => "form-control",id: "cost", :placeholder => "Enter Cost"%>
+               <div class = "error error_msg"><%= @book.errors.messages[:cost][0] %></div>
+            </div>
+            <div class="form-group col-sm-6">
+              <label for="reg_input_name" class="req">Link</label>
+               <%=f.text_field :link, :class => "form-control",id: "link", :placeholder => "Enter Link"%>
+               <div class = "error error_msg"><%= @book.errors.messages[:link][0] %></div>
+            </div>
+          </div>
+          <div class="row">
+             <div class="form-group col-sm-12">
+              <label for="reg_input_name" class="req">Description</label>
+              <%=f.text_area :description, :class => "form-control", :placeholder => "Enter Description"  %>
+              <div class = "error error_msg"><%= @book.errors.messages[:description][0] %></div>
+            </div> 
+          </div>
+           <div class="row">
+            <div class="form-group col-sm-6">
+              <label for="reg_input_name">Available</label>
+              <%= f.check_box :available %>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-sm-12 text-center">
+              <%= f.submit "Submit", :class=>"btn btn-info"%>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+<% end %>
+
+<style type="text/css">
+  .req:after {
+  content: "*";
+  font-size: 15px;
+  color: #cc0000;
+  padding-left: 4px;
+}
+</style>          

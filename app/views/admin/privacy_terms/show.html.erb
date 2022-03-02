@@ -1,0 +1,34 @@
+<%= render partial: "admin/breadcrumbs/breadcrumb", locals: {path: "privacy_terms", title: "Privacy", current_page: "Privacy"} %> 
+<div class="content">
+    <div class="panel panel-white">
+      <div class="panel-heading admin-pannel">
+        <%= link_to "Edit Privacy", edit_admin_privacy_term_path(@privacy_term), class: "join_btn admin-trading-btn" %>
+      </div>
+      <div class="panel-body">
+        <div class="row">
+          <div class="col-sm-12">
+            <form class="form-horizontal">
+              <div class="row">
+                <div class="form-group col-sm-5" >
+                  <label class="col-sm-5 control-label text-muted admin_font">Id.:</label>
+                  <div class="form-group col-sm-6">
+                    <p class="form-control-static"><%= @privacy_term.id %></p>
+                  </div>
+                </div>
+              </div>
+              <div id="header"></div>
+              <div class="row">
+                <div class="form-group col-sm-12" >
+                  <label class="col-sm-12 control-label text-muted admin_font">Privacy:</label>
+                  <div class="form-group col-sm-12">
+                    <p class="form-control-static"><%= @privacy_term.term_and_condition.html_safe %></p>
+                  </div>
+                </div>
+              </div>
+              <div id="header"></div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+</div>  

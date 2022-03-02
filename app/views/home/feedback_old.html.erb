@@ -1,0 +1,93 @@
+<script type="text/javascript">
+  $(document).ready(function(){
+    $('ul.nav li.active').removeClass('active');
+    $('li#feedback').addClass('active')
+  })
+</script>
+
+<div class="row-fluid">
+  <div class="span12">
+    <div class="well">
+      <h1>Review us</h1>
+    </div>
+  </div>
+</div>
+<br>
+<div class='row-fluid'>
+  <div class='span8'>
+    <p>
+      We're always very keen to hear feedback (good or bad) from our members, as this allows us to improve the website. If you have five minutes, please take the survey below and/or provide feedback via email to <%= mail_to "contact@passthemrcs.co.uk" %><br><br>
+  <a class="btn btn-large" href="https://www.surveymonkey.co.uk/r/6B39SNC" target="_blank">Take the survey</a>
+    </p>
+  </div>
+</div><br>
+
+<div class="row-fluid">
+  <div class="span12">
+    <div class="well">
+      <h1>Recommend us</h1>
+    </div>
+  </div>
+</div>
+<br>
+<div class='row-fluid'>
+  <div class='span8'>
+    <p>
+      We rely on your recommendations. If you have found this website useful, please recommend us to colleagues preparing to sit the MRCS Part B exam.<br><br>
+    </p> 
+    <p> 
+      If you would like to be an official rep for this website, please see the "Join us" section below.
+    </p>
+  <!-- <a class="btn btn-large" href="/recommend" target="_blank">Recommend us</a> -->
+    </p>
+  </div>
+</div><br>
+<div class="row-fluid">
+  <div class="span12">
+    <div class="well">
+      <h1>Join us</h1>
+    </div>
+  </div>
+</div>
+<br>
+<div class='row-fluid'>
+  <div class='span8'>
+    <p>
+     We’re looking for people that are passionate about improving MRCS Part B revision resources and people who can represent this website to prospective MRCS Part B candidates.<br></p>
+    <p>
+      If this is you, please send an email to <br>
+      <%= mail_to "contact@passthemrcs.co.uk" %> with subject title “Join us”.<br>
+    </p>
+    <p>
+      Please tell us a little bit about yourself, including when you passed the MRCS Part B, which country you’re based in and what you would like to do with us (include any relevant experience).<br>
+    </p>
+    <p>
+      All work is remote and flexible to fit your current schedule.
+    </p>
+  </div>
+</div><br>
+<hr>
+<footer>
+            <p>
+              <a href="/about-us"><img alt="Logo" src="/assets/logo.png">
+              </a>
+            </p>
+            <p>
+              <a href="https://www.facebook.com/PassTheMRCS/" target="_blank">
+                <img alt="facebook" src="https://i.site.pictures/RALuu.jpg" width="50" height="67">
+              </a>
+            </p>
+            <p>
+              Copyright 2012-2020 All rights reserved.
+            </p>
+            <p>
+              <a href="/terms-and-conditions">Terms and Conditions</a>
+            </p>
+            <p>
+              <a href="mailto:contact@passthemrcs.co.uk">contact@passthemrcs.co.uk</a>
+            </p>
+            <p class="developed_by">
+              Developed by
+              <a href="https://podmedics.org">the Podmedics</a>
+            </p>
+          </footer>

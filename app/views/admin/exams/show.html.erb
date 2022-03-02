@@ -1,0 +1,61 @@
+<%= render partial: "admin/breadcrumbs/breadcrumb", locals: {path: "exams", title: "Exams", current_page: "View Exam"} %>  
+<div class="content">
+  <div class="panel panel-white">
+    <div class="panel-heading">
+      <h6 class="panel-title">Exam Details</h6>
+    </div>
+    <div class="panel-body">
+      <div class="row">
+        <div class="col-sm-12">
+          <form class="form-horizontal">
+            <div class="row">
+              <div class="form-group col-sm-5" >
+                <label class="col-sm-5 control-label text-muted admin_font">Id.:</label>
+                <div class="form-group col-sm-6">
+                  <p class="form-control-static"><%= @exam.id %></p>
+                </div>
+              </div>
+              <div class="form-group col-sm-5" >
+                <label class="col-sm-5 control-label text-muted admin_font">User:</label>
+                <div class="form-group col-sm-6">
+                  <p class="form-control-static"><%= @exam.user.name %></p>
+                </div>
+              </div>
+            </div>
+            <div id="header"></div>
+            <div class="row">
+              <div class="form-group col-sm-5">
+                <label class="col-sm-5 control-label text-muted admin_font">Created At:</label>
+                <div class="form-group col-sm-6">
+                  <p class="form-control-static"><%=@exam.created_at.strftime("%d-%m-%Y") rescue nil %></p>
+                </div>
+              </div>
+              <div class="form-group col-sm-5" >
+                <label class="col-sm-5 control-label text-muted admin_font">Updated At:</label>
+                <div class="form-group col-sm-6">
+                  <p class="form-control-static"><%=@exam.updated_at.strftime("%d-%m-%Y") rescue nil %></p>
+                </div>
+              </div>
+            </div>
+            <div id="header"></div>
+            <div class="row">
+              <div class="form-group col-sm-5" >
+                <label class="col-sm-5 control-label text-muted admin_font">Current Station:</label>
+                <div class="form-group col-sm-6">
+                  <p class="form-control-static"><%= @exam.current_station %></p>
+                </div>
+              </div>
+              <div class="form-group col-sm-5">
+                <label class="col-sm-5 control-label text-muted admin_font">Stations:</label>
+                <div class="form-group col-sm-6">
+                  <p class="form-control-static"><%= @exam.stations %></p>
+                </div>
+              </div>
+            </div>
+            <div id="header"></div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>  

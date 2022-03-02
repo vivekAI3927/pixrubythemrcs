@@ -1,0 +1,121 @@
+%section.faq.account-inner-sec{style: "padding: 5px 30px 25px;"}
+  .container
+    .row
+      .bs-example
+        #accordionExample.accordion
+          - childrens.each do |children|
+            - questions = children.questions
+            - if current_parta_user
+              - parta_category_status = children.parta_category_status(current_parta_user)
+              - if parta_category_status.blank? 
+                - parta_category_status = children.update_status(current_parta_user, 'TO-DO')          
+            .card{style: "padding-bottom: 10px !important; padding-top: 10px !important;"}
+              #headingTwo.card-header
+                %h2.mb-0
+                  %button.btn.btn-link{"data-target" => "#demo#{children.id}", "data-toggle" => "collapse", :type => "button"}
+                    .row
+                      .col-md-8
+                        = children.name
+                      .col-md-4.badge-smoll
+                        - if current_parta_user
+                          - @parta_cat_category_status = children.parta_cat_category_status(current_parta_user)
+                          - if @parta_cat_category_status.blank? 
+                            - @parta_cat_category_status = children.update_status(current_parta_user, 'TO-DO')
+                          .row
+                            .col-md-12.text-center
+                              = link_to parta_cat_update_status_parta_category_path(children, status: CATEGORY_TODO) do
+                                %span#todo{class: "badge #{@parta_cat_category_status.todo ? 'badge-danger' : 'badge-secondary'}" } TO-DO
+                              = link_to parta_cat_update_status_parta_category_path(children, status: CATEGORY_FLAGGED) do
+                                %span#flagged{class: "badge #{@parta_cat_category_status.flagged ? 'badge-warning' : 'badge-secondary'}" } FLAGGED
+                              = link_to parta_cat_update_status_parta_category_path(children, status: CATEGORY_DONE) do
+                                %span#done{class: "badge #{@parta_cat_category_status.done ? 'badge-success' : 'badge-secondary'}" } DONE
+
+                        / - if current_parta_user
+                        /   -if parta_category_status.status=='DONE'
+                        /     %span{class: "badge badge-success"}
+                        /       = parta_category_status.status
+                        /   - else
+                        /     %span{class: "badge #{@parta_category_status.status=='TO-DO' ? 'badge-danger' : 'badge-warning'}"}
+                        /       = parta_category_status.status
+                    %i.fa.fa-plus
+                    - status = parta_tracker_flag(children, current_parta_user)
+                    - if status == NOT_STARTED
+                      - if status == NOT_STARTED
+                        = link_to "#", remote: true do
+                          %span.tracker.tracker_not_started{:id => "#{children.id}", :title => NOT_STARTED}
+                      - elsif status == STARTED
+                        = link_to "#", remote: true do
+                          %span.tracker.tracker_started{:id => "#{children.id}", :title => "Nearly there"}
+                      - elsif status == "Completed"
+                        = link_to "#", remote: true do
+                          %span.tracker.tracker_completed{:id => "#{children.id}", :title => "Complete...nice one!"}
+                      %i.fa.fa-plus
+              .collapseTwo.collapse{"aria-labelledby" => "headingTwo", :id => "demo#{children.id}"}
+                %p
+                  = children.description.html_safe
+                  = link_to('PRACTICE ALL', "#",  {class: 'join_btn trading-btn', "data-target" => "#practice_all_question", "data-toggle" => "modal", :href => "#" }) 
+                .card-body.sub_cat{:style => "padding: 0px !important; border-bottom: 0px"}
+                  /- @category = Parta::Category.friendly.find_by(id: children)
+                  /- @all_childrens = @category.childrens
+                  - children.childrens.each do |leve3_children|
+                    - questions = leve3_children.questions
+                    - if current_parta_user
+                      - parta_category_status = leve3_children.parta_category_status(current_parta_user)
+                      - if parta_category_status.blank? 
+                        - parta_category_status = leve3_children.update_status(current_parta_user, 'TO-DO')          
+                    .card{style: "border-bottom: 1px solid #a7a2a2 !important;"}
+                      #headingTwo.card-header
+                        %h2.mb-0
+                          %button.btn.btn-link{"data-target" => "#demo#{children.id}", "data-toggle" => "collapse", :type => "button", style: "padding-left: 10px !important;"}
+                            .row
+                              .col-md-8
+                                = leve3_children.name
+                              .col-md-2
+                                = link_to "PRACTICE", parta_category_path(leve3_children), class: "join_btn btn-large parta-practice-btn page-scroll", id: "next_question_link"
+                              .col-md-2.badge-smoll
+                                - if current_parta_user
+                                  -if parta_category_status.status=='DONE'
+                                    %span{class: "badge badge-success"}
+                                      = parta_category_status.status
+                                  - else
+                                    %span{class: "badge #{parta_category_status.status=='TO-DO' ? 'badge-danger' : 'badge-warning'}"}
+                                      = parta_category_status.status
+                            - status = parta_tracker_flag(leve3_children, current_parta_user)
+                            - if status == NOT_STARTED
+                              - if status == NOT_STARTED
+                                = link_to "#", remote: true do
+                                  %span.tracker.tracker_not_started{:id => "#{leve3_children.id}", :title => NOT_STARTED}
+                              - elsif status == STARTED
+                                = link_to "#", remote: true do
+                                  %span.tracker.tracker_started{:id => "#{leve3_children.id}", :title => "Nearly there"}
+                              - elsif status == "Completed"
+                                = link_to "#", remote: true do
+                                  %span.tracker.tracker_completed{:id => "#{leve3_children.id}", :title => "Complete...nice one!"}
+              #practice_all_question.modal.fade{:role => "dialog"}
+                .modal-dialog
+                  .modal-content
+                    .modal-header
+                      %button.close{"data-dismiss" => "modal", :type => "button"} ×
+                      %h4.modal-title{:style => "text-align-last: center"} Practice All
+                    .modal-body
+                      %p
+                        = "Question Type"
+                        = form_for "question", :url => "/parta/categories/#{@category.id}/practice_all", :html => { :class => "p-20" },  method: "get" do |f|
+                          %select#practice_all{:name => "practice_all", class: "form-control"}
+                            %option{:value => "new_question"} Show me new questions only
+                            %option{:value => "marked_incorrect"} Repeat questions marked incorrect
+                          %br/  
+                          = f.submit "Submit", class: "btn join_btn parta_submit_btn"
+                    .modal-footer
+                      %button.btn.pop_up_close_btn.pop_up_btn{"data-dismiss" => "modal", :type => "button"} Close      
+
+
+                  / %h5
+                  /   Number of Questions: #{questions.count} 
+                  / = link_to "START OSCE", parta_category_path(children), id: "image_clicker", class: "no-highlight join_btn trading-btn"
+                  / = link_to "Key information", station_question_path(children, questions.last), class: "no-highlight join_btn trading-btn" rescue nil
+
+:javascript
+  $("body").on("click","[data-toggle='collapse']" ,function () {  
+    $(".collapse").collapse("hide")
+  });

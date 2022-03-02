@@ -1,0 +1,56 @@
+<%= render partial: "admin/breadcrumbs/breadcrumb", locals: {path: "feedbacks", title: "Feedbacks", current_page: "View Feedback"} %>
+<div class="content">
+    <div class="panel panel-white">
+      <div class="panel-heading admin-pannel">
+        <%= link_to "Edit Feedback", edit_admin_feedback_path(@feedback), class: "join_btn admin-trading-btn" %>
+        <%= link_to "Delete Feedback", admin_feedback_path(@feedback), data: { confirm: 'Are you sure you want to delete this feedback', "bootstrap-confirm": 'delete' }, method: :delete, class: "join_btn admin-trading-btn" %>
+      </div>
+      <div class="panel-body">
+        <div class="row">
+          <div class="col-sm-12">
+            <form class="form-horizontal">
+              <div class="row">
+                <div class="form-group col-sm-5" >
+                  <label class="col-sm-5 control-label text-muted admin_font">Id.:</label>
+                  <div class="form-group col-sm-6">
+                    <p class="form-control-static"><%= @feedback.id %></p>
+                  </div>
+                </div>
+                <div class="form-group col-sm-5" >
+                  <label class="col-sm-5 control-label text-muted admin_font">Name.:</label>
+                  <div class="form-group col-sm-6">
+                    <p class="form-control-static"><%= @feedback.name %></p>
+                  </div>
+                </div>
+              </div>
+              <div id="header"></div>
+              <div class="row">
+                <div class="form-group col-sm-12" >
+                  <label class="col-sm-12 control-label text-muted admin_font"> Description:</label>
+                  <div class="form-group col-sm-12">
+                    <p class="form-control-static"><%= @feedback.description.html_safe %></p>
+                  </div>
+                </div>
+              </div>
+              <div id="header"></div>
+              <div class="row">
+                <div class="form-group col-sm-5" >
+                  <label class="col-sm-5 control-label text-muted admin_font"> Star Rating:</label>
+                  <div class="form-group col-sm-6">
+                    <p class="form-control-static"><%= @feedback.star_rating %></p>
+                  </div>
+                </div>
+                <div class="form-group col-sm-5">
+                  <label class="col-sm-5 control-label text-muted admin_font">Status:</label>
+                  <div class="form-group col-sm-6">
+                    <p class="form-control-static"><%=@feedback.status %></p>
+                  </div>
+                </div>
+              </div>
+              <div id="header"></div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+</div>  

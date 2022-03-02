@@ -1,0 +1,86 @@
+<%= render partial: "admin/breadcrumbs/breadcrumb", locals: {path: "resources", title: "Resouces", current_page: "View Resource"} %>  
+<div class="content">
+    <div class="panel panel-white">
+      <div class="panel-heading admin-pannel">
+        <%= link_to "Edit Resource", edit_admin_resource_path(@resource), class: "join_btn admin-trading-btn" %>
+        <%= link_to "Delete Resource", admin_resource_path(@resource), data: { confirm: 'Are you sure you want to delete this resource', "bootstrap-confirm": 'delete' }, method: :delete, class: "join_btn admin-trading-btn" %>
+      </div>
+      <div class="panel-body">
+        <div class="row">
+          <div class="col-sm-12">
+            <form class="form-horizontal">
+              <div class="row">
+                <div class="form-group col-sm-5" >
+                  <label class="col-sm-5 control-label text-muted admin_font">Id.:</label>
+                  <div class="form-group col-sm-6">
+                    <p class="form-control-static"><%= @resource.id %></p>
+                  </div>
+                </div>
+                <div class="form-group col-sm-5" >
+                  <label class="col-sm-5 control-label text-muted admin_font">Name:</label>
+                  <div class="form-group col-sm-6">
+                    <p class="form-control-static"><%= @resource.title %></p>
+                  </div>
+                </div>
+              </div>
+              <div id="header"></div>
+              <div class="row">
+                <div class="form-group col-sm-12" >
+                  <label class="col-sm-12 control-label text-muted admin_font">Description:</label>
+                  <div class="form-group col-sm-12">
+                    <p class="form-control-static"><%= @resource.description.html_safe %></p>
+                  </div>
+                </div>
+              </div>
+              <div id="header"></div>
+              <div class="row">
+                <div class="form-group col-sm-5">
+                  <label class="col-sm-5 control-label text-muted admin_font">Image Updated At:</label>
+                  <div class="form-group col-sm-6">
+                    <p class="form-control-static"><%=@resource.image_updated_at.strftime("%d-%m-%Y") rescue nil %></p>
+                  </div>
+                </div>
+                <div class="form-group col-sm-5" >
+                  <label class="col-sm-5 control-label text-muted admin_font">Available:</label>
+                  <div class="form-group col-sm-6">
+                    <p class="form-control-static"><%=@resource.available %></p>
+                  </div>
+                </div>
+              </div>
+              <div id="header"></div>
+              <div class="row">
+                <div class="form-group col-sm-5">
+                  <label class="col-sm-5 control-label text-muted admin_font">Created At:</label>
+                  <div class="form-group col-sm-6">
+                    <p class="form-control-static"><%=@resource.created_at.strftime("%d-%m-%Y") rescue nil %></p>
+                  </div>
+                </div>
+                <div class="form-group col-sm-5" >
+                  <label class="col-sm-5 control-label text-muted admin_font">Updated At:</label>
+                  <div class="form-group col-sm-6">
+                    <p class="form-control-static"><%=@resource.updated_at.strftime("%d-%m-%Y") rescue nil %></p>
+                  </div>
+                </div>
+              </div>
+              <div id="header"></div>
+              <div class="row">
+                <div class="form-group col-sm-5">
+                  <label class="col-sm-5 control-label text-muted admin_font">Image:</label>
+                  <div class="form-group col-sm-6">
+                    <p class="form-control-static"><%=image_tag(@resource.image.url, size: "100x100") rescue nil %></p>
+                  </div>
+                </div>
+                <div class="form-group col-sm-5" >
+                  <label class="col-sm-5 control-label text-muted admin_font">Image File Name:</label>
+                  <div class="form-group col-sm-6">
+                    <p class="form-control-static"><%=@resource.image_file_name %></p>
+                  </div>
+                </div>
+              </div>
+              <div id="header"></div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+</div>  

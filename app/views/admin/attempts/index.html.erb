@@ -1,0 +1,101 @@
+<div class="page-header">
+  <div class="breadcrumb-line upper_header">
+    <ul class="breadcrumb" style="height: 34px;">
+     <li style="margin-top: 9px;">&nbsp;&nbsp;&nbsp; <a><%=link_to "HOME", "/admin", :class=>"fa fa-home" %></a></li>
+      <li><a href="/admin/attempts"><b>Attempts</b></a></li>
+      <li class="active">Attempt List</li>
+    </ul>
+    <a class="breadcrumb-elements-toggle"><i class="icon-menu-open"></i></a>
+  </div>
+</div>
+<br>
+<div class="content">
+  <div class="row">
+      <div class="col-sm-3">
+        <%= select_tag :user_id, options_for_select(User.all.order("name ASC").collect{ |u| [u.name, u.id, :size => 22]}), {:prompt => "--Select User--",:class =>"select_combobox form-control select-user"} %>
+        <div class="school_val_error" id="Student_courseid_em_" style="display:none">
+        </div>
+      </div>
+      <div class="col-sm-3">
+        <%= select_tag :station_in, options_for_select(Station.all.order("title ASC").collect{ |u| [u.title, u.id]}), {:prompt => "--Select Station--",:class =>"select_combobox form-control select-station_id"} %>
+      </div>
+      <div class="col-sm-6">
+      <%= form_tag "#",:method =>'get' do %>
+      <div class ="row">
+      <div class="col-sm-9"> 
+        <%= text_field_tag :search, params[:search],:class=>"form-control",:placeholder=>"Search by ..."%>
+        
+       </div>
+      <div class="col-sm-3"> 
+         <%=submit_tag "Search",:class =>"btn btn-info", :style=>"margin-top: 0px;"%>
+      </div>
+    </div>
+     <%end%>
+      </div>
+      </div>
+  </div>
+  <br>
+  <div class="row">
+    <div class="col-sm-12">
+      <div class="grid-view table-responsive" id="student-grid">
+        <table class="items">
+          <thead>
+            <tr>
+              <th id="student-grid_c0">Sl.No.</th>
+              <th id="student-grid_c2">User</th>
+              <th id="student-grid_c3">Station</th>
+              <th id="student-grid_c4">Started</th>
+              <th id="student-grid_c5">Completed</th>
+              <th class="button-column" id="student-grid_c8">Action</th>
+            </tr>
+          </thead>
+          <tbody class="hole-list">
+            <%=render :partial=> "attempt_list"%>
+          </tbody>
+        </table>
+        <%if @attempts.present?%>
+          <%= render partial: "admin/paginations/pagination", locals: {all_data: @attempts} %>
+        <% end %>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script type="text/javascript">
+	$(document).ready(function(){
+	  $(".select-user").change(function(){
+	    $.ajax({
+	      type:"get",
+	      url:"/admin/attempts/get_filter_attempt",
+	      data:{
+	        "user_id":$(this).val()
+	      }
+	    });
+	  });
+	  $(".select-station_id").change(function(){
+	    $.ajax({
+	      type:"get",
+	      url:"/admin/attempts/get_filter_attempt",
+	      data:{
+	        "station_id":$(".select-station_id").val()      }
+	    });
+	  });
+	});
+</script>
+
+<style>
+.fa {
+    font-weight: bold;
+}
+.btn {
+    position: relative;
+    border-radius: 2px;
+    margin-top: 10px;
+ }
+ 
+.col-sm-1 {
+    width: 8.3333333333%;
+    margin-left: -21px;
+    margin-top: -32px;
+}
+</style>

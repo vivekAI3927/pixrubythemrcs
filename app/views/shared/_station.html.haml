@@ -1,0 +1,50 @@
+%section.faq.account-inner-sec
+  .container
+    .row
+      .bs-example
+        #accordionExample.accordion
+          - stations.each do |station|
+            - questions = station.questions
+            - if current_user
+              - station_status = station.station_status(current_user)
+              - if station_status.blank? 
+                - station_status = station.update_status(current_user, 'TO-DO')          
+            .card
+              #headingTwo.card-header
+                %h2.mb-0
+                  %button.btn.btn-link{"data-target" => "#demo#{station.id}", "data-toggle" => "collapse", :type => "button"}
+                    .row
+                      .col-md-10
+                        = station.title
+                      .col-md-2.badge-smoll
+                        - if current_user
+                          -if station_status.status=='DONE'
+                            %span{class: "badge badge-success"}
+                              = station_status.status
+                          - else
+                            %span{class: "badge #{station_status.status=='TO-DO' ? 'badge-danger' : 'badge-warning'}"}
+                              = station_status.status
+                    %i.fa.fa-plus
+                    - status = tracker_flag(station, current_user)
+                    - if status == NOT_STARTED
+                      - if status == NOT_STARTED
+                        = link_to "#", remote: true do
+                          %span.tracker.tracker_not_started{:id => "#{station.id}", :title => NOT_STARTED}
+                      - elsif status == STARTED
+                        = link_to "#", remote: true do
+                          %span.tracker.tracker_started{:id => "#{station.id}", :title => "Nearly there"}
+                      - elsif status == "Completed"
+                        = link_to "#", remote: true do
+                          %span.tracker.tracker_completed{:id => "#{station.id}", :title => "Complete...nice one!"}
+                      %i.fa.fa-plus
+              .collapseTwo.collapse{"aria-labelledby" => "headingTwo", :id => "demo#{station.id}"}
+                .card-body
+                  %h5
+                    Number of Questions: #{questions.count} 
+                  = link_to "START OSCE", station_path(station), id: "image_clicker", class: "no-highlight join_btn trading-btn"
+                  = link_to "Key information", station_question_path(station, questions.last), class: "no-highlight join_btn trading-btn" rescue nil
+
+:javascript
+  $("body").on("click","[data-toggle='collapse']" ,function () {  
+    $(".collapse").collapse("hide")
+  });

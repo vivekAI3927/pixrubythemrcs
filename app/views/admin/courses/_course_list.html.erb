@@ -1,0 +1,21 @@
+<%@courses.each_with_index do |x,index|%>
+  <tr>
+    <td width="5%"><%= x.id %></td>
+    <td width="25%"><%= link_to x.title, admin_course_path(x) %></td>
+    <td width="15%"><%=x.created_at.strftime("%d-%m-%Y") rescue nil %></td>
+    <td width="10%"><%= x.available %></td>
+    <td width="10%"> 
+      <%if x.title.present?%>
+        <%=link_to admin_course_path(x.id) do%>
+          <span class="glyphicon glyphicon-eye-open"></span>
+        <%end%>
+        <%= link_to edit_admin_course_path(x.id) do|| %>
+          <span class="glyphicon glyphicon-pencil" style="color:#1ab394"></span>
+        <% end %>
+        <%= link_to admin_course_path(x.id), data: { confirm: 'Are you sure you want to delete course '+ x.title, "bootstrap-confirm": 'delete' }, method: :delete do|| %>
+         <span class="glyphicon glyphicon-trash" style="color:red"></span>
+        <% end %>
+      <%end%>
+    </td>
+  </tr>
+<%end%>

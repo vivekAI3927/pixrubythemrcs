@@ -1,0 +1,9 @@
+.row
+  .col-md-12.text-center
+    = link_to parta_update_status_parta_category_path(@category, status: STATION_TODO), remote: true do
+      %span#todo{class: "badge #{@parta_category_status.todo ? 'badge-danger' : 'badge-secondary'}" } TO-DO
+    = link_to parta_update_status_parta_category_path(@category, status: STATION_FLAGGED), remote: true do
+      %span#flagged{class: "badge #{@parta_category_status.flagged ? 'badge-warning' : 'badge-secondary'}" } FLAGGED
+    = link_to parta_update_status_parta_category_path(@category, status: STATION_DONE), remote: true do
+      %span#done{class: "badge #{@parta_category_status.done ? 'badge-success' : 'badge-secondary'}" } DONE
+%br/

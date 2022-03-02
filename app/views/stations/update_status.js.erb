@@ -1,0 +1,15 @@
+$('#status-links').html("<%= escape_javascript render(:partial => 'shared/status_links', station: @station )%>")
+<% if @station_status.todo %>
+  $( "#todo" ).addClass( 'badge-danger' );
+  $( "#flagged" ).removeClass( 'badge-secondary' );
+  $( "#done" ).removeClass( 'badge-secondary' );
+
+<% elsif @station_status.flagged %>
+  $( "#flagged" ).addClass( 'badge-warning' );
+  $( "#todo" ).removeClass( 'badge-secondary' );
+  $( "#done" ).removeClass( 'badge-secondary' );
+<% elsif @station_status.done %>
+  $( "#done" ).addClass( 'badge-success' );
+  $( "#flagged" ).removeClass( 'badge-secondary' );
+  $( "#todo" ).removeClass( 'badge-secondary' );
+<% end %>

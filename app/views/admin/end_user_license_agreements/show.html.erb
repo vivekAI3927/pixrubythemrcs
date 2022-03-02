@@ -1,0 +1,40 @@
+<%= render partial: "admin/breadcrumbs/breadcrumb", locals: {path: "end_user_license_agreements", title: "End User License Agreements", current_page: "View End User License Agreements"} %>  
+<div class="content">
+    <div class="panel panel-white">
+      <div class="panel-heading admin-pannel">
+        <%= link_to "Edit End User License Agreement", edit_admin_end_user_license_agreement_path(@end_user_license_agreement), class: "join_btn admin-trading-btn" %>
+      </div>
+      <div class="panel-body">
+        <div class="row">
+          <div class="col-sm-12">
+            <form class="form-horizontal">
+              <div class="row">
+                <div class="form-group col-sm-5" >
+                  <label class="col-sm-5 control-label text-muted admin_font">Id.:</label>
+                  <div class="form-group col-sm-6">
+                    <p class="form-control-static"><%= @end_user_license_agreement.id %></p>
+                  </div>
+                </div>
+                <div class="form-group col-sm-5" >
+                  <label class="col-sm-5 control-label text-muted admin_font">Title:</label>
+                  <div class="form-group col-sm-6">
+                    <p class="form-control-static"><%= @end_user_license_agreement.title %></p>
+                  </div>
+                </div>
+              </div>
+              <div id="header"></div>
+              <div class="row">
+                <div class="form-group col-sm-12" >
+                  <label class="col-sm-12 control-label text-muted admin_font">Description:</label>
+                  <div class="form-group col-sm-12">
+                    <p class="form-control-static"><%= @end_user_license_agreement.description.html_safe %></p>
+                  </div>
+                </div>
+              </div>
+              <div id="header"></div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+</div>  

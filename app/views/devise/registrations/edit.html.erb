@@ -1,0 +1,112 @@
+<section class="organic-breadcrumb">
+    <div class="container">
+        <div class="breadcrumb-banner d-flex flex-wrap align-items-center justify-content-end">
+            <div class="col-first">
+                <h1>Edit Profile</h1></div>
+        </div>
+    </div>
+</section>
+<div class="container">
+    <div class="sign-form signup-form">
+            <%= form_for(resource, as: resource_name, url: registration_path(resource_name), html: {class: "simple_form form-horizontal"}) do |f| %>
+              <%#= render "devise/shared/error_messages", resource: resource %>
+           
+            <div class="form-group">
+                <label class="feld-nm">Name:</label>
+                <%= f.text_field :name, autofocus: true, placeholder: "Enter Name", class: "form-control" %>
+                <div class="error"><%= 'Name '+ f.object.errors[:name].join(', ') if f.object.errors[:name].present?  %></div>
+            </div>
+            <div class="form-group">
+                <label class="feld-nm">Email Address:</label>
+                <%= f.email_field :email, autofocus: true, autocomplete: "email", class: "form-control" %>
+                <div class="error"><%= 'Email '+  f.object.errors[:email].join(', ') if f.object.errors[:email].present?  %></div>
+            </div>
+            <div class="form-group">
+                <label class="feld-nm">Password:</label>
+                <%= f.password_field :password, autocomplete: "new-password", class: "form-control" %>
+                <div class="error"><%= 'Password '+ f.object.errors[:password].join(', ') if f.object.errors[:password].present?  %></div>
+            </div>
+            <div class="form-group">
+                <label class="feld-nm">Confirm Password:</label>
+               <%= f.password_field :password_confirmation, autocomplete: "new-password", class: "form-control" %>
+                <div class="error"><%= 'Password confirmation '+ f.object.errors[:password_confirmation].join(', ') if f.object.errors[:password_confirmation].present?  %></div>
+            </div>
+
+            <div class="form-group">
+                <label class="feld-nm">Current Password:</label>
+               <%= f.password_field :current_password, autocomplete: "new-password", class: "form-control" %>
+
+                <div class="error"><%= 'Password confirmation '+ f.object.errors[:password_confirmation].join(', ') if f.object.errors[:password_confirmation].present?  %></div>
+            </div>
+
+            <div class="form-group">
+                <label class="feld-nm">Country:</label>
+                <%= f.country_select :country, {priority_countries: ["GB"]}, { class: 'form-control' } %>
+                <div class="error"><%= 'Country '+ f.object.errors[:country].join(', ') if f.object.errors[:country].present?  %></div>
+            </div>
+
+            <div class="form-group">
+                <label class="feld-nm">How did you hear about us?
+                      :</label>
+                <%= f.text_field :referred_by, placeholder: "Refer By", class: "form-control" %>
+                <div class="error"><%='Referred by '+ f.object.errors[:referred_by].join(' ') if f.object.errors[:referred_by].present?  %></div>
+            </div>        
+
+            <div class="form-group">
+              <label class="feld-nm"> Target exam date:</label>
+
+              <div class="input-group date" id="datetimepicker1" data-target-input="nearest">
+                <%= f.text_field :target_exam_date, class:"form-control datetimepicker-input", 'data-target'=>"#datetimepicker1", 'data-format'=>"dd-mm-yyyy" %>
+                <div class="input-group-append" data-target="#datetimepicker1" data-toggle="datetimepicker">
+
+                
+                  <div class="input-group-text"><i class="fa fa-calendar"></i></div>
+
+                </div>
+                  <div class="error"><%= 'Target Exam Date ' +f.object.errors[:target_exam_date].join(', ') if f.object.errors[:target_exam_date].present?  %></div>
+              </div>
+            </div>
+
+            <div class="form-group">
+                <label class="feld-nm">Membership:</label>
+               <%  Membership.available.order(:price).each do |membership| %>
+               <label class="radio"><%= membership.name %>
+                <%= f.radio_button :membership_id, membership.id  %>
+                  <span class="checkround"></span>
+                </label>
+               <% end %>
+                <div class="error"><%= 'Membership ' + f.object.errors[:membership_id].join(' ') if f.object.errors[:membership_id].present? %></div>
+            </div>
+            <div class="form-group">
+                <div class="row">
+                    <div class="col-xs-12 col-sm-12 checkbx-align">
+                        <table>
+                            <tbody>
+                                <tr>
+                                    <td width="18px">
+                                        <label class="check-bx">
+                                            <input type="checkbox"><span class="checkmark"></span></label>
+                                    </td>
+                                    <td><font>By clicking here you agree to our<a class="trms-link" href="#"> privacy  terms</a></font></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+            <div class="form-group">
+                <input class="sign-frm-btn" type="submit" value="Submit">
+            </div>
+        <% end %>
+    </div>
+    <!-------setting ends here-------->
+</div>
+
+<script type="text/javascript">
+  $(function() {
+      $('#datetimepicker1').datetimepicker({
+          format: 'DD/MM/YYYY'
+      });
+  });
+
+</script>

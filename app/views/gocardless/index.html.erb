@@ -1,0 +1,77 @@
+<% @payment_content = PaymentContent.last %>
+<!-- Start Banner Area -->
+<section class="organic-breadcrumb">
+  <div class="container">
+    <div class="breadcrumb-banner d-flex flex-wrap align-items-center justify-content-end">
+      <div class="col-first">
+        <h1>Thanks for registering</h1>
+        <nav >
+          <div>
+        	<a>The cost of membership is currently <strong ><%= number_to_currency(@cost, unit: "£", precision: 0) %></strong>
+           <%= membership_duration(@user) %> 
+          </a>
+        </div>
+       </nav>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="how-it-works about-box about-title marks-payment" id="how-it-works">
+  <div class="container">
+    <div class="account-inner-sec account"> 
+      <div class="row">
+        <div class="col-md-12">
+          <%= simple_form_for(@user, html: {id: "edit-membership"}) do |f|   %>
+            <div class="form-group">
+              <label class="feld-nm">
+                Current membership options:
+              </label>
+              <% if @memberships.present? %>
+                <% @memberships.each do |membership| %>
+                <label class="radio">
+                  <%= membership.name %>
+                  <%= f.radio_button :membership_id, membership.id, checked: (@user.membership == membership ? 'checked' : 'unchecked') %>
+                  <span class="checkround"></span>
+                </label>
+                <% end %>
+              <% end %>  
+            </div>
+          <% end %>
+        </div>
+        
+      </div>
+      <div  class="row">
+        <div class="col-md-6">
+          <% unless session[:cost] %>
+          <%= render 'gocardless/stripe' %>
+          <% end %>
+        </div>
+      <div class="col-md-6">
+         <%= render 'gocardless/paypal' %>
+      </div>        
+    </div>
+  </div>
+</section>
+<style type="text/css">
+  .payment-record-format{text-align: center;
+    vertical-align: middle;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  .account{padding-bottom: 40px;}
+  .marks-payment{margin: 85px;}
+  @media screen and (max-width: 575px){
+    .marks-payment {
+        margin: 0px !important;
+    }}
+</style>
+
+<script type="text/javascript">
+   $(document).ready(function() { 
+       $('input[type=radio]').change(function(){
+            $('form#edit-membership').submit();
+       });
+      });
+</script>

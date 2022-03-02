@@ -1,0 +1,24 @@
+<section class="organic-breadcrumb"><div class="container"><div class="breadcrumb-banner d-flex flex-wrap align-items-center justify-content-end"><div class="col-first"><h1>Reset Password</h1></div></div></div></section>
+
+
+<div class="container">
+  <div class="sign-form">
+    	<%= form_for(resource, as: resource_name, url: password_path(resource_name), html: { method: :post, class: "simple_form form-horizontal" }) do |f| %>
+    	<%= render "devise/shared/error_messages", resource: resource %>
+      <div class="form-group"><label class="feld-nm">Email:</label>
+      
+      	<%= f.email_field :email, autofocus: true, autocomplete: "email",class: "form-control" %>
+      </div>
+      <div class="form-group"></div>
+       <%= f.submit "RESET PASSWORD", class: "sign-frm-btn"%>
+      <br><br>
+     
+       <div class="form-group"><input class="sign-frm-btn" onclick="location.href = '/users/sign_in';" type="button" value="Cancel"></div>
+    <%end %>
+  </div>
+</div>
+<style type="text/css">
+  #error_explanation h2 {
+    display: none !important;
+  }
+</style>

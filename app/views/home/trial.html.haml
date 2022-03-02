@@ -1,0 +1,25 @@
+:javascript
+  $(document).ready(function(){
+    $('ul.nav li.active').removeClass('active');
+    $('li#trial_stations').addClass('active')
+  })
+
+.hero-unit
+  %h1 
+    Trial Stations
+    %small Try out 8 stations below and then register for access to 200+ more!
+
+.row-fluid{style: "margin: 20px 0 20px 0;"}
+  .span12
+    - if @trial_stations.empty?
+      %p.well No stations currently available
+    - else
+      %ul.thumbnails
+        - @trial_stations.each do |station|
+          %li.span3
+            = link_to station_path(station), class: "no-highlight" do
+              %div{class: cycle("red_box", "yellow_box", "green_box", "blue_box")}
+                %span= station.title
+            - if station.questions.count > 0
+              %p.key_info_skip= link_to "Skip to Key Information", station_question_path(station, station.questions.last)
+

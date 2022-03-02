@@ -1,0 +1,101 @@
+#partaquestion
+	#flash{style: "color: green;"}
+	#questions
+		- if question	
+			.row
+				.col-md-12#question_box
+					#question_container
+						.row#answer_text
+							.col-md-12
+								#explanation_container
+									- question.answers.order("id ASC").each_with_index do |ans, index|
+										- attempy_option_answer = Parta::AnswersOption.where(question_id: question.id, user_id: current_parta_user.id) rescue nil
+										- if attempy_option_answer.present?
+											- if (attempy_option_answer.last.answer_id == ans.id && ans.correct.present?)
+												%p.parta_answer.attempt_question.write_answer{"data-target" => "#modaladdquestion", "data-toggle" => "modal", :href => "#"}
+													%i.fa.fa-check{"aria-hidden" => "true"}
+													#{ans.content}
+											- elsif (attempy_option_answer.last.answer_id == ans.id && ans.correct == nil )
+												%p.parta_answer.attempt_question.wrong_answer{"data-target" => "#modaladdquestion", "data-toggle" => "modal", :href => "#"}
+													%i.fa.fa-times{"aria-hidden" => "true"}
+													#{ans.content}
+											- elsif (ans.correct.present?) 
+												%p.parta_answer.attempt_question.write_answer{"data-target" => "#modaladdquestion", "data-toggle" => "modal", :href => "#"}
+													%i.fa.fa-check{"aria-hidden" => "true"}
+													#{ans.content}
+											- else 
+												%p.parta_answer.attempt_question{"data-target" => "#modaladdquestion", "data-toggle" => "modal", :href => "#"}
+													#{ans.content}				
+										- else
+											%p.parta_answer.select_answer{:id => ans.id, :value => ans.id}
+												#{ans.content}
+								- @attempt_ans = Parta::AnswersOption.where(question_id: question.id, user_id: current_parta_user.id)
+								- if @attempt_ans.present?
+									= link_to "Reset Answer", parta_category_question_answer_option_path(category.id, question.id, @attempt_ans.last.answer_id), class: "join_btn btn-large trading-btn page-scroll", id: "next_question_link", data: { confirm: 'Are you sure you want to reset answer', "bootstrap-confirm": 'delete' }
+								- else 					
+									= form_for question, :url => "/parta/answers_options", :html => { :multipart => true, :class => "p-20", remote: true },  method: "method" do |f|
+										= f.hidden_field :answer_id, class: "form-control", value: "", id: "field1"
+										= f.hidden_field :question_id, class: "form-control", value: question.id
+										= f.hidden_field :category_id, class: "form-control", value: category.id
+										= f.hidden_field :position, class: "form-control", value: @pos
+										= f.submit "Submit", class: "parta_answer_submit parta_answer_submit_btn", onClick: "return document.getElementById('field1').value !=''"				
+							.col-md-12
+								- if question.answer_image?
+									#explanation_container.explanation-image
+										= image_tag question.answer_image.url, style: "max-width: 100%; height:auto;"
+										.annotation
+											= answer_image_annotation(question)	
+						.row
+							.col-md-12
+								- unless question.penultimate?(category)
+									= link_to "Next question", parta_category_question_path(category.id, question.next, position: @pos), class: "join_btn btn-large trading-btn page-scroll", id: "next_question_link"
+									%br/
+								= link_to "Previous question", 'javascript:history.back()', :class => 'join_btn skip-btn'
+								= link_to "RESTART", parta_category_path(category), :class => 'join_btn skip-btn que_answer'					
+								- unless question.penultimate?(category)
+									= link_to "SKIP", parta_category_question_path(category.id, question.next, position: @pos), class: "join_btn btn-large skip-btn page-scroll", id: "next_question_link"
+
+		#modaladdquestion.modal.fade{:role => "dialog"}
+			.modal-dialog
+				.modal-content
+					.modal-header
+						%button.close{"data-dismiss" => "modal", :type => "button"} ×
+						%h4.modal-title{:style => "text-align-last: center"}
+					.modal-body
+						%p
+							/= "Question:" 
+							%h4{:style => "text-align-last: center"} You have already attempt this question
+					.modal-footer
+						%button.btn.pop_up_close_btn.pop_up_btn{"data-dismiss" => "modal", :type => "button"} Close
+
+							
+- if question						
+	:javascript
+		  $(".select_answer").on('click', function(){
+			  var answer_id = this.id;
+			  $("#field1").val(answer_id);
+			  $(".select_answer").removeClass("ans_parta_active");
+			  $(this).addClass('ans_parta_active');
+			})
+
+			$(".submit_answer").on('click', function(){
+			  var answer_id = this.id;
+			  $.ajax({
+			  	type: "POST",
+			  	remote: true, 
+			    url: "/parta/answers_options",
+			    data: {
+			      answer_id: answer_id,
+			      question_id: #{question.id},
+			      category_id: #{category.id},
+			      position: #{@pos}
+			    },
+			  })
+			  / window.location.reload();
+			  location.reload(true);
+			})
+
+			if(performance.navigation.type == 2){
+			  location.reload(true);
+			}
+

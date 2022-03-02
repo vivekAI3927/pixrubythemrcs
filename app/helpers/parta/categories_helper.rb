@@ -1,0 +1,2 @@
+module Parta::CategoriesHelper
+end

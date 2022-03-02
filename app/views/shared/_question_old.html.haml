@@ -1,0 +1,8 @@
+.page-header
+	%h1
+		= link_to station.title, station_path(station)
+
+#station_info.well
+	= station.scenario_text.html_safe
+
+= render 'stations/station_question', :question => question, :station => station

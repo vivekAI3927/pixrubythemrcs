@@ -1,0 +1,3 @@
+<%= render partial: "admin/breadcrumbs/breadcrumb", locals: {path: "parta/settings", title: "Part A Home Page", current_page: "Edit Part A Home Page Text"} %> 
+<%= render partial: 'form', locals: {url: admin_parta_setting_path(@parta_home_page.id), method: :put} %>
+       

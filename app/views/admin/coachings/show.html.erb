@@ -1,0 +1,56 @@
+<%= render partial: "admin/breadcrumbs/breadcrumb", locals: {path: "coachings", title: "Coachings", current_page: "View Coaching"} %>  
+<div class="content">
+  <div class="panel panel-white">
+    <div class="panel-heading admin-pannel">
+      <%= link_to "Edit Coaching", edit_admin_coaching_path(@coaching.id), class: "join_btn admin-trading-btn" %>
+      <%= link_to "Delete Coaching", admin_coaching_path(@coaching.id), data: { confirm: 'Are you sure you want to delete this coaching', "bootstrap-confirm": 'delete' }, method: :delete, class: "join_btn admin-trading-btn" %>
+    </div>
+    <div class="panel-body">
+      <div class="row">
+        <div class="col-sm-12">
+          <form class="form-horizontal">
+            <div class="row">
+              <div class="form-group col-sm-5" >
+                <label class="col-sm-5 control-label text-muted admin_font">Id.:</label>
+                <div class="form-group col-sm-6">
+                  <p class="form-control-static"><%= @coaching.id rescue nil%></p>
+                </div>
+              </div>
+              <div class="form-group col-sm-5" >
+                <label class="col-sm-5 control-label text-muted admin_font">Title:</label>
+                <div class="form-group col-sm-6">
+                  <p class="form-control-static"><%= @coaching.title.html_safe %></p>
+                </div>
+              </div>
+            </div>
+            <div id="header"></div>
+              <div class="row">
+                <div class="form-group col-sm-5">
+                  <label class="col-sm-5 control-label text-muted admin_font">Created At:</label>
+                  <div class="form-group col-sm-6">
+                    <p class="form-control-static"><%=@coaching.created_at.strftime("%d-%m-%Y") rescue nil %></p>
+                  </div>
+                </div>
+                <div class="form-group col-sm-5" >
+                  <label class="col-sm-5 control-label text-muted admin_font">Updated At:</label>
+                  <div class="form-group col-sm-6">
+                    <p class="form-control-static"><%=@coaching.updated_at.strftime("%d-%m-%Y") rescue nil %></p>
+                  </div>
+                </div>
+              </div>
+              <div id="header"></div>
+              <div class="row">
+                <div class="form-group col-sm-12" >
+                  <label class="col-sm-12 control-label text-muted admin_font">Description:</label>
+                  <div class="form-group col-sm-12">
+                    <p class="form-control-static"><%= @coaching.description.html_safe %></p>
+                  </div>
+                </div>
+              </div>
+              <div id="header"></div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>  

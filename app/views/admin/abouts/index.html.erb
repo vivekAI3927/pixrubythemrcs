@@ -1,0 +1,167 @@
+<%= render partial: "admin/breadcrumbs/breadcrumb", locals: {path: "abouts", title: "About Us", current_page: "About Us"} %>
+<div class="content">
+  <div class="row">
+    <div class="col-sm-12">
+      <div class="grid-view table-responsive" id="student-grid">
+        <table class="items">
+          <thead>
+            <tr>
+              <th id="student-grid_c0">Id</th>
+              <th id="student-grid_c2">Description</th>
+              <th id="student-grid_c1"> Created At</th>
+              <th id="student-grid_c1"> Updated At</th>
+              <th id="student-grid_c1"> Image</th>
+              <th class="button-column" id="student-grid_c7">Action</th>
+            </tr>
+          </thead>
+          <tbody class="hole-list">
+            <%=render :partial=> "about_us"%>
+          </tbody>
+        </table>
+        <%if @about_us.present?%>
+          <div class="pager">
+          </div>
+        <%end%>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="page-header">
+  <div class="breadcrumb-line upper_header">
+    <ul class="breadcrumb">
+      <a href="#" data-toggle="modal" data-target="#modaladdquestion" class="join_btn admin-trading-btn">Add Image</a>
+    </ul>
+    <a class="breadcrumb-elements-toggle"><i class="icon-menu-open"></i></a>
+  </div>
+</div>
+<br/>
+<div id="modaladdquestion" class="modal fade" role="dialog">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal">&times;</button>
+          <h4 class="modal-title" style="text-align-last: center">Add Image</h4>
+      </div>
+      <div class="modal-body">
+        <%= form_for @about_us_image, :url => '/admin/about_us_images', :html => { :multipart => true, :class => "p-20" } do |f| %>
+          <div class="row">
+            <div class="col-sm-12">
+              <div class="panel panel-default">
+                <div class="panel-heading">
+                  <h4 class="panel-title">Add New Image</h4>
+                </div>
+                <div class="panel-body">
+                  <div class="row">
+                    <div class="form-group col-sm-6">
+                      <label for="reg_input_name" class="req">Image</label>
+                      <%=f.file_field :image, :class=>"form-control" %>
+                    </div>
+                  </div>
+                  <div class="row">
+                    <div class="col-sm-12 text-center">
+                      <%= f.submit "Submit", :class=>"btn join_btn admin-submit-btn" %>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        <% end %>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn join_btn admin-submit-btn" data-dismiss="modal">Close</button>
+      </div>
+    </div>
+  </div>
+</div> 
+<section id="about_us_image">
+  <div class="content">
+    <div class="row">
+      <% AboutUsImage.all.each do |about_us_image| %>
+        <div class="col-xs-12 col-sm-6 col-md-4">
+          <div class="frontside">
+            <div class="card">
+                <div class="card-body text-center" style="padding: 0px;">
+                  <p>
+                    <a class="trms-link" href="#" style="text-decoration: none;">
+                      <% if about_us_image.image.present? %>
+                        <%= image_tag(about_us_image.image_url, class: "about_us_image") if about_us_image.image? %>
+                      <% else %>
+                        <%= image_tag "frame.png", :class=>"img-fluid" %>
+                      <% end %>
+                    </a><br/>
+                  </p>
+                  <p>
+                    <a href="#" data-toggle="modal" data-target="#edit_question_<%= about_us_image.id %>" class="join_btn admin-trading-btn">Edit Image</a>
+                  &nbsp;
+                    <%= link_to "Delete Image", admin_about_us_image_path(about_us_image.id), class: "join_btn admin-trading-btn", data: { confirm: 'Are you sure you want to delete image', "bootstrap-confirm": 'delete' }, method: :delete %><br/><br/>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div id="edit_question_<%= about_us_image.id %>" class="modal fade" role="dialog">
+          <div class="modal-dialog">
+            <div class="modal-content">
+              <div class="modal-header">
+                  <button type="button" class="close" data-dismiss="modal">&times;</button>
+                  <h4 class="modal-title" style="text-align-last: center">Update Image</h4>
+              </div>
+              <div class="modal-body">
+                <%= form_for about_us_image, :url => "/admin/about_us_images/#{about_us_image.id}", :html => { method: :put, :multipart => true, :class => "p-20" } do |f| %>
+                  <div class="row">
+                    <div class="col-sm-12">
+                      <div class="panel panel-default">
+                        <div class="panel-heading">
+                          <h4 class="panel-title">Update Image</h4>
+                        </div>
+                        <div class="panel-body">
+                          <div class="row">
+                            <div class="form-group col-sm-6">
+                              <label for="reg_input_name" class="req">Image</label>
+                              <%=f.file_field :image, :class=>"form-control" %>
+                              <%= image_tag(about_us_image.image_url, class: "about_us_image") if about_us_image.image? %>
+                            </div>
+                          </div>
+                          <div class="row">
+                            <div class="col-sm-12 text-center">
+                              <%= f.submit "Update", :class=>"btn join_btn admin-submit-btn" %>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                <% end %>
+              </div>
+              <div class="modal-footer">
+                <button type="button" class="btn join_btn admin-submit-btn" data-dismiss="modal">Close</button>
+              </div>
+            </div>
+          </div>
+        </div> 
+      <% end %>  
+    </div>
+  </div>
+</section>
+
+<style>
+.fa {
+    font-weight: bold;
+}
+.btn {
+    position: relative;
+    border-radius: 2px;
+    margin-top: 10px;
+ }
+ 
+.col-sm-1 {
+    width: 8.3333333333%;
+    margin-left: -21px;
+    margin-top: -32px;
+}
+.about_us_image{
+  width: 225px;
+  height: 225px;
+}
+</style>

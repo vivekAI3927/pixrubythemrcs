@@ -1,0 +1,8 @@
+.page-header
+	%h2 Reset your password
+
+.row-fluid
+	.span3.well
+		= simple_form_for :reset, url: password_resets_path, :method => :post do |f|
+			= f.input :email
+			= f.submit "Reset password", class: "btn btn-large"

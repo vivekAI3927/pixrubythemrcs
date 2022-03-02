@@ -1,0 +1,60 @@
+<%= render partial: "admin/breadcrumbs/breadcrumb", locals: {path: "exams", title: "Exams", current_page: "Exam List"} %>
+<div class="content">
+  <div class="row">
+      <div class="col-sm-6">
+        <%= select_tag :user_id, options_for_select(User.all.order("name ASC").collect{ |u| [u.name, u.id]}), {:prompt => "--Select User--",:class =>"select_combobox form-control select-user_id"} %>
+        <div class="school_val_error" id="Student_courseid_em_" style="display:none">
+        </div>
+      </div>
+      <div class="col-sm-6">
+        <%= select_tag :current_station, options_for_select(Exam.all.order("current_station ASC").collect{ |u| [u.current_station, u.current_station]}.uniq), {:prompt => "--Select Current Station--",:class =>"select_combobox form-control select-current_station"} %>
+      </div>
+    </div>
+  </div>
+  <br>
+  <div class="row">
+    <div class="col-sm-12">
+      <div class="grid-view table-responsive" id="student-grid">
+        <table class="items">
+          <thead>
+            <tr>
+              <th id="student-grid_c0">Sl.No.</th>
+              <th id="student-grid_c2"><%= sortable "user_id" %></th>
+              <th id="student-grid_c3"><%= sortable "current_station" %></th>
+              <th id="student-grid_c4">stations</th>
+              <th class="button-column" id="student-grid_c8">Action</th>
+            </tr>
+          </thead>
+          <tbody class="hole-list">
+            <%=render :partial=> "exam_list"%>
+          </tbody>
+        </table>
+        <%if @exams.present?%>
+          <%= render partial: "admin/paginations/pagination", locals: {all_data: @exams} %>
+        <% end %>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script type="text/javascript">
+	$(document).ready(function(){
+	  $(".select-user_id").change(function(){
+	    $.ajax({
+	      type:"get",
+	      url:"/admin/exams/get_filter_exam",
+	      data:{
+	        "user_id":$(this).val()
+	      }
+	    });
+	  });
+	  $(".select-current_station").change(function(){
+	    $.ajax({
+	      type:"get",
+	      url:"/admin/exams/get_filter_exam",
+	      data:{
+	        "current_station":$(".select-current_station").val()      }
+	    });
+	  });
+	});
+</script>

@@ -1,0 +1,124 @@
+<%= render partial: "admin/breadcrumbs/breadcrumb", locals: {path: "books", title: "Books", current_page: "View Book List"} %>
+<div class="content">
+    <div class="panel panel-white">
+      <div class="panel-heading">
+        <h6 class="panel-title">Team Book</h6>
+      </div>
+      <div class="panel-body">
+        <div class="row">
+          <div class="col-sm-12">
+            <form class="form-horizontal">
+              <div class="row">
+                <div class="form-group col-sm-5" >
+                  <label class="col-sm-5 control-label text-muted" style="font-size: 14px">Id.:</label>
+                  <div class="form-group col-sm-6">
+                    <p class="form-control-static"><%= @book.id %></p>
+                  </div>
+                </div>
+                <div class="form-group col-sm-5" >
+                  <label class="col-sm-5 control-label text-muted" style="font-size: 14px">Name:</label>
+                  <div class="form-group col-sm-6">
+                    <p class="form-control-static"><%= @book.name %></p>
+                  </div>
+                </div>
+              </div>
+              <div id="header"></div>
+              <div class="row">
+                <div class="form-group col-sm-12" >
+                  <label class="col-sm-12 control-label text-muted" style="font-size: 14px">Description:</label>
+                  <div class="form-group col-sm-12">
+                    <p class="form-control-static"><%= @book.description %></p>
+                  </div>
+                </div>
+              </div>
+              <div id="header"></div>
+              <div class="row">
+                <div class="form-group col-sm-5">
+                  <label class="col-sm-5 control-label text-muted" style="font-size: 14px">Cost:</label>
+                  <div class="form-group col-sm-6">
+                    <p class="form-control-static"><%=@book.cost %></p>
+                  </div>
+                </div>
+                <div class="form-group col-sm-5" >
+                  <label class="col-sm-5 control-label text-muted" style="font-size: 14px">Image File Name:</label>
+                  <div class="form-group col-sm-6">
+                    <p class="form-control-static"><%=@book.image_file_name %></p>
+                  </div>
+                </div>
+              </div>
+              <div id="header"></div>
+              <div class="row">
+                <div class="form-group col-sm-5">
+                  <label class="col-sm-5 control-label text-muted" style="font-size: 14px">Image Content Type:</label>
+                  <div class="form-group col-sm-6">
+                    <p class="form-control-static"><%=@book.image_content_type %></p>
+                  </div>
+                </div>
+                <div class="form-group col-sm-5" >
+                  <label class="col-sm-5 control-label text-muted" style="font-size: 14px">Image File Size:</label>
+                  <div class="form-group col-sm-6">
+                    <p class="form-control-static"><%=@book.image_file_size %></p>
+                  </div>
+                </div>
+              </div>
+              <div id="header"></div>
+              <div class="row">
+                <div class="form-group col-sm-5">
+                  <label class="col-sm-5 control-label text-muted" style="font-size: 14px">Image Updated At:</label>
+                  <div class="form-group col-sm-6">
+                    <p class="form-control-static"><%=@book.image_updated_at.strftime("%b %d, %Y %l:%M") rescue nil %></p>
+                  </div>
+                </div>
+                <div class="form-group col-sm-5" >
+                  <label class="col-sm-5 control-label text-muted" style="font-size: 14px">Available:</label>
+                  <div class="form-group col-sm-6">
+                    <p class="form-control-static"><%=@book.available %></p>
+                  </div>
+                </div>
+              </div>
+              <div id="header"></div>
+              <div class="row">
+                <div class="form-group col-sm-5">
+                  <label class="col-sm-5 control-label text-muted" style="font-size: 14px">Created At:</label>
+                  <div class="form-group col-sm-6">
+                    <p class="form-control-static"><%=@book.created_at.strftime("%b %d, %Y %l:%M") rescue nil %></p>
+                  </div>
+                </div>
+                <div class="form-group col-sm-5" >
+                  <label class="col-sm-5 control-label text-muted" style="font-size: 14px">Updated At:</label>
+                  <div class="form-group col-sm-6">
+                    <p class="form-control-static"><%=@book.updated_at.strftime("%b %d, %Y %l:%M") rescue nil %></p>
+                  </div>
+                </div>
+              </div>
+              <div id="header"></div>
+              <div class="row">
+                <div class="form-group col-sm-5">
+                  <label class="col-sm-5 control-label text-muted" style="font-size: 14px">Image:</label>
+                  <div class="form-group col-sm-6">
+                    <p class="form-control-static"><%=image_tag(@book.image.url, size: "100x100") rescue nil%></p>
+                  </div>
+                </div>
+              </div>
+              <div id="header"></div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+</div>  
+
+<style type="text/css">
+  #header { 
+      border-bottom: 1px solid #DDDDDD; 
+  }
+  .category-img-circular{
+   width: 100px;
+   height: 100px;
+   background-size: cover;
+   display: block;
+   border-radius: 100px;
+   -webkit-border-radius: 100px;
+   -moz-border-radius: 100px;
+  }
+</style>

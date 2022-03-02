@@ -1,0 +1,56 @@
+<%= render partial: "admin/breadcrumbs/breadcrumb", locals: {path: "admins", title: "Admins", current_page: "Edit Admin User"} %>
+<%= form_for @admin, :url => "/admin/admins/#{@admin.id}", :html => { :multipart => true, :class => "p-20" } do |f| %>
+  <div class="row">
+    <div class="col-sm-12">
+      <div class="panel panel-default">
+         <div class="panel-heading">
+           <h4 class="panel-title"><%= @admin.email %></h4>
+        </div>
+        <div class="panel-body">
+          <div class="row">  
+            <div class="form-group col-sm-6">
+              <label for="reg_input_name" class="req">Email</label>
+              <%=f.email_field :email, :class=>"form-control",:required=>'required' %>
+              <div class = "error"><%= @admin.errors.messages[:email][0] %></div>
+            </div>
+          </div>  
+          <div class="row">
+            <div class="form-group col-sm-6">
+             <label for="reg_input_name" class="reg">Password</label>
+              <%=f.password_field :password, :class=>"form-control" %>
+            </div>
+            <div class="form-group col-sm-6">
+              <label for="reg_input_name">Password confirmation</label>
+              <%=f.password_field :password_confirmation, :class=>"form-control" %>
+              <div class="school_val_error" id="Department_department_name_em_" style="display:none"></div>
+              <div class = "error error_msg"><%= @admin.errors.messages[:password_confirmation][0] %></div>
+            </div>
+          </div>
+          <% if current_admin.super_admin == true %>
+            <div class="row">
+              <div class="form-group col-sm-6">
+                <label for="reg_input_name">Super Admin</label>
+                <%= f.check_box :super_admin %>
+              </div>
+            </div>
+          <% end %>  
+          <div class="row">
+            <div class="col-sm-12 text-center">
+              <%= link_to "Cancel", :back, {:class=>"btn join_btn admin-submit-btn"} %>
+              <%= f.submit "Submit", :class=>"btn join_btn admin-submit-btn"%>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+<%end%>
+
+<style type="text/css">
+  .req:after {
+  content: "*";
+  font-size: 15px;
+  color: #cc0000;
+  padding-left: 4px;
+}
+</style>          

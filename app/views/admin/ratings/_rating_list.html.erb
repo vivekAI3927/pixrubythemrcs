@@ -1,0 +1,20 @@
+<%@ratings.each_with_index do |x,index|%>
+  <tr>
+    <td width="5%"><%=index+1%></td>
+    <td width="20%"><%= link_to x.question.content.html_safe, admin_question_detail_path(x.question.id) %></td>
+    <td width="15%"><%= link_to x.station.title, admin_station_path(x.station.id) %></td>
+    <td width="10%"><%= x.review %></td>
+    <td width="10%"><%= link_to x.user.try(:name), admin_user_path(x.user.try(:id)) rescue nil%></td>
+    <td width="10%"> 
+      <%=link_to admin_rating_path(x) do%>
+        <span class="glyphicon glyphicon-eye-open"></span>
+      <%end%>
+      <%= link_to edit_admin_rating_path(x) do|| %>
+        <span class="glyphicon glyphicon-pencil" style="color:#1ab394"></span>
+      <% end %>
+      <%= link_to admin_rating_path(x.id), data: { confirm: 'Are you sure you want to delete rating ', "bootstrap-confirm": 'delete' }, method: :delete do || %>
+         <span class="glyphicon glyphicon-trash" style="color:red"></span>
+      <% end %>
+    </td>
+  </tr>
+<% end %>

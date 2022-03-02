@@ -1,0 +1,46 @@
+<%= render partial: "admin/breadcrumbs/breadcrumb", locals: {path: "coachings", title: "Coachings", current_page: "Coachings List"} %> 
+<div class="content">
+  <div class="row">
+    <div class="col-sm-12">
+      <div class="grid-view table-responsive" id="student-grid">
+        <table class="items">
+          <thead>
+            <tr>
+              <th id="student-grid_c0"><%= sortable "id" %></th>
+              <th id="student-grid_c2"><%= sortable "title" %></th>
+              <th id="student-grid_c3"><%= sortable "created_at" %></th>
+              <th class="button-column" id="student-grid_c8">Action</th>
+            </tr>
+          </thead>
+          <tbody class="hole-list">
+            <%=render :partial=> "coaching_list"%>
+          </tbody>
+        </table>
+        <%if @coachings.present?%>
+          <%= render partial: "admin/paginations/pagination", locals: {all_data: @coachings} %>
+        <%end%>
+      </div>
+    </div>
+  </div>
+</div>
+<script type="text/javascript">
+	$(document).ready(function(){
+	  $(".select-title").change(function(){
+	    $.ajax({
+	      type:"get",
+	      url:"/admin/coachings/get_filter_coaching",
+	      data:{
+	        "title":$(this).val()
+	      }
+	    });
+	  });
+	  $(".select-member_code").change(function(){
+	    $.ajax({
+	      type:"get",
+	      url:"/admin/coachings/get_filter_coaching",
+	      data:{
+	        "member_code":$(".select-member_code").val()      }
+	    });
+	  });
+	});
+</script>

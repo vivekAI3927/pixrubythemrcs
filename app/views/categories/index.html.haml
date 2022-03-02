@@ -1,0 +1,68 @@
+/ :javascript
+/   $(document).ready(function(){
+/     $('ul.nav li.active').removeClass('active');
+/     $('li#stations').addClass('active')
+/   })
+%section.organic-breadcrumb
+  .container
+    .breadcrumb-banner.d-flex.flex-wrap.align-items-center.justify-content-end
+      .col-first
+        %h1= raw @member_home_page.title
+        %div= raw @member_home_page.description
+.container{style: "margin-top: 85px !important;"}
+  .account-inner-sec.member-data{style: "padding-top: 0px !important;"}
+    .row
+      = render @categories
+      %br/
+      - if @last_question
+        //= link_to station_question_path(@last_station, @last_question) do
+        = link_to 'Continue where you left off', station_question_path(@last_station, @last_question), :class => "continue_left_off"
+        %i
+          .material-icons.continue_left_off
+            exit_to_app
+%section.faq{style: "background: white !important;"}
+  .container
+    .row
+      %h1.faq-title Mock Exams
+      .bs-example
+        #accordionExample.accordion
+          .card{style: "margin-right: 9px !important; margin-left: 24px !important;"}
+            #headingTwo.card-header
+              %h2.mb-0
+                %button.btn.btn-link{"data-target" => "#collapseTwo", "data-toggle" => "collapse", type: "button"}
+                  = @mock_exam.title
+                  %i.fa.fa-plus
+            #collapseTwo.collapse{"aria-labelledby" => "headingTwo", "data-parent" => "#accordionExample"}
+              .card-body
+                %p
+                  = @mock_exam.description.html_safe
+                / %p
+                /   Here we present our stations in the format you will experience on the
+                /   day. Work your way through the 18 stations and make sure you are
+                /   scoring the majority of the marks. Identify your weaknesses and return
+                /   to that section to revise it and perhaps practice those stations again
+                /   with a friend. Remember this is a verbal exam, testing your ability to
+                /   get the information out, rather than how many facts you can get in,
+                /   therefore for each station, say your own answer out loud before
+                /   clicking on to the answer to check if you've got it right.
+                / %p Good luck!
+                = link_to "Start a new exam", new_exam_path, :class => "join_btn btn-large trading-btn page-scroll"              
+      
+
+:javascript
+  /*  */
+  var google_conversion_id = 997195829;
+  var google_conversion_language = "en";
+  var google_conversion_format = "2";
+  var google_conversion_color = "ffffff";
+  var google_conversion_label = "tgtsCLuwxgQQtYDA2wM";
+  var google_conversion_value = 0;
+  /*  */
+%script{:src => "//www.googleadservices.com/pagead/conversion.js", :type => "text/javascript"}
+%noscript
+  %div{:style => "display:inline;"}
+    %img{:alt => "", :height => "1", :src => "//www.googleadservices.com/pagead/conversion/997195829/?value=0&label=tgtsCLuwxgQQtYDA2wM&guid=ON&script=0", :style => "border-style:none;", :width => "1"}/
+:css
+  .breadcrumb-banner p {color: #000000 !important;}
+
+

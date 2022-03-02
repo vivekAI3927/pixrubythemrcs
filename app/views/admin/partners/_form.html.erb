@@ -1,0 +1,37 @@
+<%= form_for @partner, :url => url, :html => { :multipart => true, :class => "p-20" },  method: method do |f| %>
+  <div class="row">
+    <div class="col-sm-12">
+      <div class="panel panel-default">
+        <div class="panel-heading">
+          <h4 class="panel-title">Partner Text</h4>
+        </div>
+        <div class="panel-body">
+          <div class="row">  
+            <div class="form-group col-sm-12">
+              <label for="reg_input_name" class="req">Description</label>
+              <%=f.text_area :description, :class => "ckeditor form-control",:placeholder => "Enter Description", id: 'editor1' %>
+              <div class = "error error_msg"><%= @partner.errors.messages[:description][0] %></div>
+            </div>
+          </div>  
+          <!-- <div class="row">
+            <div class="form-group col-sm-6">
+              <label for="reg_input_name">Image</label>
+              <%#=f.file_field :image, :class => "form-control",id: "image" %>
+            </div>
+          </div> -->
+          <div class="row">
+            <div class="col-sm-12 text-center">
+              <%= f.submit "Save", :class=>"btn join_btn admin-submit-btn"%>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+<% end %>
+<script>
+  CKEDITOR.replace('editor1', {
+    height: 250,
+    extraPlugins: 'colorbutton,colordialog'
+  });
+</script>  

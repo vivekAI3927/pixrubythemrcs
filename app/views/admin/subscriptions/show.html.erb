@@ -1,0 +1,42 @@
+<%=render 'shared/admin/title', page_title: "Subscription", icon_class: 'pe-7s-news-paper', link: "/admin/subscriptions" %>
+<p id="notice"><%= notice %></p>
+<div class="col-lg-12">
+  <div class="main-card mb-3 card">
+    <div class="card-body">
+    	<div class="table-responsive">
+        <table class="mb-0 table">
+          <tr>
+            <td><strong>Id</strong></td>
+            <td><%= @subscription.id%></td>
+          </tr>
+          <tr>
+            <td><strong>Client Name</strong></td>
+            <td><%=link_to "#{@subscription.client.name}", admin_client_path(@subscription.client) %></td>
+          </tr>
+          <tr>
+            <td><strong>Product name</strong></td>
+            <td><%=link_to "#{@subscription.product.name rescue ''}", admin_product_path(@subscription.product_including_deleted)%></td>
+          </tr>
+          <tr>
+            <td><strong>Amount</strong></td>
+            <td><%= number_to_currency(@subscription.amount)%></td>
+          </tr>
+          <tr>
+            <td><strong>Status</strong></td>
+            <td><%= @subscription.status%></td>
+          </tr>
+          <tr>
+            <td><strong>Start Date</strong></td>
+            <td><%= @subscription.created_at.strftime("%m-%d-%Y") rescue nil %></td>
+          </tr>
+          <tr>
+            <td><strong>End Date</strong></td>
+            <td><%= @subscription.end_date.strftime("%m-%d-%Y") rescue nil %></td>
+          </tr>
+        </table>
+      </div>
+    </div>
+  </div>
+</div>
+
+<%= link_to 'Back', :back, :class => 'mb-2 mr-2 btn btn-dark' %>

@@ -1,0 +1,74 @@
+#questions
+	- if question	
+		= question.content.html_safe
+		.row
+			.col-md-12
+				- if question.image?
+					#question_container
+						= image_tag question.image.url,style: "max-width: 100%; height:auto;"
+						.annotation
+							= question_image_annotation(question).html_safe
+			.col-md-12#question_box
+				#question_container
+					%a#see_answer.click_here_icon.ques.que_answer.join_btn.page-scroll.trading-btn-see-answer.que_answer{data: {toggle: "collapse", target: "#answer", class: "ques btn page-scroll que_answer"}, style: "color: white;"} SEE ANSWER
+					//= link_to "RESTART OSCE", station_path(@station.id), :class => 'join_btn page-scroll trading-btn que_answer'
+					&nbsp;
+					- if @exam
+						- unless question.penultimate?(station)
+							= link_to "SKIP", exam_station_question_path(@exam.id, @station.id, question.next), class: "join_btn btn-large skip-btn page-scroll", id: "next_question_link"
+						- else
+							= link_to "Go to the next station", next_station_exam_path(@exam.id) , class: "btn btn-large btn-primary", id: "last-question"
+					- else
+						- unless question.last?(station)
+							=link_to station_question_path(station, question.next), class: "join_btn skip-btn que_answer", id: "next_question_link", style: "margin-top: 30px;" do
+								SKIP
+								%i.icon-arrow-right
+			
+		#answer.collapse{"data-status" => question.string_last?(question.station), "data-examstate" => question.string_penultimate?(question.station)}
+			%hr
+			.row#answer_text
+				.col-md-12
+					#explanation_container
+						= question.answer_text.html_safe
+				.col-md-12
+					- if question.answer_image?
+						#explanation_container.explanation-image
+							= image_tag question.answer_image.url, style: "max-width: 100%; height:auto;"
+							.annotation
+								= answer_image_annotation(question)
+			.row
+				.col-md-12
+					- if @exam
+						- unless question.penultimate?(station)
+							= link_to "Next question", exam_station_question_path(@exam.id, @station.id, question.next), class: "join_btn btn-large trading-btn page-scroll", id: "next_question_link"
+						- else
+							= link_to "Go to the next station", next_station_exam_path(@exam.id) , class: "btn btn-large btn-primary", id: "last-question"
+					- else
+						- unless question.last?(station)
+							=link_to station_question_path(station, question.next), class: "join_btn trading-btn que_answer", id: "next_question_link", style: "margin-top: 30px;" do
+								Next question
+								%i.icon-arrow-right
+							%br/
+							= link_to "Previous question", 'javascript:history.back()', :class => 'join_btn skip-btn'
+							&nbsp;
+							- if current_user
+								= link_to category_path(question.station.category), class: "join_btn skip-btn que_answer", id: "last-question" do
+									%i.icon-share-alt.icon-white
+									MODULE LIST
+								&nbsp;&nbsp;		
+							= link_to "RESTART", station_path(@station.id), :class => 'join_btn skip-btn que_answer' 
+						- else
+							- if current_user
+								= link_to '#-', class: "join_btn skip-btn btn-large trading-btn-see-answer", "data-toggle" => "modal", 'data-target' => '#status-feature', id: "last-question" do
+									%i.icon-share-alt.icon-white
+									MODULE LIST
+								%br/	
+								= link_to "Previous question", 'javascript:history.back()', :class => 'join_btn skip-btn'
+								&nbsp;
+								= link_to "RESTART", station_path(@station.id), :class => 'join_btn skip-btn que_answer'	
+							- else
+								= link_to '/', class: "join_btn trading-btn btn-large" do
+									%i.icon-share-alt.icon-white
+									RETURN TO HOME PAGE
+													
+		

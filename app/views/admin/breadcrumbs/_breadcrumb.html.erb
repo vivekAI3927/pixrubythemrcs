@@ -1,0 +1,14 @@
+<div class="page-header">
+  <div class="breadcrumb-line upper_header">
+    <ul class="breadcrumb breadcrumb_height">
+     	<li class="top_breadcrumb">&nbsp;&nbsp;&nbsp; <a><%=link_to "HOME", "/admin", :class=>"fa fa-home" %></a></li>
+      <li><a href="/admin/<%= path %>"><b><%= title %></b></a></li>
+      <% if params[:controller] == "admin/users" && params[:action] != "active_user" && params[:action] != "recent_lapse_user" && params[:action] != "lapse_user" && params[:action] != "sale_leads_user" && params[:action] != "not_subscribed_user" %>
+      	<li><b><%= link_to "Download CSV", admin_users_download_csv_path(format: "csv") %></b></li>
+      <% end %>	
+      <li class="active"><%= current_page %></li>
+    </ul>
+    <a class="breadcrumb-elements-toggle"><i class="icon-menu-open"></i></a>
+  </div>
+</div>
+<br/>

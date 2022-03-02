@@ -1,0 +1,39 @@
+<%= render partial: "admin/breadcrumbs/breadcrumb", locals: {path: "reset_password_emails", title: "Reset Password Emails", current_page: "Reset Password Email"} %>
+<div class="content">
+  <div class="row">
+    <div class="col-sm-12">
+      <div class="grid-view table-responsive" id="student-grid">
+        <table class="items">
+          <thead>
+            <tr>
+              <th id="student-grid_c0"><%= sortable "id" %></th>
+              <th id="student-grid_c2"><%= sortable "title" %></th>
+              <th id="student-grid_c2"><%= sortable "description" %></th>
+              <th class="button-column" id="student-grid_c7">Action</th>
+            </tr>
+          </thead>
+          <tbody class="hole-list">
+            <%@reset_password_emails.each_with_index do |x,index|%>
+                <tr>
+                  <td width="5%"><%= x.id %></td>
+                  <td width="20%"><%= x.title.html_safe %></td>
+                  <td width="20%"><%= x.description.html_safe %></td>
+                  <td width="5%"> 
+                    <%=link_to admin_reset_password_email_path(x) do%>
+                      <span class="glyphicon glyphicon-eye-open"></span>
+                    <%end%>
+                    <%= link_to edit_admin_reset_password_email_path(x) do|| %>
+                      <span class="glyphicon glyphicon-pencil" style="color:#1ab394"></span>
+                    <% end %>
+                  </td>
+                </tr>
+              <%end%>
+          </tbody>
+        </table>
+        <%if @reset_password_emails.present?%>
+          <%= render partial: "admin/paginations/pagination", locals: {all_data: @reset_password_emails} %>
+        <% end %>
+      </div>
+    </div>
+  </div>
+</div>

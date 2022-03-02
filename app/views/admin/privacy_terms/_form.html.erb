@@ -1,0 +1,39 @@
+<%= form_for @privacy_term, :url => url, :html => { :multipart => true, :class => "p-20" },  method: method do |f| %>
+  <div class="row">
+    <div class="col-sm-12">
+      <div class="panel panel-default">
+         <div class="panel-heading">
+           <h4 class="panel-title">Terms</h4>
+        </div>
+        <div class="panel-body">
+          <div class="row">  
+            <div class="form-group col-sm-12">
+              <label for="reg_input_name" class="req">Privacy Terms</label>
+              <%=f.text_area :term_and_condition, :class=>"form-control",id: "editor1", :required=>'required' %>
+              <div class = "error error_msg"><%= @privacy_term.errors.messages[:term_and_condition][0] %></div>
+            </div>
+          </div>  
+           <div class="row">
+            <div class="form-group col-sm-6">
+              <label for="reg_input_name">Status</label>
+              <%= f.check_box :status %>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-sm-12 text-center">
+              <%= link_to "Cancel", :back, {:class=>"btn join_btn admin-submit-btn"} %>
+              <%= f.submit "Submit", :class=>"btn join_btn admin-submit-btn"%>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    
+  </div>
+<% end %>
+<script>
+  CKEDITOR.replace('editor1', {
+    height: 250,
+    extraPlugins: 'colorbutton,colordialog'
+  });
+</script>  

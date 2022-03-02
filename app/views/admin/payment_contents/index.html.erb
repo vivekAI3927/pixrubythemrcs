@@ -1,0 +1,44 @@
+<%= render partial: "admin/breadcrumbs/breadcrumb", locals: {path: "payment_contents", title: "Payment Contents", current_page: "Payment Contents"} %>
+<div class="content">
+  <div class="row">
+    <div class="col-sm-12">
+      <div class="grid-view table-responsive" id="student-grid">
+        <table class="items">
+          <thead>
+            <tr>
+              <th id="student-grid_c0"><%= sortable "id" %></th>
+              <th id="student-grid_c2"><%= sortable "stripe" %></th>
+              <th id="student-grid_c1"><%= sortable "paypal" %></th>
+              <th id="student-grid_c1"><%= sortable "discount" %></th>
+               <th id="student-grid_c1"><%= sortable "stripe_declaration" %></th>
+              <th class="button-column" id="student-grid_c7">Action</th>
+            </tr>
+          </thead>
+          <tbody class="hole-list">
+            <% @payment_contents.each_with_index do |x,index|%>
+                <tr>
+                  <td width="5%"><%= x.id %></td>
+                  <td width="15%"><%= x.stripe %></td>
+                  <td width="15%"><%= x.paypal %></td>
+                  <td width="15%"><%= x.discount %></td>
+                  <td width="15%"><%= x.stripe_declaration.try(:html_safe) %></td>
+
+                  <td width="10%"> 
+                    <%=link_to admin_payment_content_path(x) do%>
+                      <span class="glyphicon glyphicon-eye-open"></span>
+                    <%end%>
+                    <%= link_to edit_admin_payment_content_path(x) do|| %>
+                      <span class="glyphicon glyphicon-pencil" style="color:#1ab394"></span>
+                    <% end %>
+                  </td>
+                </tr>
+              <%end%>
+          </tbody>
+        </table>
+        <%if @payment_contents.present?%>
+          <%= render partial: "admin/paginations/pagination", locals: {all_data: @payment_contents} %>
+        <% end %>
+      </div>
+    </div>
+  </div>
+</div>

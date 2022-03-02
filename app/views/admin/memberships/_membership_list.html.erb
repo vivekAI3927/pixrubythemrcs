@@ -1,0 +1,43 @@
+<%@memberships.each_with_index do |x,index|%>
+  <tr>
+    <td width="5%"><%= link_to x.id, admin_membership_path(x.id) %></td>
+    <td width="15%"><%=x.length%></td>
+    <td width="15%"><%=x.price%></td>
+    <td width="10%"><%= x.available %></td>
+    <td width="10%"><%= x.status %></td>
+    <td width="10%"><%= x.stripe_plan_name %></td>
+
+    <td width="15%"><%=x.created_at.strftime("%d-%m-%Y") rescue nil %></td>
+    <td width="15%"><%=x.updated_at.strftime("%d-%m-%Y") rescue nil %></td>
+    
+    <td width="10%"> 
+      <%if x.name.present?%>
+        <%=link_to admin_membership_path(x) do%>
+          <span class="glyphicon glyphicon-eye-open"></span>
+        <%end%>
+        <%= link_to edit_admin_membership_path(x) do|| %>
+          <span class="glyphicon glyphicon-pencil" style="color:#1ab394"></span>
+        <% end %>
+        <%= link_to admin_membership_path(x), data: { confirm: 'Are you sure you want to delete Membership '+ (x.id).to_s, "bootstrap-confirm": 'delete' }, method: :delete do|| %>
+         <span class="glyphicon glyphicon-trash" style="color:red"></span>
+        <% end %>
+      <%end%>
+    </td>
+  </tr>
+<%end%>
+<style>
+
+.grid-view table.items td {
+    font-family: "Helvetica Neue",Helvetica,Arial,sans-serif;
+    padding: 0.7em;
+    padding-left: 1.2em;
+    padding-right: 0.2em;
+    color: #0b0b0b;
+    text-align: left;
+    font-weight: 900;
+    font-size: 14px;
+}
+
+ </style>
+
+

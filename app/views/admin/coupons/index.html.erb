@@ -1,0 +1,28 @@
+<%= render partial: "admin/breadcrumbs/breadcrumb", locals: {path: "coupons", title: "Coupons", current_page: "Coupon List"} %>
+<div class="content">
+  <div class="row">
+    <div class="col-sm-12">
+      <div class="grid-view table-responsive" id="student-grid">
+        <table class="items">
+          <thead>
+            <tr>
+              <th id="student-grid_c0"><%= sortable "id" %></th>
+              <th id="student-grid_c2"><%= sortable "name" %></th>
+              <th id="student-grid_c1"><%= sortable "discount" %></th>
+              <th id="student-grid_c1"><%= sortable "created_at"%></th>
+              <th id="student-grid_c1"><%= sortable "updated_at"%></th>
+              <th id="student-grid_c3"><%= sortable "uses"%></th>
+              <th class="button-column" id="student-grid_c7">Action</th>
+            </tr>
+          </thead>
+          <tbody class="hole-list">
+            <%=render :partial=> "coupon_list"%>
+          </tbody>
+        </table>
+        <%if @coupons.present?%>
+          <%= render partial: "admin/paginations/pagination", locals: {all_data: @coupons} %>
+        <% end %>
+      </div>
+    </div>
+  </div>
+</div>

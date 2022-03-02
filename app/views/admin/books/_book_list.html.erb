@@ -1,0 +1,27 @@
+<%@books.each_with_index do |x,index|%>
+  <tr>
+    <td width="5%"><%= x.id %></td>
+    <td width="20%"><%=link_to x.name, admin_book_path(x) %></td>
+    <td width="15%"><%= truncate(x.description, length:30) %></td>
+    <td width="15%"><%= x.link %></td>
+    <td width="15%"><%= x.cost %></td>
+    <td width="15%"><%#=image_tag(x.image.url, :class=> "img-circular") %>
+      <%= link_to image_tag(x.image.url, alt: "Facebook", :class=> "img-circular"), x.image.url, target: :_blank rescue nil%>
+    </td>
+    <td width="15%"><%= x.image_content_type rescue nil %></td>
+    <td width="15%"><%= x.image_file_size rescue nil %></td>
+    <td width="15%"><%=x.image_updated_at.strftime("%b %d, %Y %l:%M") rescue nil %></td>
+    <td width="15%"><%= x.available %></td>
+    <td width="10%"> 
+      <%=link_to admin_book_path(x) do%>
+        <span class="glyphicon glyphicon-eye-open"></span>
+      <%end%>
+      <%= link_to edit_admin_book_path(x) do|| %>
+        <span class="glyphicon glyphicon-pencil" style="color:#1ab394"></span>
+      <% end %>
+      <%= link_to admin_book_path(x), data: { confirm: 'Are you sure you want to delete book '+ x.name, "bootstrap-confirm": 'delete' }, method: :delete do|| %>
+        <span class="glyphicon glyphicon-trash" style="color:red"></span>
+      <% end %>
+    </td>
+  </tr>
+<% end %>

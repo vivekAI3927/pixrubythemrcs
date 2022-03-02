@@ -1,0 +1,25 @@
+<%= render partial: "admin/breadcrumbs/breadcrumb", locals: {path: "privacy_terms", title: "Privacy", current_page: "Privacy Terms"} %>
+<div class="content">
+  <div class="row">
+    <div class="col-sm-12">
+      <div class="grid-view table-responsive" id="student-grid">
+        <table class="items">
+          <thead>
+            <tr>
+              <th id="student-grid_c0"><%= sortable "id" %></th>
+              <th id="student-grid_c3"><%= sortable "term_and_condition" %></th>
+              <th id="student-grid_c3"><%= sortable "status" %></th>
+              <th class="button-column" id="student-grid_c8">Action</th>
+            </tr>
+          </thead>
+          <tbody class="hole-list">
+            <%=render :partial=> "term_cond_list"%>
+          </tbody>
+        </table>
+        <%if @privacy_terms.present?%>
+          <%= render partial: "admin/paginations/pagination", locals: {all_data: @privacy_terms} %>
+        <% end %>
+      </div>
+    </div>
+  </div>
+</div>

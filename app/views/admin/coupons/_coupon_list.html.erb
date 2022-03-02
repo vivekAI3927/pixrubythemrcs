@@ -1,0 +1,25 @@
+<%@coupons.each_with_index do |x,index|%>
+  <tr>
+    <td width="10%"><%= x.id %></td>
+    <td width="15%"><%=x.name%></td>
+    <td width="10%"><%=x.discount%></td>
+    <td width="15%"><%=x.created_at.strftime("%d-%m-%Y") rescue nil %></td>
+    <td width="15%"><%=x.updated_at.strftime("%d-%m-%Y") rescue nil %></td>
+    <td width="10%">
+      <%= x.uses %>
+    </td>
+    <td width="10%"> 
+      <%if x.name.present?%>
+        <%=link_to admin_coupon_path(x) do%>
+          <span class="glyphicon glyphicon-eye-open"></span>
+        <%end%>
+        <%= link_to edit_admin_coupon_path(x) do|| %>
+          <span class="glyphicon glyphicon-pencil" style="color:#1ab394"></span>
+        <% end %>
+        <%= link_to admin_coupon_path(x), data: { confirm: 'Are you sure you want to delete coupon '+ x.name, "bootstrap-confirm": 'delete' }, method: :delete do|| %>
+         <span class="glyphicon glyphicon-trash" style="color:red"></span>
+        <% end %>
+      <%end%>
+    </td>
+  </tr>
+<%end%>

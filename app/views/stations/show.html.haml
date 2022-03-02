@@ -1,0 +1,4 @@
+- if @station.cheatsheet?
+	= render partial: 'shared/question2', locals: {question: @question, station: @station, category: params[:category]}
+- else
+	= render partial: 'shared/question', locals: {question: @question, station: @station, category: params[:category]}

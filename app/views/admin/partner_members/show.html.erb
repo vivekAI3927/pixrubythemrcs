@@ -1,0 +1,71 @@
+<%= render partial: "admin/breadcrumbs/breadcrumb", locals: {path: "partner_members", title: "Partners", current_page: "View Partner Member"} %>  
+<div class="content">
+    <div class="panel panel-white">
+      <div class="panel-heading admin-pannel">
+        <%= link_to "Edit Partner", edit_admin_partner_member_path(@partner_member.id), class: "join_btn admin-trading-btn" %>
+        <%= link_to "Delete Partner", admin_partner_member_path(@partner_member.id), data: { confirm: 'Are you sure you want to delete this yeam', "bootstrap-confirm": 'delete' }, method: :delete, class: "join_btn admin-trading-btn" %>
+      </div>
+      <div class="panel-body">
+        <div class="row">
+          <div class="col-sm-12">
+            <form class="form-horizontal">
+              <div class="row">
+                <div class="form-group col-sm-5" >
+                  <label class="col-sm-5 control-label text-muted admin_font">Id.:</label>
+                  <div class="form-group col-sm-6">
+                    <p class="form-control-static"><%= @partner_member.id %></p>
+                  </div>
+                </div>
+                <div class="form-group col-sm-5" >
+                  <label class="col-sm-5 control-label text-muted admin_font">Name:</label>
+                  <div class="form-group col-sm-6">
+                    <p class="form-control-static"><%= @partner_member.name %></p>
+                  </div>
+                </div>
+              </div>
+              <div id="header"></div>
+              <div class="row">
+                <div class="form-group col-sm-5" >
+                  <label class="col-sm-5 control-label text-muted admin_font">Title:</label>
+                  <div class="form-group col-sm-6">
+                    <p class="form-control-static"><%= @partner_member.title %></p>
+                  </div>
+                </div>
+                <div class="form-group col-sm-5">
+                  <label class="col-sm-5 control-label text-muted admin_font">Image:</label>
+                  <div class="form-group col-sm-6">
+                    <p class="form-control-static">
+                      <%= image_tag @partner_member.image.url(:thumb) rescue nil %></p>
+                  </div>
+                </div>
+              </div>
+              <div id="header"></div>
+              <div class="row">
+                <div class="form-group col-sm-5">
+                  <label class="col-sm-5 control-label text-muted admin_font">Created At:</label>
+                  <div class="form-group col-sm-6">
+                    <p class="form-control-static"><%= @partner_member.created_at.strftime("%d-%m-%Y") rescue nil %></p>
+                  </div>
+                </div>
+                <div class="form-group col-sm-5" >
+                  <label class="col-sm-5 control-label text-muted admin_font">Updated At:</label>
+                  <div class="form-group col-sm-6">
+                    <p class="form-control-static"><%= @partner_member.updated_at.strftime("%d-%m-%Y") rescue nil %></p>
+                  </div>
+                </div>
+              </div>
+              <div id="header"></div>
+               <div class="row">
+                <div class="form-group col-sm-12">
+                  <label class="col-sm-12 control-label text-muted admin_font">Bio:</label>
+                  <div class="form-group col-sm-12">
+                    <p class="form-control-static"><%= @partner_member.bio.try(:html_safe) %></p>
+                  </div>
+                </div>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+</div>  

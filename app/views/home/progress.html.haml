@@ -1,0 +1,37 @@
+:javascript
+  $(document).ready(function(){
+    $('ul.nav li.active').removeClass('active');
+    $('li#progress').addClass('active')
+  })
+
+.row-fluid
+  .span12
+    .well
+      %h1 Progress through PassTheMRCS
+      %p Please note,  only completed stations reflect in % complete. To continue please select a category:
+
+.row-fluid#category-selection
+  .span12
+    %ul.thumbnails
+      = render partial: '/home/category_progress', locals: {category: @categories, user_id: current_user.id}
+      / continue from where you left off thumbnail
+      - if @last_question
+        %li.span3
+          .thumbnail
+            = link_to station_question_path(@last_station, @last_question) do
+              = image_tag 'continue.jpg'
+
+
+:javascript
+  /*  */
+  var google_conversion_id = 997195829;
+  var google_conversion_language = "en";
+  var google_conversion_format = "2";
+  var google_conversion_color = "ffffff";
+  var google_conversion_label = "tgtsCLuwxgQQtYDA2wM";
+  var google_conversion_value = 0;
+  /*  */
+%script{:src => "//www.googleadservices.com/pagead/conversion.js", :type => "text/javascript"}
+%noscript
+  %div{:style => "display:inline;"}
+    %img{:alt => "", :height => "1", :src => "//www.googleadservices.com/pagead/conversion/997195829/?value=0&label=tgtsCLuwxgQQtYDA2wM&guid=ON&script=0", :style => "border-style:none;", :width => "1"}/

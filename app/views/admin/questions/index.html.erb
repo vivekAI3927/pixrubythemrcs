@@ -1,0 +1,72 @@
+<%= render partial: "admin/breadcrumbs/breadcrumb", locals: {path: "questions", title: "Questions", current_page: "Questions List"} %> 
+<div class="content">
+  <div class="row">
+    <div class="col-sm-3">
+      <%= select_tag :position, options_for_select(Question.all.order("position ASC").collect{ |u| [u.position, u.position, :size => 22]}.uniq), {:prompt => "--Select Position--",:class =>"select_combobox form-control select-position"} %>
+      <div class="school_val_error" id="Student_courseid_em_" style="display:none">
+      </div>
+    </div>
+    <div class="col-sm-3">
+      <%= select_tag :station, options_for_select(@stations.order(title: :asc).collect{ |u| [u.title, u.id]}), {:prompt => "--Select Station--",:class =>"select_combobox form-control select-station"} %>
+    </div>
+    <div class="col-sm-6">
+      <%= form_tag @admin_questions_path,:method =>'get' do %>
+        <div class ="row">
+          <div class="col-sm-9"> 
+            <%= text_field_tag :search, params[:search],:class=>"form-control",:placeholder=>"Search by Content"%>
+          </div>
+          <div class="col-sm-3"> 
+            <%=submit_tag "Search",:class =>"btn btn-info", :style=>"margin-top: 0px;"%>
+          </div>
+        </div>
+      <%end%>
+    </div>
+  </div>
+</div>
+<br>
+<div class="row">
+  <div class="col-sm-12">
+    <div class="grid-view table-responsive" id="student-grid">
+      <table class="items">
+        <thead>
+          <tr>
+            <th id="student-grid_c0">Sl.No.</th>
+            <th id="student-grid_c2"><%= sortable "content" %></th>
+            <th id="student-grid_c3"><%= sortable "position" %></th>
+            <th id="student-grid_c4"><%= sortable "station_id" %></th>
+            <th id="student-grid_c7"><%= sortable "answer_text" %></th>
+            <th class="button-column" id="student-grid_c8">Action</th>
+          </tr>
+        </thead>
+        <tbody class="hole-list">
+          <%=render :partial=> "question_list"%>
+        </tbody>
+      </table>
+      <%if @questions.present?%>
+        <%= render partial: "admin/paginations/pagination", locals: {all_data: @questions} %>
+      <% end %>
+    </div>
+  </div>
+</div>
+
+<script type="text/javascript">
+	$(document).ready(function(){
+	  $(".select-position").change(function(){
+	    $.ajax({
+	      type:"get",
+	      url:"/admin/questions/get_filter_question",
+	      data:{
+	        "position":$(this).val()
+	      }
+	    });
+	  });
+	  $(".select-station").change(function(){
+	    $.ajax({
+	      type:"get",
+	      url:"/admin/questions/get_filter_question",
+	      data:{
+	        "id":$(".select-station").val()      }
+	    });
+	  });
+	});
+</script>

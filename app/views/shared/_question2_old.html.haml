@@ -1,0 +1,35 @@
+.page-header
+	%h1= link_to station.title, station_path(station)
+#station_info.well
+	= station.scenario_text.html_safe
+
+.row-fluid#station2
+	.span6
+		- if station.image?
+			= image_tag station.image
+		- elsif station.videoId
+			%img{src: "https://placehold.it/450x320&text=Video will go here"}		
+		- else
+			%img{src: "https://placehold.it/450x320&text=Video/Image"}		
+	.span6
+		%h3 Station Info
+		- if station.markscheme?
+			%p
+				%a{href: "#markschemeModal", data: {toggle: "modal"}} View mark scheme
+		- if station.actor_brief?
+			%h6 Actor Brief
+			%p= station.actor_brief.html_safe
+		- if station.exam_brief?
+			%h6 Examiner Brief
+			%p= station.exam_brief.html_safe
+
+%hr
+
+= render 'stations/station_question', :question => question, :station => station
+
+%hr
+
+
+// modals for showing the markscheme, actor brief, exam brief
+- if station.markscheme?
+	= render 'shared/modal', station: station, resource: "Markscheme", id: "markscheme"

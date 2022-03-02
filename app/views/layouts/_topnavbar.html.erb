@@ -1,0 +1,123 @@
+<%#@academic_year = AcademicYear.all_acadamic_yr1(school_id).last%>
+<div class="row border-bottom">
+  <nav class="navbar navbar-static-top" role="navigation" style="margin-bottom: 0">
+    <div class="navbar-header">
+      <a class="navbar-minimalize minimalize-styl-2 btn btn-primary " id href="#"><i class="fa fa-bars"></i>
+      </a>
+      <form role="search" class="navbar-form-custom" method="post" action="">
+        <div class="form-group">
+         <p class="navbar-text"><span class="label bg-info">Academic Year: <%= Time.now.year %></span></p>
+        </div>
+      </form>
+    </div>
+    <ul class="nav navbar-top-links navbar-right">
+      <!-- <li>
+          <input placeholder="Search..." class="form-control ui-autocomplete-input" id="user" type="text" value="" name="user" autocomplete="off">
+        
+      </li>
+      <li>
+      <button type="submit" class="btn btn-default" onclick="return autocompletesearch()"><i class="fa fa-search"></i></button>
+
+      </li> -->
+      <!-- <li class="dropdown">
+        <li class="dropdown">
+          <a class="dropdown-toggle count-info count-chat" data-toggle="dropdown" href="#">
+            <i class="fa fa-comments"></i> <span class="label label-warning" id="natificationChat">5</span>
+          </a>
+          <ul class="dropdown-menu dropdown-messages tw">
+            <div class="jewelHeader text-center">
+              <h3 class="accessible_elem" id="fbNotificationsJewelHeader">Email</h3>
+            </div>
+            <li>
+              <div class="dropdown-messages-box">
+                <a href="#" class="pull-left">
+                <img alt="image" class="img-circle img" src="<%= image_path('a7.jpg') %>" />
+                </a>
+                <div class="media-body">
+                  <small class="pull-right">46h ago</small>
+                  <strong>Mike Loreipsum</strong> started following <strong>Monica Smith</strong>. <br/>
+                  <small class="text-muted">3 days ago at 7:58 pm - 10.06.2014</small>
+                </div>
+              </div>
+            </li>
+            <li class="divider"></li>
+            <li>
+              <div class="text-center link-block">
+                <a href="#">
+                <i class="fa fa-envelope"></i> <strong>Read All Messages</strong>
+                </a>
+              </div>
+            </li>
+          </ul>
+        </li> -->
+      <!-- <li class="dropdown">
+        <a class="dropdown-toggle count-info count-notification" data-toggle="dropdown">
+        </a>
+        
+      </li> -->
+     <!--  <li>   
+        <i class="fa fa-sign-out">
+          <%= link_to 'Logout', destroy_user_session_path, method: :delete %>
+        </i>
+      </li> -->
+    </ul>
+  </nav>
+</div>
+<style type="text/css">
+.tw {
+    background: #fff;
+    border: 1px solid rgba(100, 100, 100, .4);
+    border-radius: 0 0 2px 2px;
+    box-shadow: 0 3px 8px rgba(0, 0, 0, .25);
+    color: #1d2129;
+    overflow: visible;
+    position: absolute;
+    width: 325px !important;
+    z-index: -1;
+}
+.uiHeader h3{
+    color: #333;
+    font-size: 12px;
+}
+.jewelHeader {
+    background-clip: padding-box;
+    background-color: #fff;
+    border-bottom: solid 1px #dddfe2;
+    border-top-left-radius: 3px;
+    border-top-right-radius: 3px;
+    position: relative;
+    z-index: 100;
+}
+.media-body{
+  padding: 7px;
+}
+.img {
+  display: block;
+  height: 48px !important;
+  margin-right: 12px;
+  width: 48px !important;
+  margin-top: 10px;
+}
+.accessible_elem{
+  font-size: 15px;
+  color: #000;
+  font-weight: 600;
+}
+.pull-left{
+  padding: 0px 10px !important;
+}
+.label-warning{
+  background-color: red !important;
+}
+</style>
+<script type="text/javascript">
+  $(document).ready(function(){
+    $('.count-notification').click(function(){
+      $('#notifications').remove()
+    });
+
+    $('.count-chat').click(function(){
+      $('#natificationChat').remove()
+    });
+  });
+</script>

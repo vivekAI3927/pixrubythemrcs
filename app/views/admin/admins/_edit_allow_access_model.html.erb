@@ -1,0 +1,19 @@
+<%= simple_form_for admin_user, :url => admin_admin_admin_access_path(admin_user.id), :method => :put do |f| %>
+  <div class="form-inputs">
+    <% @all_models = ActiveRecord::Base.connection.tables.map{|model|model.capitalize.singularize.camelize}.sort - ["SchemaMigration", "Slug", "ArInternalMetadatum", "DelayedJob", "FriendlyIdSlug", "Recommend", "AdminAccess", "ActiveAdminComment", "PartaAnswer", "PartaAnswersOption", "PartaAttempt", "PartaCategoryStatus", "PartaPracticeAnswer", "Payment", "ResetPasswordEmail", "Setting", "StationStatus", "SurveyAnswer", "SurveyAttempt", "SurveyOption", "SurveyQuestion", "SurveySurvey", "Testimonial", "UserMembership", "AdminUser", "Attempt", "Comment", "Answer", "Book", "AboutUsImage"] %>
+    <%= f.hidden_field :admin_id, :value => admin_user.id %>
+    <% @all_models.each do |model| %>
+      <div class="col-md-3">
+        <% if admin_user.admin_access.allow_model_name.present? %>
+          <%= f.check_box :allow_model_name, { multiple: true, checked: admin_user.admin_access.allow_model_name.include?(model) }, model, nil %>
+        <% else %>
+          <%= f.check_box :allow_model_name, { multiple: true}, model, nil %>
+        <% end %>  
+        <%= label_tag "all_models_#{model}", model.titleize %><br>
+      </div>  
+    <% end %>
+  </div>
+  <div class="form-actions col-md-12"><br/>
+    <%= f.submit "Update Access", :class=>"btn join_btn admin-submit-btn"%>
+  </div>
+<% end %>

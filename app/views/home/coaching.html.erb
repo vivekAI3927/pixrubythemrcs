@@ -1,0 +1,23 @@
+<section class="organic-breadcrumb">
+  <div class="container">
+    <div class="breadcrumb-banner d-flex flex-wrap align-items-center justify-content-end">
+      <div class="col-first">
+        <h1>Coaching</h1>
+      </div>
+    </div>
+  </div>
+</section>
+<section class="how-it-works pt-100 pb-50" id="how-it-works">
+  <div class="container">
+    <% Coaching.all.each do |course| %>
+      <div class="row">
+        <div class="how-it-work-in">
+          <div>
+            <%= course.title.html_safe rescue nil %>
+          </div>
+          <%= course.description.html_safe rescue nil %>
+        </div>
+      </div>
+    <% end %>
+  </div>
+</section>

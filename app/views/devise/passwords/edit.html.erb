@@ -1,0 +1,31 @@
+<section class="organic-breadcrumb"><div class="container"><div class="breadcrumb-banner d-flex flex-wrap align-items-center justify-content-end"><div class="col-first"><h1>Change your password</h1></div></div></div></section>
+
+<div class="container">
+  <div class="sign-form">
+      <%= form_for(resource, as: resource_name, url: password_path(resource_name), html: { method: :put, class: "simple_form form-horizontal" }) do |f| %>
+      <%= render "devise/shared/error_messages", resource: resource %>
+      <%= f.hidden_field :reset_password_token %>
+      <div class="form-group"><label class="feld-nm">New password:</label>
+        <% if @minimum_password_length %>
+          <em>(<%= @minimum_password_length %> characters minimum)</em><br />
+        <% end %>
+        <%= f.password_field :password, autofocus: true, autocomplete: "new-password",class: "form-control" %>
+      </div>
+      <div class="form-group"><label class="feld-nm">Confirm new password:</label>
+        <%= f.password_field :password_confirmation, autocomplete: "new-password",class: "form-control" %>
+      </div>
+      <div class="form-group"></div>
+       <%= f.submit "Change my password", class: "sign-frm-btn"%>
+      <br><br>
+     
+       <div class="form-group"><input class="sign-frm-btn" onclick="location.href = '/users/sign_in';" type="button" value="Cancel"></div>
+    <%end %>
+  </div>
+</div>
+<%#= render "devise/shared/links" %>
+<style type="text/css">
+  #error_explanation h2 {
+    display: none !important;
+  }
+</style>
+

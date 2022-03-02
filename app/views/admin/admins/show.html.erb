@@ -1,0 +1,87 @@
+<%= render partial: "admin/breadcrumbs/breadcrumb", locals: {path: "admins", title: "Admin Users", current_page:  "View Admin User"} %>      
+<div class="content">
+  <div class="panel panel-white">
+    <div class="panel-heading admin-pannel">
+      <%= link_to "Edit Admin", edit_admin_admin_path(@admin_user), class: "join_btn admin-trading-btn" %>
+    </div>
+    <div class="panel-body">
+      <div class="row">
+        <div class="col-sm-12">
+          <form class="form-horizontal">
+            <div class="row">
+                <div class="form-group col-sm-5" >
+                    <label class="col-sm-5 control-label text-muted" style="font-size: 14px">Email.:</label>
+                    <div class="form-group col-sm-6">
+                        <p class="form-control-static"><%= @admin_user.try(:email) %></p>
+                    </div>
+                </div>
+                <div class="form-group col-sm-5">
+                  <label class="col-sm-5 control-label text-muted" style="font-size: 14px">Created Date:</label>
+                  <div class="form-group col-sm-6">
+                      <p class="form-control-static"><%= @admin_user.created_at.strftime("%d-%m-%Y") rescue nil %></p>
+                  </div>
+              </div>
+            </div>
+            <div id="header"></div>
+            <div class="row">
+              <div class="form-group col-sm-5" >
+                <label class="col-sm-5 control-label text-muted" style="font-size: 14px">Last Sign In At:</label>
+                <div class="form-group col-sm-6">
+                  <p class="form-control-static"><%=@admin_user.last_sign_in_at.strftime("%d-%m-%Y") rescue nil %></p>
+                </div>
+              </div>
+              <div class="form-group col-sm-5">
+                <label class="col-sm-5 control-label text-muted" style="font-size: 14px">Last Sign In Ip:</label>
+                <div class="form-group col-sm-6">
+                  <p class="form-control-static"><%= @admin_user.last_sign_in_ip %></p>
+                </div>
+              </div>
+            </div>
+            <div id="header"></div>
+            <div class="row">
+              <div class="form-group col-sm-5" >
+                <label class="col-sm-5 control-label text-muted" style="font-size: 14px"></label>
+                <div class="form-group col-sm-6">
+                  <p class="form-control-static"><%#= @admin_user.referred_by %></p>
+                </div>
+              </div>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<%= render partial: "comments/comments", locals: {commentable: @admin_user} %>
+<%= render partial: "comments/form", locals: {commentable: @admin_user} %>
+<br/>
+<% if current_admin.super_admin == true %>
+  <div class="content">
+    <div class="panel panel-white">
+      <div class="panel-heading admin-pannel">
+        <h3>Allow Access</h3>
+      </div>
+      <div class="panel-body">
+        <div class="row">
+          <div class="col-sm-12">
+            <div class="main-card mb-3 card">
+              <div class="card-body">
+                <% if @admin_user.admin_access.present? %>
+                  <%= render :partial=> "edit_allow_access_model", locals: {admin_user: @admin_user} %>
+                <% else %>
+                  <%= render :partial=> "allow_access_model", locals: {admin_user: @admin_user} %>
+                <% end %>  
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>      
+    </div>
+  </div>
+<% end %>          
+
+<style type="text/css">
+  #header { 
+    border-bottom: 1px solid #DDDDDD; 
+  }
+</style>

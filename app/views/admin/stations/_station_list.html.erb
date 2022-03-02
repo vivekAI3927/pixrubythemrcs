@@ -1,0 +1,23 @@
+<%@stations.each_with_index do |x,index|%>
+  <tr>
+    <td width="5%"><%= x.id %></td>
+    <td width="10%"><%= link_to x.title, admin_station_path(x.id) %></td>
+    <td width="15%"><%= link_to x.category.name, admin_category_path(x.category.id) rescue nil%></td>
+    <td width="10%"><%= x.trial %></td>
+    <td width="10%"><%= x.questions.count %></td>
+    <td width="10%"><%= x.updated_at.strftime("%d-%m-%Y") rescue nil %></td>
+    <td width="10%"> 
+      <%if x.title.present?%>
+        <%=link_to admin_station_path(x.id) do%>
+          <span class="glyphicon glyphicon-eye-open"></span>
+        <%end%>
+        <%= link_to edit_admin_station_path(x.id) do|| %>
+          <span class="glyphicon glyphicon-pencil" style="color:#1ab394"></span>
+        <% end %>
+        <%= link_to admin_station_path(x.id), data: { confirm: 'Are you sure you want to delete this station', "bootstrap-confirm": 'delete' }, method: :delete do|| %>
+         <span class="glyphicon glyphicon-trash" style="color:red"></span>
+        <% end %>
+      <%end%>
+    </td>
+  </tr>
+<% end %>

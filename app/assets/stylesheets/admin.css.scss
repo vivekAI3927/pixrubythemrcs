@@ -1,0 +1,42 @@
+/*
+ * This is a manifest file that'll be compiled into application.css, which will include all the files
+ * listed below.
+ *
+ * Any CSS and SCSS file within this directory, lib/assets/stylesheets, vendor/assets/stylesheets,
+ * or vendor/assets/stylesheets of plugins, if any, can be referenced here using a relative path.
+ *
+ * You're free to add application-wide styles to this file and they'll appear at the top of the
+ * compiled file, but it's generally better to create a new file per style scope.
+ *
+ 
+ *= require_self
+ *= require admin/animate/animate.css
+ *= require admin/style
+ *= require select2
+ *= require select2-bootstrap
+ *= require admin/grid
+ *= require admin/core.min.css
+ *= require admin/custom.css
+  *= require admin/datatable.css
+ *= require admin/pagination.css
+ *= bootstrap
+ *= require fullcalendar
+ *= bootstrap-datepicker
+ *= require bootstrap-timepicker
+ *= require admin/animate.min.css
+ */
+
+@import "admin/base/variables";
+@import "admin/custom.css";
+@import "admin/jquery-ui.css";
+@import "admin/grid.css";
+@import "admin/graphs.css.scss";
+@import "admin/bootstrap.min.css";
+@import "admin/core.min.css";
+@import 'bootstrap-sprockets';
+@import 'bootstrap';
+@import 'bootstrap-datetimepicker';
+@import 'jquery-ui';
+@import "dataTables/jquery.dataTables";
+@import 'fullcalendar';
+@import "admin/pagination.css";

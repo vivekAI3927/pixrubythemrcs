@@ -1,0 +1,32 @@
+RESET_PASSWORD_TIME_LIMIT = 2.hours.ago
+STATION_TODO = "TO-DO"
+STATION_FLAGGED = "FLAGGED"
+STATION_DONE = "DONE"
+CATEGORY_TODO = "TO-DO"
+CATEGORY_FLAGGED = "FLAGGED"
+CATEGORY_DONE = "DONE"
+SURVEY_TYPES = { 0 => 'quiz',
+					      1 => 'score',
+					      2 => 'poll' }
+ACTION_NEW_CREATE = /new|create/
+ACTION_EDIT_UPDATE = /edit|update/
+NOT_STARTED = "Not started"
+STARTED = "Started"
+COMPLETED = "Completed"
+ERROR = "Error"
+ACTIVE = "active"
+NOTICE = "notice"
+SUCCESS = "success"
+ALERT = "alert"
+ERR = "error"
+DANGER = "danger"
+ASC = "asc"
+DESC = "desc"
+PAYPAL_URL = "https://www.paypal.com/cgi-bin/websc?"
+BUSSINESS_EMAIL = "passthemrcs@gmail.com"
+CONTACT_EMAIL = "contact@passthemrcs.co.uk"
+CURRENCY = "GBP"
+
+AREA_TAG_PARTA_REGISTRATION = 'Registration Page'
+AREA_TAG_PARTA_REGISTRATION_COMPLETE = 'Registration-Complete Page'
+AREA_TAG_PARTA_USER_JOIN_EMAIL = 'User Join Email'

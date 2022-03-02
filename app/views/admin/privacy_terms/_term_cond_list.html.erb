@@ -1,0 +1,18 @@
+<%@privacy_terms.each_with_index do |x,index|%>
+  <tr>
+    <td width="5%"><%= x.id %></td>
+    <td width="25%"><%#= x.term_and_condition.html_safe %><%= truncate(x.term_and_condition, escape: false, length:300) %></td>
+    <td width="5%"><%= x.status %></td>
+    <td width="10%">
+      <%=link_to admin_privacy_term_path(x) do%>
+        <span class="glyphicon glyphicon-eye-open"></span>
+      <%end%> 
+      <%= link_to edit_admin_privacy_term_path(x) do|| %>
+        <span class="glyphicon glyphicon-pencil" style="color:#1ab394"></span>
+      <% end %>
+      <%= link_to admin_privacy_term_path(x), data: { confirm: 'Are you sure you want to delete this privacy', "bootstrap-confirm": 'delete' }, method: :delete do|| %>
+         <span class="glyphicon glyphicon-trash" style="color:red"></span>
+      <% end %>
+    </td>
+  </tr>
+<%end%>

@@ -1,0 +1,2 @@
+<%= render partial: "admin/breadcrumbs/breadcrumb", locals: {path: "books", title: "Books", current_page: "Edit Book List"} %>
+<%= render partial: 'form', locals: {url: admin_book_path(@book.id), method: :put} %>

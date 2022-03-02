@@ -1,0 +1,387 @@
+<div class="page-header">
+  <div class="breadcrumb-line upper_header">
+    <ul class="breadcrumb" style="height: 34px;">
+      <li style="margin-top: 9px;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<%=link_to "HOME", "/admin", :class=>"fa fa-home" %></li>
+      <li><a href="/admin/stations"><b>Stations</b></a></li>
+      <li><a href="#" data-toggle="modal" data-target="#modaladdquestion"><b><i>Add a new question for this station</i></b></a></li>
+      <li><b><i><%= link_to "Edit this station", edit_admin_station_path(@station.id) %></i></b></li>
+    </ul>
+    <a class="breadcrumb-elements-toggle"><i class="icon-menu-open"></i></a></div>
+  </div><br>
+<div class="content">
+    <div class="panel panel-white">
+      <div class="panel-heading admin-pannel">
+        <%= link_to "Edit Station", edit_admin_station_path(@station.id), class: "join_btn admin-trading-btn" %>
+        <%= link_to "Delete Station", admin_station_path(@station.id), data: { confirm: 'Are you sure you want to delete this station', "bootstrap-confirm": 'delete' }, method: :delete, class: "join_btn admin-trading-btn" %>
+      </div>
+      <div class="panel-body">
+        <div class="row">
+          <div class="col-sm-12">
+            <form class="form-horizontal">
+              <div class="row">
+                <div class="form-group col-sm-5" >
+                  <label class="col-sm-5 control-label text-muted admin_font">Id.:</label>
+                  <div class="form-group col-sm-6">
+                    <p class="form-control-static"><%= @station.id %></p>
+                  </div>
+                </div>
+                <div class="form-group col-sm-5" >
+                  <label class="col-sm-5 control-label text-muted admin_font">Title:</label>
+                  <div class="form-group col-sm-6">
+                    <p class="form-control-static"><%= @station.title %></p>
+                  </div>
+                </div>
+              </div>
+              <div id="header"></div>
+              <div class="row">
+                <div class="form-group col-sm-10" >
+                  <label class="col-sm-10 control-label text-muted admin_font">Scenario Text:</label>
+                  <div class="form-group col-sm-12">
+                    <p class="form-control-static"><%= @station.scenario_text.html_safe %></p>
+                  </div>
+                </div>
+              </div>
+             
+              <div id="header"></div>
+              <div class="row">
+                <div class="form-group col-sm-5" >
+                  <label class="col-sm-5 control-label text-muted admin_font">Category:</label>
+                  <div class="form-group col-sm-6">
+                    <p class="form-control-static"><%= @station.category.name %></p>
+                  </div>
+                </div>
+                <div class="form-group col-sm-5" >
+                  <label class="col-sm-5 control-label text-muted admin_font">Markscheme:</label>
+                  <div class="form-group col-sm-6">
+                    <p class="form-control-static"><%= @station.markscheme.html_safe %></p>
+                  </div>
+                </div>
+              </div>
+              <div id="header"></div>
+              <div class="row">
+                <div class="form-group col-sm-5" >
+                  <label class="col-sm-5 control-label text-muted admin_font">Actor Brief:</label>
+                  <div class="form-group col-sm-6">
+                    <p class="form-control-static"><%= @station.actor_brief.html_safe %></p>
+                  </div>
+                </div>
+                <div class="form-group col-sm-5" >
+                  <label class="col-sm-5 control-label text-muted admin_font">Exam Brief:</label>
+                  <div class="form-group col-sm-6">
+                    <p class="form-control-static"><%= @station.exam_brief.html_safe %></p>
+                  </div>
+                </div>
+              </div>
+              <div id="header"></div>
+              <div class="row">
+                <div class="form-group col-sm-12" >
+                  <label class="col-sm-5 control-label text-muted admin_font">Cheatsheet:</label>
+                  <div class="form-group col-sm-12">
+                    <p class="form-control-static"><%= @station.cheatsheet.html_safe %></p>
+                  </div>
+                </div>
+              </div>
+              <div id="header"></div>
+              <div class="row">
+                <div class="form-group col-sm-5" >
+                  <label class="col-sm-5 control-label text-muted admin_font">Image Updated At:</label>
+                  <div class="form-group col-sm-6">
+                    <p class="form-control-static"><%=@station.image_updated_at.strftime("%d-%m-%Y") rescue nil %></p>
+                  </div>
+                </div>
+                <div class="form-group col-sm-5" >
+                  <label class="col-sm-5 control-label text-muted admin_font">Available:</label>
+                  <div class="form-group col-sm-6">
+                    <p class="form-control-static"><%= @station.available %></p>
+                  </div>
+                </div>
+              </div>
+              <div id="header"></div>
+              <div class="row">
+                <div class="form-group col-sm-5" >
+                  <label class="col-sm-5 control-label text-muted admin_font">Trial:</label>
+                  <div class="form-group col-sm-6">
+                    <p class="form-control-static"><%= @station.trial %></p>
+                  </div>
+                </div>
+                <div class="form-group col-sm-5" >
+                  <label class="col-sm-5 control-label text-muted admin_font">Image:</label>
+                  <div class="form-group col-sm-6">
+                    <p class="form-control-static"><%#=image_tag(@station.image.url, :class=> "category-img-circular") %>
+                      <%= link_to image_tag(@station.image.url, alt: "Facebook", :class=> "category-img-circular"), @station.image.url, target: :_blank rescue nil %>
+                    </p>
+                  </div>
+                </div>
+              </div>
+              <div id="header"></div>
+              <div class="row">
+                <div class="form-group col-sm-5">
+                  <label class="col-sm-5 control-label text-muted admin_font">Created At:</label>
+                  <div class="form-group col-sm-6">
+                    <p class="form-control-static"><%=@station.created_at.strftime("%d-%m-%Y") rescue nil %></p>
+                  </div>
+                </div>
+                <div class="form-group col-sm-5" >
+                  <label class="col-sm-5 control-label text-muted admin_font">Updated At:</label>
+                  <div class="form-group col-sm-6">
+                    <p class="form-control-static"><%=@station.updated_at.strftime("%d-%m-%Y") rescue nil %></p>
+                  </div>
+                </div>
+              </div>
+              
+              <div id="header"></div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+</div>
+<% @station.questions.order(:position).each_with_index do |sta_qustion, index| %>
+  <div class="page-header">
+    <br>
+    <div class="content">
+      <div class="panel panel-white">
+        <div class="panel-heading">
+          <h6 class="panel-title"> <b><i>Question <%= index + 1 %></i></b>  / <b><i><%= link_to "Edit this question", edit_admin_question_path(sta_qustion, via_station: "true"), style: "color: white;" %></i></b> / <b><i><%= link_to "Remove Question", admin_question_destroy_question_path(sta_qustion),data: { confirm: 'Are you sure you want to delete question ', "bootstrap-confirm": 'delete' }, method: :delete, style: "color: white;" %> </i></b> / <b><i><%= link_to "Move up", admin_question_move_up_path(sta_qustion.id), style: "color: white;" %></i></b> / <b><i><%= link_to "Move down", admin_question_move_down_path(sta_qustion.id), style: "color: white;" %></i></b>
+          </h6>
+        </div>
+        <div class="panel-body">
+          <div class="row">
+            <div class="col-sm-12">
+              <form class="form-horizontal">
+                <div class="row">
+                  <div class="form-group col-sm-5" >
+                    <label class="col-sm-5 control-label text-muted admin_font">Id.:</label>
+                    <div class="form-group col-sm-6">
+                      <p class="form-control-static"><%= sta_qustion.id %></p>
+                    </div>
+                  </div>
+                </div>
+                <div id="header"></div>
+                <div class="row">  
+                  <div class="form-group col-sm-12" >
+                    <label class="col-sm-12 control-label text-muted admin_font">Content:</label>
+                    <div class="form-group col-sm-12">
+                      <p class="form-control-static"><%= sta_qustion.content.html_safe %></p>
+                    </div>
+                  </div>
+                </div>
+                <div id="header"></div>
+                <div class="row">
+                  <div class="form-group col-sm-5" >
+                    <label class="col-sm-5 control-label text-muted admin_font">Position:</label>
+                    <div class="form-group col-sm-6">
+                      <p class="form-control-static"><%= sta_qustion.position %></p>
+                    </div>
+                  </div>
+                  <div class="form-group col-sm-5">
+                    <label class="col-sm-5 control-label text-muted admin_font">Station:</label>
+                    <div class="form-group col-sm-6">
+                      <p class="form-control-static"><%= sta_qustion.station.title %></p>
+                    </div>
+                  </div>
+                </div>
+                <div id="header"></div>
+                <div class="row">
+                  <div class="form-group col-sm-12">
+                    <label class="col-sm-12 control-label text-muted admin_font">Image Text:</label>
+                    <div class="form-group col-sm-12">
+                      <p class="form-control-static"><%= sta_qustion.image_text.html_safe rescue nil%></p>
+                    </div>
+                  </div>
+                </div>
+                <div id="header"></div>
+                <div class="row">
+                  <div class="form-group col-sm-12" >
+                    <label class="col-sm-12 control-label text-muted admin_font">Answer Text:</label>
+                    <div class="form-group col-sm-12">
+                      <p class="form-control-static"><%= sta_qustion.answer_text.html_safe %></p>
+                    </div>
+                  </div>
+                </div>
+                <div id="header"></div>
+                <div class="row">
+                  <div class="form-group col-sm-5">
+                    <label class="col-sm-5 control-label text-muted admin_font">Image:</label>
+                    <div class="form-group col-sm-6">
+                      <p class="form-control-static">
+                        <%= link_to image_tag(sta_qustion.image.url, alt: "Facebook", :class=> "category-img-circular"), sta_qustion.image.url, target: :_blank rescue nil%>
+                      </p>
+                    </div>
+                  </div>
+                  <div class="form-group col-sm-5" >
+                    <label class="col-sm-5 control-label text-muted admin_font">Answer Image:</label>
+                    <div class="form-group col-sm-6">
+                      <p class="form-control-static">
+                        <%= link_to image_tag(sta_qustion.answer_image_file_name.url, alt: "Facebook", :class=> "category-img-circular"), sta_qustion.answer_image_file_name.url, target: :_blank rescue nil%>
+                      </p>
+                    </div>
+                  </div>
+                </div>
+                <div id="header"></div>
+                <div class="row">
+                  <div class="form-group col-sm-5">
+                    <label class="col-sm-5 control-label text-muted admin_font">Created At:</label>
+                    <div class="form-group col-sm-6">
+                      <p class="form-control-static"><%=@question.created_at.strftime("%d-%m-%Y") rescue nil %></p>
+                    </div>
+                  </div>
+                  <div class="form-group col-sm-5" >
+                    <label class="col-sm-5 control-label text-muted admin_font">Updated At:</label>
+                    <div class="form-group col-sm-6">
+                      <p class="form-control-static"><%=@question.updated_at.strftime("%d-%m-%Y") rescue nil %></p>
+                    </div>
+                  </div>
+                </div>
+                <div id="header"></div>
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+  </div>
+<% end %>
+
+<div id="modaladdquestion" class="modal fade" role="dialog">
+    <div class="modal-dialog">
+        <!-- Modal content-->
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h4 class="modal-title" style="text-align-last: center">Station Id: <%= @station.id %></h4>
+            </div>
+            <div class="modal-body">
+              <%= form_for @question_data, :url => '/admin/questions', :html => { :multipart => true, :class => "p-20" } do |f| %>
+                <div class="row">
+                  <div class="col-sm-12">
+                    <div class="panel panel-default">
+                       <div class="panel-heading">
+                         <h4 class="panel-title">Add New Question</h4>
+                      </div>
+                      <div class="panel-body">
+                        <div class="row">  
+                          <div class="form-group col-sm-12">
+                            <label for="reg_input_name" class="required">Content</label>
+                            <%=f.text_area :content, :class=>"form-control",required: true, :placeholder => "Enter Content", id: "editor1" %>
+                            <%= f.hidden_field :via_station, :value => "true" %>
+                            <div class="content_paragraph" style="color: red;"></div> 
+                            <div class = "error" style="color: red"><%= @question_data.errors.messages[:content][0] %></div>
+                          </div>
+                        </div>
+                        <div class="row">  
+                          <div class="form-group col-sm-6">
+                            <label for="reg_input_name" class="required">Position</label>
+                            <%=f.number_field :position, :class => "form-control",id: "position", :placeholder => "Enter Position"  %>
+                            <div class="content_position" style="color: red;"></div> 
+                          </div>
+                          <div class="form-group col-sm-6">
+                            <label for="reg_input_name">Answer Image</label>
+                            <%=f.file_field :answer_image_file_name, :class=>"form-control" %>
+                          </div>
+                        </div>  
+                        <div class="row">  
+                          <div class="form-group col-sm-12">
+                            <label for="reg_input_name" class="required" >Answer Text</label>
+                             <%=f.text_area :answer_text, :class => "form-control",id: "editoranswer", :placeholder => "Enter Answer Text" %>
+                             <div class="content_answer_text" style="color: red;"></div> 
+                          </div>
+                        </div>
+                        <div class="row">
+                          <div class="form-group col-sm-6">
+                            <label for="reg_input_name" class="req">Image</label>
+                            <%=f.file_field :image_file_name, :class=>"form-control" %>
+                          </div>
+                        </div>
+                        <div class="row">  
+                          <div class="form-group col-sm-12">
+                            <label for="reg_input_name">Image Text</label>
+                            <%=f.text_area :image_text, :class=>"form-control",id: "editorimage", :placeholder => "Enter Image Text" %>
+                          </div>
+                        </div>
+                        <%= f.hidden_field :station_id, value: @station.id %>
+                        <div class="row">
+                          <div class="col-sm-12 text-center">
+                            <%= f.submit "Submit", :class=>"btn join_btn admin-submit-btn" %>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              <%end%>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn join_btn admin-submit-btn" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>   
+
+<style type="text/css">
+label.required:after{content:" *"; color: red;}
+
+  #header { 
+      border-bottom: 1px solid #DDDDDD; 
+  }
+  .category-img-circular{
+   width: 100px;
+   height: 100px;
+   background-size: cover;
+   display: block;
+   border-radius: 100px;
+   -webkit-border-radius: 100px;
+   -moz-border-radius: 100px;
+  }
+
+  .question-img-circular{
+   width: 50px;
+   height: 50px;
+   background-size: cover;
+   display: block;
+   border-radius: 100px;
+   -webkit-border-radius: 100px;
+   -moz-border-radius: 100px;
+  }
+  .trading-btn:hover
+{
+background-color:#111c4f;
+color: #ff9800;
+}
+</style>
+<script>
+  CKEDITOR.replace('editor1', {
+    extraPlugins: 'colorbutton,colordialog'
+  });
+  CKEDITOR.replace('editoranswer', {
+    extraPlugins: 'colorbutton,colordialog'
+  });
+  CKEDITOR.replace('editorimage', {
+    height: 250,
+    extraPlugins: 'colorbutton,colordialog'
+  });
+  CKEDITOR.replace('editorexam_brief', {
+    height: 250,
+    extraPlugins: 'colorbutton,colordialog'
+  });
+  CKEDITOR.replace('editorcheatsheet', {
+    height: 250,
+    extraPlugins: 'colorbutton,colordialog'
+  });
+  function empty() {
+    var x = CKEDITOR.instances['editor1'].getData();
+    if (x == "") {
+      $('.content_paragraph').append("Please Enter Content")
+      return false;
+    };
+    var position = $('#position').val();
+    if (position == "") {
+        $('.content_position').append("Please Enter Position")
+        return false;
+    };
+    var x = CKEDITOR.instances['editoranswer'].getData();
+    if (x == "") {
+      $('.content_answer_text').append("Please Enter Answer Text")
+      return false;
+    };
+  } 
+</script>

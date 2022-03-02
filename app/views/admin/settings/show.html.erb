@@ -1,0 +1,81 @@
+<div class="page-header">
+  <div class="breadcrumb-line upper_header">
+    <ul class="breadcrumb" style="height: 34px;">
+      <li style="margin-top: 9px;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<%=link_to "HOME", "/admin", :class=>"fa fa-home" %></li>
+      <li><a href="/admin/settings"><b>Settings</b></a></li>
+      <li class="active">View Setting</li>
+    </ul>
+    <a class="breadcrumb-elements-toggle"><i class="icon-menu-open"></i></a></div>
+  </div><br>
+  <div class="content">
+    <div class="panel panel-white">
+      <div class="panel-heading">
+        <h6 class="panel-title">Setting Details</h6>
+      </div>
+      <div class="panel-body">
+        <div class="row">
+          <div class="col-sm-12">
+            <form class="form-horizontal">
+              <div class="row">
+                <div class="form-group col-sm-5" >
+                  <label class="col-sm-5 control-label text-muted" style="font-size: 14px">Id.:</label>
+                  <div class="form-group col-sm-6">
+                    <p class="form-control-static"><%= @setting.id %></p>
+                  </div>
+                </div>
+                <div class="form-group col-sm-5" >
+                  <label class="col-sm-5 control-label text-muted" style="font-size: 14px">Name:</label>
+                  <div class="form-group col-sm-6">
+                    <p class="form-control-static"><%= @setting.name %></p>
+                  </div>
+                </div>
+              </div>
+              <div id="header"></div>
+              <div class="row">
+                <div class="form-group col-sm-5" >
+                  <label class="col-sm-5 control-label text-muted" style="font-size: 14px">Price:</label>
+                  <div class="form-group col-sm-6">
+                    <p class="form-control-static"><%= @setting.price %></p>
+                  </div>
+                </div>
+              </div>
+              <div id="header"></div>
+              <div class="row">
+                <div class="form-group col-sm-5">
+                  <label class="col-sm-5 control-label text-muted" style="font-size: 14px">Created At:</label>
+                  <div class="form-group col-sm-6">
+             
+                    <p class="form-control-static"><%=@setting.created_at.strftime("%b %d, %Y %l:%M") rescue nil %></p>
+                  </div>
+                </div>
+                <div class="form-group col-sm-5" >
+                  <label class="col-sm-5 control-label text-muted" style="font-size: 14px">Updated At:</label>
+                  <div class="form-group col-sm-6">
+             
+                    <p class="form-control-static"><%=@setting.updated_at.strftime("%b %d, %Y %l:%M") rescue nil %></p>
+                  </div>
+                </div>
+              </div>
+              
+              <div id="header"></div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+</div>  
+
+<style type="text/css">
+  #header { 
+      border-bottom: 1px solid #DDDDDD; 
+  }
+  .category-img-circular{
+   width: 100px;
+   height: 100px;
+   background-size: cover;
+   display: block;
+   border-radius: 100px;
+   -webkit-border-radius: 100px;
+   -moz-border-radius: 100px;
+  }
+</style>

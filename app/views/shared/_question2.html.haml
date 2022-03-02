@@ -1,0 +1,61 @@
+%section.organic-breadcrumb
+  .container
+    .breadcrumb-banner.d-flex.flex-wrap.align-items-center.justify-content-end
+      .col-first
+        %h1
+          = station.title
+        - if current_user
+          .row
+            .col-md-12.text-center
+              = link_to update_status_station_path(station, status: STATION_TODO) do
+                %span#todo{class: "badge #{@station_status.todo ? 'badge-danger' : 'badge-secondary'}" } TO-DO
+              = link_to update_status_station_path(station, status: STATION_FLAGGED) do
+                %span#flagged{class: "badge #{@station_status.flagged ? 'badge-warning' : 'badge-secondary'}" } FLAGGED
+              = link_to update_status_station_path(station, status: STATION_DONE) do
+                %span#done{class: "badge #{@station_status.done ? 'badge-success' : 'badge-secondary'}" } DONE
+%section.how-it-works.pt-100.pb-50
+  .container.theme-bg.question_bd_format
+    .row
+      .col-md-12.next_question_scroll
+        - sta_ques = station.questions.map(&:id)
+        - number = sta_ques.index(question.id)
+        Question #{number + 1} of  #{station.questions.count}
+        %br/
+        %h3
+          %small
+            = station.scenario_text.html_safe
+            %hr/
+    .row
+      .col-md-12
+        - if station.image?
+          = image_tag station.image.url, style: "max-width: 100%; height:auto;"
+        - elsif station.videoId
+          %img{src: "https://placehold.it/450x320&text=Video will go here"}    
+        - else
+          %img{src: "https://placehold.it/450x320&text=Video/Image"}
+      .col-md-12
+        %br/
+        %h3 Station Info
+        - if station.markscheme?
+          %a{href: "#markschemeModal", data: {toggle: "modal"}} View mark scheme
+        - if station.actor_brief?
+          %h3 Actor Brief
+          = station.actor_brief.html_safe
+        - if station.exam_brief?
+          %h3 Examiner Brief
+          = station.exam_brief.html_safe
+
+    %hr/
+
+    = render 'stations/station_question', :question => question, :station => station
+
+    %hr/
+
+
+    // modals for showing the markscheme, actor brief, exam brief
+    - if station.markscheme?
+      = render 'shared/modal', station: station, resource: "Markscheme", id: "markscheme"
+:javascript
+  $(document).ready(function () {
+    $('html, body').animate({scrollTop: $('.next_question_scroll').offset().top - 122 }, 1000);
+  })

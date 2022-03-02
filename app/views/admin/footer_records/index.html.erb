@@ -1,0 +1,41 @@
+<%= render partial: "admin/breadcrumbs/breadcrumb", locals: {path: "footer_records", title: "Footer Text", current_page: "Footer Text"} %>
+<div class="content">
+  <div class="row">
+    <div class="col-sm-12">
+      <div class="grid-view table-responsive" id="student-grid">
+        <table class="items">
+          <thead>
+            <tr>
+              <th id="student-grid_c0">Id</th>
+              <th id="student-grid_c2">Copyright Text</th>
+              <th id="student-grid_c1"> All Right Reserved Text</th>
+              <th class="button-column" id="student-grid_c7">Action</th>
+            </tr>
+          </thead>
+          <tbody class="hole-list">
+            <% @footer_records.each_with_index do |x,index|%>
+                <tr>
+                  <td width="5%"><%= x.id %></td>
+                  <td width="15%"><%= x.copyright%></td>
+                  <td width="15%"><%= x.all_right_reserved.html_safe %></td>
+                  <td width="10%"> 
+                    <%=link_to admin_footer_record_path(x) do%>
+                      <span class="glyphicon glyphicon-eye-open"></span>
+                    <%end%>
+                    <%= link_to edit_admin_footer_record_path(x) do|| %>
+                      <span class="glyphicon glyphicon-pencil" style="color:#1ab394"></span>
+                    <% end %>
+                  </td>
+                </tr>
+              <%end%>
+          </tbody>
+        </table>
+        <%if @footer_records.present?%>
+          <div class="pager">
+
+          </div>
+        <%end%>
+      </div>
+    </div>
+  </div>
+</div>

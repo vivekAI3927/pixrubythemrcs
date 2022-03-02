@@ -1,0 +1,65 @@
+
+<script src="https://www.paypal.com/sdk/js?client-id=<%= ENV['PAYPAL_CLIENT_ID']%>&currency=GBP"> // Replace YOUR_SB_CLIENT_ID with your sandbox client ID
+                </script>
+<div class="card">
+  <div class="card-body">  
+      <% if session[:cost] %>
+      <h3 class="text-success">Coupon Applied: <%= @user.coupon_name %></h3>
+      <h4>Updated Price: <%= number_to_currency(session[:cost], unit: "£", precision: 0) %> </h4>
+      <% else %>
+        <%= form_tag(apply_coupon_user_url(@user), method: "post", class: "form-inline payment-record-format") do %>
+          <% if @payment_content.discount %>
+           <%= label_tag(:coupon, @payment_content.discount.try(:html_safe),class: "payment-record-format") %>
+          <% else %>
+          <%= label_tag(:coupon, "Have a discount code? enter it below and complete your payment via PayPal:",class: "payment-record-format") %>
+          <% end %>
+         &nbsp;&nbsp;
+        <%= text_field_tag(:coupon , nil, class: "form-control", placeholer: "Enter Discount Code")%>
+        <%= submit_tag "Apply", class: "btn btn-warning", style:"font-family: proxima_novabold; margin-left: 12px;" %>
+      <% end %>
+        <% end %>
+      <br/>
+      <% if session[:cost] %>
+      <div id="paypal-button-container"></div>
+      <% end %>
+
+  </div>
+  </div>
+</div>
+
+<!-- Add the checkout buttons, set up the order and approve the order -->
+    <script>
+      $(document).ready(function() { 
+      paypal.Buttons({
+        createOrder: function(data, actions) {
+          return actions.order.create({
+            purchase_units: [{
+              reference_id: '<%= @user.id %>',
+              amount: {
+                value: '<%= @cost.to_f.round(2) %>',
+              }
+            }]
+          });
+        },
+        onApprove: function(data, actions) {
+          return actions.order.capture().then(function(details) {
+            console.log("Paypal Data", data)
+            console.log("Paypal details", details)
+            $.ajax({
+              type: "POST",
+              url: "/paypal_payment_notifications",
+              data: details,
+              success(data) {
+                  window.location.href = "/success"
+                  return false;
+                },
+                error(data) {
+                  return false;
+                }          
+            });
+            // alert('Transaction completed by ' + details.payer.name.given_name);
+          });
+        }
+      }).render('#paypal-button-container'); // Display payment options on your web page  
+       });   
+    </script>

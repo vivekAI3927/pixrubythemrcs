@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="zxx" class="no-js">
+<meta http-equiv="content-type" content="text/html;charset=UTF-8" />
+<head>
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <!-- Favicon-->
+  <!-- <link rel="shortcut icon" href="<%#= asset_path("img/logo.png")%>"> -->
+  <link rel="shortcut icon" href="/favicon-32x32.png">
+  <meta name="author" content="CodePixar">
+  
+  <meta name="description" content="">
+  <!-- Meta Keyword -->
+  <meta name="keywords" content="">
+  <!-- meta character set -->
+  <meta charset="UTF-8">
+  <!-- Site Title -->
+  <title>Pass The MRCS</title>
+  <!--CSS ============================================= -->
+<script src="https://cdn.ckeditor.com/4.14.0/standard/ckeditor.js"></script>
+
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+  <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+  <!-- <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png"> -->
+   <link rel="icon" type="image/png" sizes="32x32" href="/new_favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/new_favicon-16x16.png">
+  <link rel="manifest" href="/site.webmanifest">
+ <%= stylesheet_link_tag 'application', media: 'all', 'data-turbolinks-track': 'reload' %>
+    <%#= javascript_pack_tag 'application', 'data-turbolinks-track': 'reload' %>
+    <%= javascript_include_tag "application", 'data-turbolinks-track': 'reload' %>
+  
+</head>
+
+ <body>
+    <%= render 'layouts/header'%>
+    <%= render 'layouts/flash_messages' %> 
+
+    <%= yield %>
+    <%= render 'layouts/footer'%>
+  </body>
+</html>
+<style type="text/css">
+  body{
+    overflow-x: hidden;
+  }
+  #member {
+    padding: 0px !important;
+  }
+  .member-data { background-color: #edf3f5;}
+  .que_answer{
+    background-color: orange;
+    color: white;
+  }
+</style>
+<script type="text/javascript">
+  $('document').ready(function() {
+  setTimeout(function() {
+    $('#flash').slideUp();
+  }, 3000);
+});
+  $(".alert" ).fadeOut(5000);
+   $(".alert-success" ).fadeOut(5000);
+   $(".alert-danger" ).fadeOut(5000);
+</script>
+

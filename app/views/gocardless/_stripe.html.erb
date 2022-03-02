@@ -1,0 +1,82 @@
+<!-- Load Stripe.js on your website. -->
+<script src="https://js.stripe.com/v3"></script>
+
+<!-- Create a button that your customers click to complete their purchase. Customize the styling to suit your branding. -->
+
+<div class="card">
+  <div class="card-body">
+    <div class="payment-record-format">
+      <% if @payment_content.try(:stripe) %>
+        <%= @payment_content.stripe.try(:html_safe) %>
+      <% else %>
+        We use Stripe to handle our payments. Please click the link below to pay directly on the page using Stripe.
+      <% end %>
+    </div>
+    <div class="row">
+        <div class="col-md-12">
+        <button
+        class="stripe_btn btn btn-warning btn-lg"
+        id="checkout-button-<%= @user.membership.stripe_plan_name %>"
+        role="link" style="font-family: proxima_novabold"
+      >
+        Complete Order
+      </button>
+      </div>
+      </div>
+
+      <div id="error-message"></div>
+
+    <br/><hr/>
+    <% if @payment_content.stripe_declaration%>
+    <%= @payment_content.stripe_declaration.try(:html_safe) %>
+    <% else %>
+    <h4>Is my information secure?</h4>
+    <div class="payment-record-format">
+      Shift uses of Stripe for payment processing.Stripe has been audited by PCI-certified auditor and is certified to PCI Service provider Level 1. This is most strengest level of certification in the payment industry.
+    </div>
+    <% end %>
+    <div>
+    <small>
+      Payment processing provided by:
+    </small>
+  </div>
+    <%= image_tag "stripe-logo.svg"%>
+  </div>
+</div>
+
+<script>
+  var stripe = Stripe('<%= ENV['STRIPE_PUBLISHABLE_KEY'] %>');
+   Stripe.api_version = '2020-03-02'
+  var checkoutButton = document.getElementById('checkout-button-<%= @user.membership.stripe_plan_name %>');
+  checkoutButton.addEventListener('click', function () {
+    // When the customer clicks on the button, redirect
+    // them to Checkout.
+    stripe.redirectToCheckout({
+      items: [{sku: '<%= @user.membership.stripe_plan_name %>', quantity: 1}],
+      // items: [
+      //     // Replace with the ID of your price
+      //     {sku: '<%= @user.membership.stripe_plan_name %>', quantity: 1},
+      //   ],
+      mode: 'payment',
+    
+      // Do not rely on the redirect to the successUrl for fulfilling
+      // purchases, customers may not always reach the success_url after
+      // a successful payment.
+      // Instead use one of the strategies described in
+      // https://stripe.com/docs/payments/checkout/fulfillment
+      successUrl: '<%= ENV['DOMAIN'] %>/success',
+      cancelUrl: '<%= ENV['DOMAIN'] %>/canceled',
+      customerEmail: '<%= @user.email %>',
+      clientReferenceId: '<%= @user.id %>'
+    })
+    .then(function (result) {  
+
+      if (result.error) {
+        // If `redirectToCheckout` fails due to a browser or network
+        // error, display the localized error message to your customer.
+        var displayError = document.getElementById('error-message');
+        displayError.textContent = result.error.message;
+      }
+    });
+  });
+</script>

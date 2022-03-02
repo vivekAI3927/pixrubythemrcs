@@ -1,0 +1,26 @@
+- if @childrens.present?
+  %section.organic-breadcrumb.cat-breadcrumb
+    .container
+      .breadcrumb-banner.cat-banner.d-flex.flex-wrap.align-items-center.justify-content-end
+        .col-first
+          %h1= @category.name
+- if @childrens.present?        
+  %section.how-it-works.pt-100.pb-50
+    .container
+      .row             
+        .col-md-12
+          #category_advice
+            = @category.description.html_safe
+            - percentage = @category.percentage(@category.id, current_parta_user.id)
+            %section.account-inner-sec.cat-inner-section
+              .bs-example
+                %span
+                  .progress
+                    .progress-bar.bg-warning{"aria-valuemax" => "100", "aria-valuemin" => "0", "aria-valuenow" => "#{percentage}", :role => "progressbar", :style => "width: #{percentage}%;"}  #{percentage}%
+                  - if @category.name == "Anatomy"  
+                    = link_to('Open Acland’s Anatomy', " https://www.aclandanatomy.com",  { target: '_blank', class: 'join_btn trading-btn' })
+            %br/
+        .col-md-12
+          = render partial: "/shared/parta_categories", locals: {childrens: @childrens, category: @category}
+- else
+  = render partial: "/shared/parta_questions", locals: {question: @question, category: @category, questions: @questions}           

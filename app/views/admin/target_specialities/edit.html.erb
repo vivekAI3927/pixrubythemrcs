@@ -1,0 +1,3 @@
+<%= render partial: "admin/breadcrumbs/breadcrumb", locals: {path: "target_specialities", title: "Target Specialities", current_page: "Edit Target Speciality"} %>
+<%= render partial: 'form', locals: {url: admin_target_speciality_path(@target_speciality.id), method: :put} %> 
+          

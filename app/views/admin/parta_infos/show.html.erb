@@ -1,0 +1,58 @@
+<%= render partial: "admin/breadcrumbs/breadcrumb", locals: {path: "parta_infos", title: "Part A Info", current_page: "View Part A Info"} %>
+<div class="content">
+    <div class="panel panel-white">
+        <div class="panel-heading admin-pannel">
+          <%= link_to "Edit Part A Info", edit_admin_parta_info_path(@parta_info.id), class: "join_btn admin-trading-btn" %>
+        </div>
+        <div class="panel-body">
+            <div class="row">
+                <div class="col-sm-12">
+                    <form class="form-horizontal">
+                        <div class="row">
+                            <div class="form-group col-sm-5" >
+                                <label class="col-sm-5 control-label text-muted admin_font">Id.:</label>
+                                <div class="form-group col-sm-6">
+                                    <p class="form-control-static"><%= @parta_info.id %></p>
+                                </div>
+                            </div>
+                        </div>
+                        <div id="header"></div>
+                        <div class="row">
+                          <div class="form-group col-sm-12">
+                            <label class="col-sm-12 control-label text-muted admin_font">Heading/Subject:</label>
+                            <div class="form-group col-sm-12">
+                              <p class="form-control-static">
+                                <%= @parta_info.heading_info.html_safe %>
+                              </p>
+                            </div>
+                          </div>
+                        </div>
+                        <div id="header"></div>
+                        <div class="row">
+                          <div class="form-group col-sm-12">
+                            <label class="col-sm-12 control-label text-muted admin_font">Body:</label>
+                            <div class="form-group col-sm-12">
+                              <p class="form-control-static">
+                                <%= @parta_info.body_info.html_safe %>
+                              </p>
+                            </div>
+                          </div>
+                        </div>
+                        <div id="header"></div>
+                        <div class="row">
+                          <div class="form-group col-sm-12">
+                            <label class="col-sm-12 control-label text-muted admin_font">Area Tag:</label>
+                            <div class="form-group col-sm-12">
+                              <p class="form-control-static">
+                                <%= @parta_info.area_tag %>
+                              </p>
+                            </div>
+                          </div>
+                        </div>
+												<div id="header"></div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>  

@@ -1,0 +1,2 @@
+<%= render partial: "admin/breadcrumbs/breadcrumb", locals: {path: "partner_members", title: "Partners", current_page: "Edit Partner Member"} %>
+<%= render partial: 'form', locals: {url: admin_partner_member_path(@partner_member.id), method: :put} %>

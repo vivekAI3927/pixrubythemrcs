@@ -1,0 +1,58 @@
+<% @full_term_condition ||= FullTermCondition.last %>
+<% @footer_data ||= FooterRecord.last %>
+<% @privacy_term ||=  PrivacyTerm.where(status: true).last %>
+<% @community_code ||=  CommunityCode.last %>
+<% @eula ||=  EndUserLicenseAgreement.last %>
+<% @cookie_policy ||=  CookiePolicy.last %>
+<% @disclaimer ||=  Disclaimer.last %>
+<footer class="footer-area section_gap">
+  <div class="container">
+    <div class="row">
+      <div class="col-lg-8  col-md-6 col-sm-6 newslater-form">
+        <div class="single-footer-widget">
+          <p class="m-0">
+            <a class="trms-link fa-vertical-line new_tab_format" href="/terms-and-conditions" target="_blank"> <%= @full_term_condition.title rescue nil %> </a>
+            <a class="trms-link fa-vertical-line new_tab_format" href="/terms-and-privacy" target="_blank"> Privacy </a>
+            <a class="trms-link fa-vertical-line new_tab_format" href="/community_code" target="_blank"> Community Code </a>
+           <!--  <a class="trms-link fa-vertical-line new_tab_format" href="#" data-toggle="modal" data-target="#eula" style="text-decoration: none;"> EULA </a> -->
+            <a class="trms-link fa-vertical-line new_tab_format" href="/cookie_policies" target="_blank"> Cookies </a>
+            <a class="trms-link new_tab_format" href="/disclaimer" target="_blank"> Disclaimer </a>
+          </p>  
+          <p class="m-0">
+            <%= @footer_data.copyright rescue nil%><br> <%= @footer_data.all_right_reserved.try(:html_safe) rescue nil %>
+          </p> 
+          <button allow-preference-non-eu=“true" class="termly-cookie-preference-button cookie_privacy_policy cookie_privacy_policy_btn" type="button"  onclick="displayPreferenceModal()">Manage Cookie Preferences</button>
+        </div>
+      </div>
+      <!-- <div class="col-lg-4  col-md-6 col-sm-6 insta-feeds">
+      </div> -->
+      <div class="col-lg-4 col-md-6 col-sm-6 social-links">
+        <div class="single-footer-widget">
+          <h6 class="follow_us">Follow Us</h6>
+          <div class="footer-social d-flex align-items-center footer_facebook_link">
+            <a onclick="Open_facebook_link()" ><i class="fa fa-facebook" ></i></a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<div class="modal fade screen_greyed" id="copy-paste" tabindex="-1" role="dialog" aria-labelledby="termconditionTitle" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered aa" role="document" style="margin-top: 0px !important;">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" >Notice</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body notice_pop_up">
+        Copying from this website is in breach of the Terms & Conditions. Your profile has been identified. Please contact us if this was an honest mistake.
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="pop_up_close_btn pop_up_btn" data-dismiss="modal">Close</button>
+      </div>
+    </div>
+  </div>
+</div>

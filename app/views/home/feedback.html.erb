@@ -1,0 +1,31 @@
+<!-- Start Banner Area -->
+<% @member_feedback = MemberFeedback.last %>
+<section class="organic-breadcrumb">
+  <div class="container">
+    <div class="breadcrumb-banner d-flex flex-wrap align-items-center justify-content-end">
+      <div class="col-first">
+        <h1>Feedback</h1>
+        <!--<nav class="d-flex align-items-center">-->
+        <!--  <a href="index.html">Home<span class="lnr lnr-arrow-right"></span></a>-->
+        <!--  <a href="#">Signup</a>-->
+        <!--</nav>-->
+      </div>
+    </div>
+  </div>
+</section>
+<!-- End Banner Area -->
+<!-------setting start here------->
+<section class="how-it-works pt-100 pb-50" id="how-it-works">
+  <div class="container">
+    <div class="row">
+      <div class="how-it-work-in">
+        <div class="video-howitwork">
+          <%= @member_feedback.section_one.try(:html_safe) rescue nil %>
+          <a class="join_btn trading-btn" href="https://www.surveymonkey.co.uk/r/6B39SNC" target="_blank">Take the survey</a>
+        </div>
+        <%= @member_feedback.section_two.try(:html_safe) rescue nil %>
+      </div>
+    </div>
+  </div>
+</section>
+<!-------setting ends here-------->

@@ -1,0 +1,22 @@
+<%@questions.each_with_index do |x,index|%>
+  <tr>
+    <td width="5%"><%=index+1%></td>
+    <td width="25%"><%= link_to x.content.html_safe, admin_question_detail_path(x) %></td>
+    <td width="10%"><%= x.position %></td>
+    <td width="20%"><%= x.station.try(:title) %></td>
+    <td width="10%"><%= truncate(x.answer_text, length:25, :escape => false) %></td>
+    <td width="10%"> 
+      <%if x.content.present?%>
+        <%=link_to admin_question_detail_path(x) do%>
+          <span class="glyphicon glyphicon-eye-open"></span>
+        <%end%>
+        <%= link_to edit_admin_question_path(x) do|| %>
+          <span class="glyphicon glyphicon-pencil" style="color:#1ab394"></span>
+        <% end %>
+        <%= link_to admin_question_path(x), data: { confirm: 'Are you sure you want to delete question '+ x.content, "bootstrap-confirm": 'delete' }, method: :delete do|| %>
+         <span class="glyphicon glyphicon-trash" style="color:red"></span>
+        <% end %>
+      <%end%>
+    </td>
+  </tr>
+<%end%>

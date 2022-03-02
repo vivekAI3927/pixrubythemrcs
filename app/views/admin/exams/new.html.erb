@@ -1,0 +1,38 @@
+<%= render partial: "admin/breadcrumbs/breadcrumb", locals: {path: "exams", title: "Exams", current_page: "New Exam"} %>
+<%= form_for @exam, :url => '/admin/exams', :html => { :multipart => true, :class => "p-20" } do |f| %>
+  <div class="row">
+    <div class="col-sm-12">
+      <div class="panel panel-default">
+         <div class="panel-heading">
+          <h4 class="panel-title">Add New Exam</h4>
+        </div>
+        <div class="panel-body">
+          <div class="row">  
+            <div class="form-group col-sm-6">
+              <label for="reg_input_name">Select Stations</label>
+              <%= f.select :stations, Station.all.map { |p| [ p.title,  p.id ] },{}, :multiple => true, :class => "form-control", :id => "dropdown" %>                                     
+              <div class = "error"><%= @exam.errors.messages[:stations][0] %></div>
+            </div>
+            <div class="form-group col-sm-6">
+              <label for="reg_input_name">User</label>
+              <%= f.collection_select :user_id, User.all.order(:name),:id,:name, {},
+                                                           include_blank: true, :class => "form-control" %>
+            </div>
+          </div>  
+          <div class="row">
+            <div class="col-sm-12 text-center">
+              <%= f.submit "Save", :class=>"btn join_btn admin-submit-btn"%>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    
+  </div>
+<% end %>
+
+<script type="text/javascript">
+  $( "#dropdown" ).select2({
+    // theme: "bootstrap"
+  });
+</script>

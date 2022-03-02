@@ -1,0 +1,6 @@
+<% @question = Parta::Question.find_by(id: params[:question_id]) %>
+<% @category = Parta::Category.find_by(id: params[:category_id]) %>
+<% @pos = params[:position].to_i %>
+$('#partaquestion').html("<%= j render(:partial => '/parta/categories/parta_question', :locals => { category: @category, question: @question, pos: @pos }) %>");
+$('#flash').html("<%= escape_javascript "Successfully submitted" %>");
+

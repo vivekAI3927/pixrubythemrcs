@@ -1,0 +1,52 @@
+<div class="page-header">
+  <div class="breadcrumb-line upper_header">
+    <ul class="breadcrumb" style="height: 34px;">
+     <li style="margin-top: 9px;">&nbsp;&nbsp;&nbsp; <a><%=link_to "HOME", "/admin", :class=>"fa fa-home" %></a></li>
+      <li><a href="/admin/settings"><b>Settings</b></a></li>
+      <li class="active">Edit Setting</li>
+    </ul>
+    <a class="breadcrumb-elements-toggle"><i class="icon-menu-open"></i></a>
+  </div>
+</div>
+<br>
+
+<%= form_for(@setting, as: @setting, url: admin_setting_path(@setting), html: { method: :put, :class => "p-20" }) do |f| %>
+  <div class="row">
+    <div class="col-sm-12">
+      <div class="panel panel-default">
+         <div class="panel-heading">
+           <h4 class="panel-title">Edit Setting</h4>
+        </div>
+        <div class="panel-body">
+          <div class="row">  
+            <div class="form-group col-sm-6">
+              <label for="reg_input_name" class="req">Name</label>
+              <%=f.text_field :name, :class=>"form-control" %>
+              <div class = "error error_msg"><%= @setting.errors.messages[:name][0] %></div>
+            </div>
+            <div class="form-group col-sm-6">
+              <label for="reg_input_name" class="req">Price</label>
+              <%=f.text_field :price, :class => "form-control" %>
+              <div class = "error error_msg"><%= @setting.errors.messages[:price][0] %></div>
+            </div>
+          </div>  
+          <div class="row">
+            <div class="col-sm-12 text-center">
+              <%= f.submit "Submit", :class=>"btn btn-info"%>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    
+  </div>
+<%end%>
+
+<style type="text/css">
+  .req:after {
+  content: "*";
+  font-size: 15px;
+  color: #cc0000;
+  padding-left: 4px;
+}
+</style>          

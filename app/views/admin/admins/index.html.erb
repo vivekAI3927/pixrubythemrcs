@@ -1,0 +1,91 @@
+<%= render partial: "admin/breadcrumbs/breadcrumb", locals: {path: "admins", title: "Admin Users", current_page:  "Admin Users List"} %>
+<div class="content">
+  <div class="row">
+      <div class="col-sm-12">
+        <%= select_tag :email, options_for_select(Admin.all.order("email ASC").collect{ |u| [u.email, u.email]}), {:prompt => "--Select Email--",:class =>"select_combobox form-control select-email"} %>
+        <div class="school_val_error" id="Student_courseid_em_" style="display:none">
+        </div>
+      </div>
+      <!-- <div class="col-sm-3"> -->
+        <%#= select_tag :editor, options_for_select(AdminUser.all.order("email ASC").collect{ |u| [u.editor, u.editor]}.uniq), {:prompt => "--Select Editor Status--",:class =>"select_combobox form-control select-editor"} %>
+        <!-- <div class="school_val_error" id="Student_batchid_em_" style="display:none"></div> -->
+      <!-- </div> -->
+      <!-- <div class="col-sm-6"> -->
+     <!--  <%#= form_tag @admin_admins_path,:method =>'get' do %>
+        <div class ="row">
+          <div class="col-sm-9"> 
+            <%#= text_field_tag :search, params[:search],:class=>"form-control",:placeholder=>"Search by Admin User Email"%>
+            
+          </div>
+          <div class="col-sm-3"> 
+             <%#=submit_tag "Search",:class =>"btn btn-info", :style=>"margin-top: 0px;"%>
+          </div>
+        </div>
+       <%#end%> -->
+      <!-- </div> -->
+    </div>
+  </div>
+  <br>
+  <div class="row">
+    <div class="col-sm-12">
+      <div class="grid-view table-responsive" id="student-grid">
+        <table class="items">
+          <thead>
+            <tr>
+              <th id="student-grid_c1"><%= sortable "email" %></th>
+              <th id="student-grid_c1">Super Admin</th>
+              <th id="student-grid_c2"><%= sortable "last_sign_in_at" %></th>
+              <th id="student-grid_c2"><%= sortable "last_sign_in_ip" %></th>
+              <th class="button-column" id="student-grid_c7">Action</th>
+            </tr>
+          </thead>
+          <tbody class="hole-list">
+            <%=render :partial=> "admin_user_list"%>
+          </tbody>
+        </table>
+        <%if @admin_users.present?%>
+          <%= render partial: "admin/paginations/pagination", locals: {all_data: @admin_users} %>
+        <%end%>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script type="text/javascript">
+$(document).ready(function(){
+  $(".select-email").change(function(){
+    $.ajax({
+      type:"get",
+      url:"/admin/admins/get_filter_admin_user",
+      data:{
+        "email":$(this).val()
+      }
+    });
+  });
+  $(".select-editor").change(function(){
+    $.ajax({
+      type:"get",
+      url:"/admin/admins/get_filter_admin_user",
+      data:{
+        "editor":$(".select-editor").val()      }
+    });
+  });
+});
+</script>
+
+<style>
+.fa {
+    font-weight: bold;
+}
+.btn {
+    position: relative;
+    border-radius: 2px;
+    margin-top: 10px;
+ }
+ 
+.col-sm-1 {
+    width: 8.3333333333%;
+    margin-left: -21px;
+    margin-top: -32px;
+}
+</style>

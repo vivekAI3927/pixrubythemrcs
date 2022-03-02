@@ -1,0 +1,10 @@
+/ This is a modal for showing information about a particular station
+/ requires station, resource and id to be passed in
+.modal.fade{style: "display: none;", id: "#{id}Modal"}
+	.modal-header
+		%a{class: "close", data: {dismiss: "modal"}} x
+		%h3= resource
+	.modal-body
+		= station.markscheme.html_safe
+	.modal-footer
+		%a{href: "#", class: "btn", data: {dismiss: "modal"}} Close

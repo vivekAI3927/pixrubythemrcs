@@ -1,0 +1,56 @@
+<%= render partial: "admin/breadcrumbs/breadcrumb", locals: {path: "attempts", title: "Attempts", current_page: "New Attempt"} %>
+<%= form_for @attempt, :url => '/admin/attempts', :html => { :multipart => true, :class => "p-20" } do |f| %>
+  <div class="row">
+    <div class="col-sm-12">
+      <div class="panel panel-default">
+         <div class="panel-heading">
+           <h4 class="panel-title">Add New Attempt</h4>
+        </div>
+        <div class="panel-body">
+          <div class="row">  
+            <div class="form-group col-sm-6">
+              <label for="reg_input_name" class="req">User</label>
+              <%= f.collection_select :user_id, User.all.order(:name),:id,:name, {},
+                                                           include_blank: true, :class => "form-control" %>
+            </div>
+            <div class="form-group col-sm-6">
+              <label for="reg_input_name" class="req">Station</label>
+              <%= f.collection_select :station_id, Station.all.order(:title),:id,:title, {},
+                                                           include_blank: true, :class => "form-control" %>
+            </div>
+          </div>
+
+          <div class="row">  
+            <div class="form-group col-sm-6">
+              <label for="reg_input_name">Started</label>
+              <%#= f.collection_select :user_id, User.all.order(:name),:id,:name, {},
+                                                           include_blank: true, :class => "form-control" %>
+              <%= f.check_box :started %>
+            </div>
+            <div class="form-group col-sm-6">
+              <label for="reg_input_name">Completed</label>
+              <%= f.check_box :completed %>
+            </div>
+          </div> 
+
+
+          <div class="row">
+            <div class="col-sm-12 text-center">
+              <%= f.submit "Submit", :class=>"btn btn-info"%>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    
+  </div>
+<%end%>
+
+<style type="text/css">
+  .req:after {
+  content: "*";
+  font-size: 15px;
+  color: #cc0000;
+  padding-left: 4px;
+}
+</style>          

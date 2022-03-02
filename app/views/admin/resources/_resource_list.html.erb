@@ -1,0 +1,27 @@
+<%@resources.each_with_index do |x,index|%>
+  <tr>
+    <td width="5%"><%= x.id %></td>
+    <td width="20%"><%=link_to x.title, admin_resource_path(x) %></td>
+    <td width="20%"><%= truncate(x.description, escape: false, length:30) %></td>
+    <td width="15%"><%#=image_tag(x.image.url, :class=> "img-circular") %>
+      <%= link_to image_tag(x.image.url, alt: "Facebook", :class=> "img-circular"), x.image.url, target: :_blank rescue nil %>
+    </td>
+    <td width="15%"><%= x.available %></td>
+    <td width="10%"> 
+      <%=link_to admin_resource_path(x) do%>
+        <span class="glyphicon glyphicon-eye-open"></span>
+      <%end%>
+      <%= link_to edit_admin_resource_path(x) do|| %>
+        <span class="glyphicon glyphicon-pencil" style="color:#1ab394"></span>
+      <% end %>
+      <%= link_to admin_resource_path(x), data: { confirm: 'Are you sure you want to delete resource '+ x.title, "bootstrap-confirm": 'delete' }, method: :delete do|| %>
+        <span class="glyphicon glyphicon-trash" style="color:red"></span>
+      <% end %>
+    </td>
+   <!--  <td width="15%" id="pdf_link">
+       <%#= link_to admin_resource_download_pdf_path(x.id), :class => "btn btn-primary" do %>
+        Download as Pdf <i class="fa fa-download"></i></a> 
+      <%# end %>
+    </td> -->
+  </tr>
+<%end%>

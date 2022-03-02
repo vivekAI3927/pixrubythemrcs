@@ -1,0 +1,47 @@
+- if @station.cheatsheet?
+  = render partial: 'shared/question2', locals: {question: @question, station: @station}
+- else
+  = render partial: 'shared/question', locals: {question: @question, station: @station}
+
+#status-feature.modal.fade{"aria-hidden" => "true", "aria-labelledby" => "termconditionTitle", :role => "dialog", :tabindex => "-1"}
+  .modal-dialog.modal-dialog-centered.aa{:role => "document", :style => "margin-top: 0px !important;"}
+    .modal-content
+      .modal-header
+        %h5.modal-title
+          Update the status of #{@station.title}
+        %button.close{"aria-label" => "Close", "data-dismiss" => "modal", :type => "button"}
+          %span{"aria-hidden" => "true"}
+      .modal-body{:style => "overflow-x: auto; max-height: 400px;"}
+        - if current_user
+          #status-links
+            = render 'shared/status_links', station: @station            
+        .row
+          .col-md-12
+            .text-center
+              = link_to "Send station feedback/changes", '#-', class: "send_thank_msg join_btn trading-btn btn-large", id: "rating-btn"
+              - if current_user.present?
+                %br/
+                %br/
+                .tab_body
+                  .show_rating.thanks_message{:style => "display: block; "}
+              #ratings{:style => "display: none; "}
+                = render '/questions/rating' , question: @question
+          .col-md-12
+            .text-center
+              = link_to category_path(@question.station.category), class: "join_btn trading-btn btn-large", id: "last-question" do
+                %i.icon-share-alt.icon-white
+                RETURN TO MODULE LIST            
+      .modal-footer
+        %button.pop_up_close_btn.pop_up_btn{"data-dismiss" => "modal", :type => "button", onclick: "javascript:window.location.reload()"} Close
+
+-if current_user && current_user.last_question_id.blank?
+  :javascript
+    $('#rating-btn').on('click', function(event) {
+        $('#ratings').toggle('show');
+    });
+    $('.send_thank_msg').on('click', function(event) {
+      $('.thanks_message').hide();
+    });
+    $('#status-feature').on('hidden.bs.modal', function () {
+     location.reload();
+    })

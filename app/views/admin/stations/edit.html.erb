@@ -1,0 +1,115 @@
+<%= render partial: "admin/breadcrumbs/breadcrumb", locals: {path: "stations", title: "Stations", current_page: "Edit Station"} %>
+<%= form_for(@station, as: @station, url: admin_station_path(@station), html: { method: :put, :class => "p-20" }) do |f| %>
+  <div class="row">
+    <div class="col-sm-12">
+      <div class="panel panel-default">
+         <div class="panel-heading">
+           <h4 class="panel-title">Add New Station</h4>
+        </div>
+        <div class="panel-body">
+          <div class="row">  
+            <div class="form-group col-sm-6">
+              <label for="reg_input_name" class="req">Title</label>
+              <%=f.text_field :title, :class=>"form-control" %>
+              <div class = "error error_msg"><%= @station.errors.messages[:title][0] %></div>
+            </div>
+          </div>
+          <div class="row">  
+            <div class="form-group col-sm-12">
+              <label for="reg_input_name" class="req">Scenario Text</label>
+              <%=f.text_area :scenario_text, :class => "form-control", id: "editor1"  %>
+              <div class = "error error_msg"><%= @station.errors.messages[:scenario_text][0] %></div>
+            </div>
+          </div>  
+          <div class="row">
+            <div class="form-group col-sm-6">
+              <label for="reg_input_name" class="req">Category</label>
+              <%= f.collection_select :category_id, Category.all.order(:name),:id,:name, {},
+                                                           include_blank: true, :class => "form-control" %>
+              <div class = "error error_msg"><%#= @category.errors.messages[:image_file_name][0] %></div>
+            </div>
+          </div>
+          <div class="row">  
+            <div class="form-group col-sm-12">
+              <label for="reg_input_name">Markscheme</label>
+               <%=f.text_area :markscheme, :class => "form-control",id: "editormarkscheme" , size: "5x5" %>
+            </div>
+          </div>
+          <div class="row">
+            <div class="form-group col-sm-12">
+              <label for="reg_input_name">Actor Brief</label>
+              <%=f.text_area :actor_brief, :class=>"form-control",id: "editoractor_brief" %>
+            </div>
+          </div>
+          <div class="row">  
+            <div class="form-group col-sm-12">
+              <label for="reg_input_name">Exam Brief</label>
+               <%=f.text_area :exam_brief, :class => "form-control",id: "editorexam_brief" %>
+            </div>
+          </div>
+          <div class="row">
+            <div class="form-group col-sm-12">
+              <label for="reg_input_name">Cheatsheet</label>
+              <%=f.text_area :cheatsheet, :class=>"form-control", id: "editorcheatsheet" %>
+            </div>
+          </div>
+          <div class="row">  
+            <div class="form-group col-sm-6">
+              <label for="reg_input_name">Image</label>
+              <%=f.file_field :image_file_name, :class=>"form-control"%>
+              <% if @station.image.present? %>
+                <%=image_tag(@station.image.url, size: "80x80")%>
+              <% end %>  
+            </div>
+          </div>
+
+          <div class="row">
+            <div class="form-group col-sm-4">
+              <label for="reg_input_name">Available</label>
+              <%= f.check_box :available %>
+            </div>
+
+            <div class="form-group col-sm-4">
+              <label for="reg_input_name">Trial</label>
+              <%= f.check_box :trial %>
+            </div>
+            <% if @station.image.present? %>
+              <div class="form-group col-sm-4">
+                <label for="reg_input_name">Delete the image: </label>
+                <%= f.check_box :remove_image %>
+              </div>
+            <% end %>  
+          </div>
+          <div class="row">
+            <div class="col-sm-12 text-center">
+              <%= link_to "Cancel", :back, {:class=>"btn join_btn admin-submit-btn"} %>
+              <%= f.submit "Submit", :class=>"btn join_btn admin-submit-btn"%>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+<% end %>
+<script>
+  CKEDITOR.replace('editor1', {
+    height: 250,
+    extraPlugins: 'colorbutton,colordialog'
+  });
+  CKEDITOR.replace('editormarkscheme', {
+    height: 250,
+    extraPlugins: 'colorbutton,colordialog'
+  });
+  CKEDITOR.replace('editoractor_brief', {
+    height: 250,
+    extraPlugins: 'colorbutton,colordialog'
+  });
+  CKEDITOR.replace('editorexam_brief', {
+    height: 250,
+    extraPlugins: 'colorbutton,colordialog'
+  });
+  CKEDITOR.replace('editorcheatsheet', {
+    height: 250,
+    extraPlugins: 'colorbutton,colordialog'
+  });
+</script> 

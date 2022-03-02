@@ -1,0 +1,104 @@
+<div class="page-header">
+  <div class="breadcrumb-line upper_header">
+    <ul class="breadcrumb" style="height: 34px;">
+     <li style="margin-top: 9px;">&nbsp;&nbsp;&nbsp; <a><%=link_to "HOME", "/admin", :class=>"fa fa-home" %></a></li>
+      <li><a href="/admin/testimonials"><b>Testimonials</b></a></li>
+      <li class="active">Testimonial List</li>
+    </ul>
+    <a class="breadcrumb-elements-toggle"><i class="icon-menu-open"></i></a>
+  </div>
+</div>
+<br>
+<div class="content">
+  <div class="row">
+      <div class="col-sm-3">
+        <%= select_tag :author, options_for_select(Testimonial.order("author ASC").all.collect{ |u| [u.author, u.author, :size => 22]}), {:prompt => "--Select Author--",:class =>"select_combobox form-control select-author"} %>
+        <div class="school_val_error" id="Student_courseid_em_" style="display:none">
+        </div>
+      </div>
+      <div class="col-sm-3">
+        <%= select_tag :title, options_for_select(Testimonial.all.order("content ASC").collect{ |u| [u.content, u.content]}), {:prompt => "--Select Content--",:class =>"select_combobox form-control select-content"} %>
+      </div>
+      <div class="col-sm-6">
+      <%= form_tag @admin_testimonials_path,:method =>'get' do %>
+      <div class ="row">
+      <div class="col-sm-9"> 
+        <%= text_field_tag :search, params[:search],:class=>"form-control",:placeholder=>"Search by Author or Content"%>
+        
+       </div>
+      <div class="col-sm-3"> 
+         <%=submit_tag "Search",:class =>"btn btn-info", :style=>"margin-top: 0px;"%>
+      </div>
+    </div>
+     <%end%>
+      </div>
+      </div>
+  </div>
+  <br>
+  <div class="row">
+    <div class="col-sm-12">
+      <div class="grid-view table-responsive" id="student-grid">
+        <table class="items">
+          <thead>
+            <tr>
+              <th id="student-grid_c0">Sl.No.</th>
+              <th id="student-grid_c2">Id</th>
+              <th id="student-grid_c2">Author</th>
+              <th id="student-grid_c3">Content</th>
+              <th class="button-column" id="student-grid_c8">Action</th>
+              <th class="student-grid_c9">Download</th>
+            </tr>
+          </thead>
+          <tbody class="hole-list">
+            <%=render :partial=> "testimonial_list"%>
+          </tbody>
+        </table>
+        <%if @testimonials.present?%>
+          <div class="digg_pagination">
+             <%= will_paginate @testimonials %>
+
+          </div>
+        <%end%>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script type="text/javascript">
+	$(document).ready(function(){
+	  $(".select-author").change(function(){
+	    $.ajax({
+	      type:"get",
+	      url:"/admin/testimonials/get_filter_testimonial",
+	      data:{
+	        "author":$(this).val()
+	      }
+	    });
+	  });
+	  $(".select-content").change(function(){
+	    $.ajax({
+	      type:"get",
+	      url:"/admin/testimonials/get_filter_testimonial",
+	      data:{
+	        "content":$(".select-content").val()      }
+	    });
+	  });
+	});
+</script>
+
+<style>
+.fa {
+    font-weight: bold;
+}
+.btn {
+    position: relative;
+    border-radius: 2px;
+    margin-top: 10px;
+ }
+ 
+.col-sm-1 {
+    width: 8.3333333333%;
+    margin-left: -21px;
+    margin-top: -32px;
+}
+</style>

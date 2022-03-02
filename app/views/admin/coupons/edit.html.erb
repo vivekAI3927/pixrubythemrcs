@@ -1,0 +1,2 @@
+<%= render partial: "admin/breadcrumbs/breadcrumb", locals: {path: "coupons", title: "Coupons", current_page: "Edit Coupon"} %> 
+<%= render partial: 'form', locals: {url: admin_coupon_path(@coupon.id), method: :put} %>

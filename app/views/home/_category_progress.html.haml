@@ -1,0 +1,12 @@
+- @categories.each do |category|
+  %li.span3
+    .thumbnail
+      = link_to category_path(category), id: "image_clicker" do
+        - if category.image?
+          = image_tag(category.image)
+          .percentage
+            = "#{category.percentage(category.id, current_user.id)} %"
+        - else
+          img src: "https://placehold.it/260x180" /
+
+

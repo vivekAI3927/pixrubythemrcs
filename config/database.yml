@@ -1,0 +1,17 @@
+default: &default
+  adapter: postgresql
+  username: root
+  password: root
+  host: localhost
+  port: 5432
+  encoding: unicode
+  pool: 5
+  timeout: 5000
+
+
+development:
+  <<: *default
+  database: passthemrcs_development
+production:
+  <<: *default
+  database: passthemrcs_development

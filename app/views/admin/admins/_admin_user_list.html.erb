@@ -1,0 +1,20 @@
+<%@admin_users.each_with_index do |x,index|%>
+  <tr>
+    <td width="20%"><%= link_to x.email, admin_admin_path(x) %></td>
+    <td width="20%">
+      <% if x.super_admin == true %>
+        <span style="color: green;">Super Admin</span>
+      <% end %>  
+    </td>
+    <td width="20%"><%=x.last_sign_in_at.strftime("%d-%m-%Y") rescue nil %></td>
+    <td width="20%"><%=x.last_sign_in_ip%></td>
+    <td width="15%"> 
+      <%=link_to admin_admin_path(x) do%>
+        <span class="glyphicon glyphicon-eye-open"></span>
+      <%end%>
+      <%= link_to edit_admin_admin_path(x) do|| %>
+        <span class="glyphicon glyphicon-pencil" style="color:#1ab394"></span>
+      <% end %>
+    </td>
+  </tr>
+<%end%>

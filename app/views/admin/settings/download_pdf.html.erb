@@ -1,0 +1,49 @@
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
+
+<div class="container">
+  <h2>Setting Details</h2>
+  <h2><%= @setting.name %></h2>
+  <table class="table">
+    <tbody>
+      <tr class=" table-success">
+        <td style="font-weight:bold">Id</td>
+        <td><%= @setting.id %></td>
+        <td></td>
+      </tr>
+      <tr class=" table-danger">
+        <td style="font-weight:bold">Name</td>
+        <td><%= @setting.name %></td>
+        <td></td>
+      </tr>
+      <tr class=" table-info">
+        <td style="font-weight:bold">Created At</td>
+        <td><%=@setting.created_at.strftime("%b %d, %Y %l:%M") rescue nil %></td>
+        <td></td>
+      </tr>
+      <tr class=" table-warning">
+        <td style="font-weight:bold">Updated At</td>
+        <td><%=@setting.updated_at.strftime("%b %d, %Y %l:%M") rescue nil %></td>
+        <td></td>
+      </tr>
+      <tr class=" table-active">
+        <td style="font-weight:bold">Price</td>
+        <td><%= @setting.price %></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+<style type="text/css">
+    #header { 
+        border-bottom: 1px solid #DDDDDD; 
+    }
+    .user-img-circular{
+     width: 100px;
+     height: 100px;
+     background-size: cover;
+     display: block;
+     border-radius: 100px;
+     -webkit-border-radius: 100px;
+     -moz-border-radius: 100px;
+    }
+</style>

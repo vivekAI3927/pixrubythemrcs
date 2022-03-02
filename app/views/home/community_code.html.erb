@@ -1,0 +1,22 @@
+<section class="organic-breadcrumb">
+        <div class="container">
+            <div class="breadcrumb-banner d-flex flex-wrap align-items-center justify-content-end">
+                <div class="col-first">
+                    <h1><%= @community_code.try(:title) %></h1>
+                </div>
+            </div>
+        </div>
+    </section>
+<section class="faq" style="background-color: white;">
+  <div class="container">
+    <div class="row">
+      <div class="bs-example">
+        <div class="accordion" id="accordionExample">
+            <div class="card">
+              <%= @community_code.description.html_safe rescue nil %>
+            </div>
+        </div>    
+      </div>
+    </div>
+  </div>
+</section>

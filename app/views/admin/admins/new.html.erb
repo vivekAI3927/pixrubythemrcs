@@ -1,0 +1,75 @@
+<%#=render 'shared/admin/title', page_title: "Add Admin", icon_class: 'pe-7s-headphones', link: "/admin/admins"%>
+<%#- model_class = Admin -%>
+<%#= render :partial => 'form' %>
+
+
+<div class="page-header">
+  <div class="breadcrumb-line upper_header">
+    <ul class="breadcrumb" style="height: 34px;">
+     <li style="margin-top: 10px;">&nbsp;&nbsp;&nbsp; <a><%=link_to "HOME", root_path, :class=>"fa fa-home" %></a></li>
+      <li><a href="#"><b>Admin User</b></a></li>
+      <li class="active">New Admin User</li>
+    </ul>
+    <a class="breadcrumb-elements-toggle"><i class="icon-menu-open"></i></a>
+  </div>
+</div>
+<br>
+
+<%#= form_for @admin, html: { multipart: true } do  |f| %>
+<%#= form_for @admin, as: :user, url: admins_path(@admin), method: :post, html: {multipart: true } do |f| %>
+<%= form_for @admin, :url => '/admin/admins', :html => { :multipart => true, :class => "p-20" } do |f| %>
+  <div class="row">
+    <div class="col-sm-12">
+      <div class="panel panel-default">
+         <div class="panel-heading">
+           <h4 class="panel-title">Add New Admin User</h4>
+        </div>
+        <div class="panel-body">
+          <div class="row">  
+            <div class="form-group col-sm-6">
+              <label for="reg_input_name" class="req">Email</label>
+              <%=f.text_field :email, :class=>"form-control", :placeholder => "Enter Email" %>
+              <div class = "error error_msg"><%= @admin.errors.messages[:email][0] %></div>
+            </div>
+            <div class="form-group col-sm-6">
+              <label for="reg_input_name" class="req">Password</label>
+              <%=f.password_field :password, :class => "form-control",id: "password", :placeholder => "Enter Password"  %>
+              <div class = "error error_msg"><%= @admin.errors.messages[:password][0] %></div>
+              <div class="school_val_error" id="Department_department_name_em_" style="display:none"></div>
+            </div>
+          </div>  
+          <div class="row">
+            <div class="form-group col-sm-6">
+              <label for="reg_input_name" class="req">Password Confirmation</label>
+               <%=f.password_field :password_confirmation, :class => "form-control",id: "password_confirmation",  "data-validation-confirm" => "required", :placeholder => "Enter Password Confirmation"  %>
+                    <div class = "error error_msg"><%= @admin.errors.messages[:password_confirmation][0] %></div>
+              <div class="school_val_error" id="Department_department_name_em_" style="display:none"></div>
+            </div>
+          </div>
+          <!-- <div class="row">
+            <div class="form-group col-sm-6">
+              <label for="reg_input_name">Editor</label>
+              <%#= f.check_box :editor %>
+            </div>
+          </div> -->
+          
+          <div class="row">
+            <div class="col-sm-12 text-center">
+              <%= f.submit "Save", :class=>"btn join_btn admin-submit-btn"%>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    
+  </div>
+<%end%>
+
+<style type="text/css">
+  .req:after {
+  content: "*";
+  font-size: 15px;
+  color: #cc0000;
+  padding-left: 4px;
+}
+</style>          

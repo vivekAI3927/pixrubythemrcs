@@ -1,0 +1,4 @@
+// $(".show_rating").html("<%= escape_javascript render 'questions/show_rating', question: @question %>");
+$(".show_rating").html("Thank you for the feedback");
+$("#rating_review").val('');
+$(".button").html("<%= escape_javascript render 'questions/button', question: @question.id , station: params[:rating][:station_id]%>");

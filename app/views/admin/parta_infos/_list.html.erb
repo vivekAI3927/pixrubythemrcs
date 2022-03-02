@@ -1,0 +1,19 @@
+<% @parta_info.each_with_index do |x,index|%>
+  <tr>
+    <td width="5%"><%= link_to x.id, admin_parta_info_path(x.id) %></td>
+		<td width="15%"><%= x.area_tag %></td>
+		<td width="15%"><%= x.heading_info %></td>
+    <td width="15%"><%= truncate(x.body_info, escape: false, length:200) %></td>
+    <td width="15%"><%=x.created_at.strftime("%d-%m-%Y") rescue nil %></td>
+    <td width="15%"><%=x.updated_at.strftime("%d-%m-%Y") rescue nil %></td>
+
+    <td width="10%"> 
+      <%=link_to admin_parta_info_path(x) do%>
+        <span class="glyphicon glyphicon-eye-open"></span>
+      <%end%>
+      <%= link_to edit_admin_parta_info_path(x) do|| %>
+        <span class="glyphicon glyphicon-pencil" style="color:#1ab394"></span>
+      <% end %>
+    </td>
+  </tr>
+<%end%>

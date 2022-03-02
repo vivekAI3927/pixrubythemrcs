@@ -1,0 +1,42 @@
+<%= render partial: "admin/breadcrumbs/breadcrumb", locals: {path: "partners", title: "Partners", current_page: "Partner"} %>
+<div class="content">
+  <div class="row">
+    <div class="col-sm-12">
+      <div class="grid-view table-responsive" id="student-grid">
+        <table class="items">
+          <thead>
+            <tr>
+              <th id="student-grid_c0">Id</th>
+              <th id="student-grid_c2">Description</th>
+              <th id="student-grid_c1"> Created At</th>
+              <th id="student-grid_c1"> Updated At</th>
+              <!-- <th id="student-grid_c1"> Image</th> -->
+              <th class="button-column" id="student-grid_c7">Action</th>
+            </tr>
+          </thead>
+          <tbody class="hole-list">
+            <% @partners.each_with_index do |x,index|%>
+              <tr>
+                <td width="5%"><%= link_to x.id, admin_partner_path(x.id) %></td>
+                <td width="15%"><%= truncate(x.description, escape: false, length:200) %></td>
+                <td width="15%"><%=x.created_at.strftime("%d-%m-%Y") rescue nil %></td>
+                <td width="15%"><%=x.updated_at.strftime("%d-%m-%Y") rescue nil %></td>
+                <!-- <td width="15%">
+                  <%#= link_to image_tag(x.image_url, alt: "Facebook", size: "80x80"), x.image_url, target: :_blank if x.image? %>
+                </td> -->
+                <td width="10%"> 
+                  <%=link_to admin_partner_path(x) do%>
+                    <span class="glyphicon glyphicon-eye-open"></span>
+                  <%end%>
+                  <%= link_to edit_admin_partner_path(x) do|| %>
+                    <span class="glyphicon glyphicon-pencil" style="color:#1ab394"></span>
+                  <% end %>
+                </td>
+              </tr>
+            <% end %>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</div>

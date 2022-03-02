@@ -1,0 +1,152 @@
+<section class="organic-breadcrumb">
+    <div class="container">
+        <div class="breadcrumb-banner d-flex flex-wrap align-items-center justify-content-end">
+            <div class="col-first">
+                <h1>PARTNERS</h1>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="how-it-works about-box about-title id="how-it-works">
+  <div class="container">
+     <div class="row">
+       <div class="how-it-work-in">
+          <p>
+            <%= @partner.description.html_safe rescue nil %>
+          </p>
+       </div>
+
+     </div>
+  </div>
+</section>
+
+<section class="how-it-works about-box about-box-image id="how-it-works" >
+  <div class="container">
+     <div class="row">
+       <div class="how-it-work-in">
+          <!-- <p style="margin-top: 44px;"> -->
+            <%# if @partner.image.present? %>
+              <%#= link_to image_tag(@partner.image_url, alt: "Facebook", style: "width: 100%;"), @partner.image_url, target: :_blank if @partner.image? rescue nil %>
+            <%# else %>
+              <%#= image_tag "About_Us_Image.png", :class=>"img-fluid", style: "width: 100%; max-width: 1140px;" %>
+            <%# end %>    
+          <!-- </p> -->
+       </div>
+
+     </div>
+  </div>
+</section>
+    <!-------setting ends here-------->
+<section class="organic-breadcrumb op-organic">
+  <div class="container">
+    <div class="about-box d-flex flex-wrap align-items-center justify-content-end" style="padding-top: 0px;">
+      <div class="col-first">
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- partner -->
+<section id="partner">
+    <div class="container">
+        <div class="row">
+            <!-- partner member -->
+            <% PartnerMember.all.each do |partner| %>
+              <div class="col-xs-12 col-sm-6 col-md-4">
+                <div class="frontside">
+                  <div class="card">
+                      <div class="card-body text-center" style="padding: 0px;">
+                        <p>
+                          <!-- <img class=" img-fluid" src="https://sunlimetech.com/portfolio/boot4menu/assets/imgs/partner/img_01.png" alt="card image"> -->
+                          <a class="trms-link" href="#" data-toggle="modal" data-target="#partnerBio_<%= partner.id %>" style="text-decoration: none;">
+                            <% if partner.image.present? %>
+                              <%= image_tag(partner.image_url, class: "img-fluid") if partner.image? %>
+                            <% else %>
+                              <%#= image_tag(partner.image_url, class: "img-fluid") if partner.image?%>
+                              <%= image_tag "frame.png", :class=>"img-fluid" %>
+                            <% end %>  
+                          </a><br/>
+                          <a class="join_btn trading-btn page-scroll" href="#" data-toggle="modal" data-target="#partnerBio_<%= partner.id %>" style="text-decoration: none;">BIO</a>
+                        </p>
+                        <h4 class="card-title"><%= partner.name %></h4>
+                        <p class="card-text"><%= partner.title %></p>
+                        <!-- <a href="#" class="btn btn-primary btn-sm"><i class="fa fa-plus"></i></a> -->
+                    </div>
+                  </div>
+                </div>
+              </div>
+                <div class="modal fade" id="partnerBio_<%= partner.id %>" tabindex="-1" role="dialog" aria-labelledby="termconditionTitle" aria-hidden="true">
+                  <div class="modal-dialog modal-dialog-centered aa" role="document" style="margin-top: 0px !important;">
+                    <div class="modal-content">
+                      <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLongTitle"><%= partner.name %> Bio:</h5>
+
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                          <span aria-hidden="true">&times;</span>
+                        </button>
+                      </div>
+                      <div class="modal-body"  style="overflow-x: auto; max-height: 400px;">
+                        
+                        <%= partner.bio.try(:html_safe) %>
+
+                      </div>
+                      <div class="modal-footer">
+                        <button type="button" class="pop_up_close_btn pop_up_btn" data-dismiss="modal">Close</button>
+                      </div>
+                    </div>
+                  </div>
+                </div> 
+            <% end %>  
+        </div>
+    </div>
+</section>
+<!-- partner -->
+
+<style type="text/css">
+.op-organic
+{
+    padding-top: 25px !important;
+}
+#partner {
+    background: #e8f0f2 !important;
+}
+
+section .section-title {
+    text-align: center;
+    color: #007b5e;
+    margin-bottom: 50px;
+    text-transform: uppercase;
+}
+
+#partner .card {
+    border: none;
+    background: #e8f0f2;
+}
+
+.frontside {
+    position: relative;
+    -webkit-transform: rotateY(0deg);
+    -ms-transform: rotateY(0deg);
+    z-index: 2;
+    margin-bottom: 30px;
+}
+
+.frontside .card{
+    min-height: 312px;
+}
+
+.frontside .card .card-title{
+    color: #555555 !important;
+}
+
+.frontside .card .card-body img {
+    width: 150px;
+    height: 150px;
+    border-radius: 50%;
+}
+.about-box{ padding: 50px; }
+.about-title{ padding-bottom: 0px !important; }
+.about-box-image{padding-top: 0px;}
+
+</style>

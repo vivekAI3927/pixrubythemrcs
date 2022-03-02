@@ -1,0 +1,56 @@
+<%= form_for @home_logo_banner, :url => url, :html => { :multipart => true, :class => "p-20" },  method: method do |f| %>
+  <div class="row">
+    <div class="col-sm-12">
+      <div class="panel panel-default">
+         <div class="panel-heading">
+           <h4 class="panel-title">Logo Banner</h4>
+        </div>
+        <div class="panel-body">
+          <div class="row">  
+            <div class="form-group col-sm-6">
+              <label for="reg_input_name" class="req">First Title</label>
+              <%=f.text_field :first_title, :class=>"form-control", :placeholder => "Enter First Title" %>
+              <div class = "error error_msg"><%= @home_logo_banner.errors.messages[:first_title][0] %></div>
+            </div>
+            <div class="form-group col-sm-6">
+              <label for="reg_input_name" class="req">Second Title</label>
+              <%=f.text_field :second_title, :class => "form-control", :placeholder => "Second Title"  %>
+              <div class = "error error_msg"><%= @home_logo_banner.errors.messages[:second_title][0] %></div>
+            </div>
+          </div> 
+          <div class="row">  
+            <div class="form-group col-sm-12">
+              <label for="reg_input_name" class="req">Description</label>
+              <%=f.text_area :description, :class => "form-control", id: "editor", :placeholder => "Enter Description"  %>
+              <div class = "error" class="req"><%= @home_logo_banner.errors.messages[:description][0] %></div>
+            </div>
+          </div>
+          <div class="row">
+            <div class="form-group col-sm-6">
+              <label for="reg_input_name" class="req">Logo</label>
+              <%=f.file_field :logo_file_name, :class => "form-control",id: "logo" %>
+              <div class = "error error_msg"><%= @home_logo_banner.errors.messages[:logo_file_name][0] %></div>
+            </div>
+            <div class="form-group col-sm-6">
+              <label for="reg_input_name" class="req">Banner</label>
+              <%=f.file_field :banner_file_name, :class => "form-control",id: "logo" %>
+              <div class = "error error_msg"><%= @home_logo_banner.errors.messages[:banner_file_name][0] %></div>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-sm-12 text-center">
+              <%= f.submit "Save", :class=>"btn join_btn admin-submit-btn"%>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+<% end %>
+
+<script>
+  CKEDITOR.replace('editor', {
+    height: 250,
+    extraPlugins: 'colorbutton,colordialog'
+  });
+</script>  

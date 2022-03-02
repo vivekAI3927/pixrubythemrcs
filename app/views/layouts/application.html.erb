@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="zxx" class="no-js">
+<meta http-equiv="content-type" content="text/html;charset=UTF-8" />
+<head>
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <!-- Favicon-->
+  <!-- <link rel="shortcut icon" href="<%#= asset_path("img/logo.png")%>"> -->
+  <!-- <link rel="shortcut icon" href="/favicon-32x32.png"> -->
+  <link rel="shortcut icon" href="/new_favicon-32x32.png">
+  <meta name="author" content="CodePixar">
+  
+  <meta name="description" content="Pass the MRCS is the world leader in MRCS Part B OSCE preparation. Join us to pass the Part B MRCS OSCE and earn UK Royal College of Surgeons Membership.">
+  <!-- Meta Keyword -->
+  <meta name="keywords" content="MRCS Part B OSCE, MRCS B OSCE, pass the MRCS B OSCE, MRCS OSCE, MRCS Course, MRCS B OSCE advice, MRCS advice, Surgical exam advice, MRCS revision, MRCS part B OSCE revision, How to pass MRCS, MRCS B OSCE revision, Revising for MRCS, Revising for MRCS part B, Surgical Membership exam, MRCS Anatomy, MRCS Communication, MRCS History, MRCS exam, MRCS critical care, Past questions MRCS, MRCS stations, Online MRCS course">
+  <!-- meta character set -->
+  <meta charset="UTF-8">
+  <!-- Site Title -->
+  <title>Pass the MRCS Part B OSCE</title>
+  <!--CSS ============================================= -->
+<script src="https://cdn.ckeditor.com/4.14.0/standard/ckeditor.js"></script>
+
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+  <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+  <!-- <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png"> -->
+  <!-- <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png"> -->
+  <link rel="icon" type="image/png" sizes="32x32" href="/new_favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/new_favicon-16x16.png">
+  <link rel="manifest" href="/site.webmanifest">
+  <%= stylesheet_link_tag 'application', media: 'all', 'data-turbolinks-track': 'reload' %>
+    <%#= javascript_pack_tag 'application', 'data-turbolinks-track': 'reload' %>
+  <%= javascript_include_tag "application", 'data-turbolinks-track': 'reload' %>
+  
+  <script>
+  (function () {
+    var s = document.createElement('script');
+    s.type = 'text/javascript';
+    s.async = true;
+    s.src = 'https://app.termly.io/embed.min.js';
+    s.id = '040bc6e5-2795-4199-92e2-047231bff0fc';
+    s.setAttribute("data-name", "termly-embed-banner");
+    var x = document.getElementsByTagName('script')[0];
+    x.parentNode.insertBefore(s, x);
+  })();
+</script>
+<!-- Google Tag Manager -->
+<script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+})(window,document,'script','dataLayer','GTM-MK9QRD8');</script>
+<!-- End Google Tag Manager -->
+
+<!-- Google Tag Manager (noscript) -->
+<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-MK9QRD8"
+height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+<!-- End Google Tag Manager (noscript) -->
+</head>
+
+ <body>
+    <%= render 'layouts/header'%>
+    <%= render 'layouts/flash_messages' %> 
+
+    <%= yield %>
+    <%= render 'layouts/footer'%>
+  </body>
+</html>
+
+<script type="text/javascript">
+  $('document').ready(function() {
+  setTimeout(function() {
+    $('#flash').slideUp();
+  }, 3000);
+});
+  $(".alert" ).fadeOut(5000);
+   $(".alert-success" ).fadeOut(5000);
+   $(".alert-danger" ).fadeOut(5000);
+</script>
+
+<% if Rails.env != 'development' %>
+<script type="text/javascript">
+  $(document).ready(function () {
+      //Disable cut copy paste
+      $('body').bind('cut copy paste', function (e) {
+          e.preventDefault();
+      });
+     
+      //Disable mouse right click
+      $("body").on("contextmenu",function(e){
+          return false;
+      });
+  });
+
+  $(window).on('keydown', function(event) {
+      if (event.keyCode == 123) {
+          return false; //Disable F12
+      } else if (event.ctrlKey && event.shiftKey && event.keyCode == 73) {
+          return false; //Disable ctrl+shift+i
+      } else if (event.ctrlKey && event.keyCode == 73) {
+          return false; //Disable ctrl+shift+i
+      }
+  });
+  $(document).on("contextmenu", function(e) {
+      e.preventDefault();
+  });
+  // document.onkeydown = function(e) {
+  //   if (e.ctrlKey && (e.keyCode === 67 || e.keyCode === 86 || e.keyCode === 85 || e.keyCode === 117)) {//Alt+c, Alt+v will also be disabled sadly.
+  //       alert('not allowed');
+  //   }
+  //   return false;
+  // };  
+
+  document.onkeydown = function(e) {
+          if (e.ctrlKey || e.metaKey && 
+             (
+               e.keyCode === 16 ||
+               e.keyCode === 51 ||
+               e.keyCode === 52 ||
+               e.keyCode === 67 || 
+               e.keyCode === 73 ||
+               e.keyCode === 86 || 
+               e.keyCode === 85 ||
+               e.keyCode === 117)) {
+              $("#copy-paste").modal("show");
+              return false;
+          } else {
+              return true;
+          }
+  };
+  $(document).keypress("u",function(e) {
+    if(e.ctrlKey || e.metaKey)
+    {
+    return false;
+    }
+    else
+    {
+    return true;
+    }
+  });
+
+  document.addEventListener("keyup", function (e) {
+    var keyCode = e.keyCode ? e.keyCode : e.which;
+            if (keyCode == 44) {
+                stopPrntScr();
+            }
+        });
+  function stopPrntScr() {
+    var inpFld = document.createElement("input");
+    inpFld.setAttribute("value", ".");
+    inpFld.setAttribute("width", "0");
+    inpFld.style.height = "0px";
+    inpFld.style.width = "0px";
+    inpFld.style.border = "0px";
+    document.body.appendChild(inpFld);
+    inpFld.select();
+    document.execCommand("copy");
+    inpFld.remove(inpFld);
+}
+function AccessClipboardData() {
+    try {
+        window.clipboardData.setData('text', "Access   Restricted");
+    } catch (err) {
+    }
+}
+setInterval("AccessClipboardData()", 300);
+</script>
+<% end %>

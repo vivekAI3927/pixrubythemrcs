@@ -1,0 +1,17 @@
+:javascript
+  $(document).ready(function(){
+    $('ul.nav li.active').removeClass('active');
+    $('li#courses').addClass('active')
+  })
+
+- if current_user && @course.member_code?
+  .hero-unit
+    %h1 
+      Member Discount
+      %p Your personal discount code is:
+      %h4= @course.member_code
+
+.row
+  .span12
+    #booking-widget
+      = raw(@course.booking)

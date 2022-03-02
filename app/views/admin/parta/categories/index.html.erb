@@ -1,0 +1,26 @@
+<%= render partial: "admin/breadcrumbs/breadcrumb", locals: {path: "parta/categories", title: "Part A Categories", current_page: "Part A Category List"} %>
+<div class="content">
+  <div class="row">
+    <div class="col-sm-12">
+      <div class="grid-view table-responsive" id="student-grid">
+        <table class="items">
+          <thead>
+            <tr>
+              <th id="student-grid_c0">ID</th>
+              <th id="student-grid_c2">Name</th>
+              <th id="student-grid_c2">Parent</th>
+              <th id="student-grid_c1"> Position</th>
+              <th class="button-column" id="student-grid_c7">Action</th>
+            </tr>
+          </thead>
+          <tbody class="hole-list">
+            <%=render :partial=> "category_list"%>
+          </tbody>
+        </table>
+        <%if @categories.present?%>
+          <%= render partial: "admin/paginations/pagination", locals: {all_data: @categories} %>
+        <% end %>
+      </div>
+    </div>
+  </div>
+</div>

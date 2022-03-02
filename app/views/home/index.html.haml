@@ -1,0 +1,88 @@
+%section#introduction.row-fluid
+
+  .span4{class: "frontpage-video"}
+    %iframe{:allowFullScreen => "", :frameborder => "0", :height => "197", :mozallowfullscreen => "", :src => "https://player.vimeo.com/video/50115727?title=0&byline=0&portrait=0", :webkitAllowFullScreen => "", :width => "350"}
+
+  .span5
+    %h1 A Concise Approach to the MRCS Part B OSCE
+    %p.sub-text
+      A hand-picked portfolio of surgical OSCE stations covering all of the essential topics tested in the MRCS Part B exam. Created by a select team of surgeons, this interactive online course provides a novel, efficient and effective way to revise for the MRCS exam.
+    - unless @testimonials.empty?
+      #myCarousel.carousel
+        .carousel-inner
+          .active.item
+            %h6= @first_testimonial.content
+            %i= @first_testimonial.author
+          - @testimonials.each do |testimonial|
+            .item
+              %h6= testimonial.content
+              %i= testimonial.author
+
+  .span3#why-join
+    = link_to "Join now", signup_path, class: "btn btn-large btn-primary", id: "join-now-button"
+
+    #tick-container
+      .tick-element
+        .tick
+          %i.icon-ok
+        .tick-text-container
+          %h4 Targeted revision
+          %p based on themes from recent MRCS Part B OSCEs
+      .tick-element
+        .tick
+          %i.icon-ok
+        .tick-text-container
+          %h4 All your revision in one place
+          %p allowing you to work as efficiently as possible
+      .tick-element
+        .tick
+          %i.icon-ok
+        .tick-text-container
+          %h4 Simple, intuitive interface
+          %p that adapts to your learning style
+      .tick-element
+        .tick
+          %i.icon-ok
+        .tick-text-container
+          %h4 Anatomy in 3D
+          %p Access Acland for free
+      .tick-element
+        .tick
+          %i.icon-ok
+        .tick-text-container
+          %h4 Guaranteed
+          %p Free renewal if you don't pass first time
+
+
+    #frontpage-login
+      = form_for("login", url: sessions_path) do |f|
+        = f.text_field :email, class: "input-small", placeholder: "Email"
+        = f.password_field :password, class: "input-small", placeholder: "Password"
+        %br
+        = f.submit "Sign in", class: "btn"
+
+%hr
+
+%section#sample-modules.row-fluid
+  .span12
+    %h2 Check out this months free stations...
+    %ul.thumbnails
+      %li.span3.image-item
+        .thumbnail
+          = link_to trial_path do
+            %img{src: image_path('anatomy.jpg'), rel: 'tooltip', title: 'Click to try one out', alt:"anatomy"}
+      %li.span3
+        .thumbnail.image-item
+          = link_to trial_path do
+            %img{src: image_path('critical_care.jpg'), rel: 'tooltip', title: 'Click to try one out', alt:"anatomy"}
+      %li.span3
+        .thumbnail.image-item
+          = link_to trial_path do
+            %img{src: image_path('history.jpg'), rel: 'tooltip', title: 'Click to try one out', alt:"anatomy"}
+      %li.span3
+        .thumbnail.image-item
+          = link_to trial_path do
+            %img{src: image_path('examination.jpg'), rel: 'tooltip', title: 'Click to try one out', alt:"anatomy"}
+
+= content_for :footer do
+  = render 'layouts/footer'

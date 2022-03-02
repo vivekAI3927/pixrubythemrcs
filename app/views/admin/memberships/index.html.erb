@@ -1,0 +1,30 @@
+<%= render partial: "admin/breadcrumbs/breadcrumb", locals: {path: "memberships", title: "Memberships", current_page: "Membership List"} %>
+<div class="content">
+  <div class="row">
+    <div class="col-sm-12">
+      <div class="grid-view table-responsive" id="student-grid">
+        <table class="items">
+          <thead>
+            <tr>
+              <th id="student-grid_c0"><%= sortable "id" %></th>
+              <th id="student-grid_c2"><%= sortable "length" %></th>
+              <th id="student-grid_c1"><%= sortable "price" %></th>
+              <th id="student-grid_c3"><%= sortable "available" %></th>
+              <th id="student-grid_c3"><%= sortable "status" %></th>
+              <th id="student-grid_c3"><%= sortable "Stripe Plan" %></th>
+              <th id="student-grid_c1"><%= sortable "created_at" %></th>
+              <th id="student-grid_c1"><%= sortable "updated_at" %></th>
+              <th class="button-column" id="student-grid_c7">Action</th>
+            </tr>
+          </thead>
+          <tbody class="hole-list">
+            <%=render :partial=> "membership_list"%>
+          </tbody>
+        </table>
+        <%if @memberships.present?%>
+          <%= render partial: "admin/paginations/pagination", locals: {all_data: @memberships} %>
+        <% end %>
+      </div>
+    </div>
+  </div>
+</div>

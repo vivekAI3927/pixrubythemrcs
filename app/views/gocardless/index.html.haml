@@ -1,0 +1,25 @@
+.hero-unit
+  %h1 Thanks for registering
+
+  %p We use Stripe to handle our payments. Please click the link below to pay directly on the page using Stripe.
+  %p
+    The cost of membership is currently
+    %strong
+      = number_to_currency(@cost, unit: "£", precision: 2)
+    = membership_duration(@user)
+  = render "stripe"
+  / %form{:action => stripe_payments_path(@user), :method => "POST"}
+  /   %script.stripe-button{"data-amount" => "#{@stripe_cost}", "data-currency" => "gbp", "data-description" => "PassTheMRCS Subscription", "data-image" => "https://stripe.com/img/documentation/checkout/marketplace.png", "data-key" => ENV["STRIPE_PUBLISHABLE_KEY"], "data-locale" => "auto", "data-name" => "Edusurg Ltd", :src => "https://checkout.stripe.com/checkout.js"}
+
+  %p{style: "margin-top: 20px;"} Or, if you would prefer you can checkout using PayPal.
+  = link_to @user.paypal_url(paypal_payment_notifications_url, @user.id, paypal_payment_notifications_url, @cost), target: :_blank , class: "btn btn-danger" do
+    Start PayPal payment
+    %i.icon-chevron-right.icon-white
+
+  %hr
+
+  %p{style: "margin-top: 30px;"} Have a discount code? Please enter it below, click apply and complete payment through PayPal.
+  = form_tag(apply_coupon_user_url(@user), method: "post", class: "form-inline") do
+    = label_tag(:coupon, "Coupon code:")
+    = text_field_tag(:coupon)
+    = submit_tag "Apply", class: "btn"

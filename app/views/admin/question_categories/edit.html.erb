@@ -1,0 +1,2 @@
+<%= render partial: "admin/breadcrumbs/breadcrumb", locals: {path: "question_categories", title: "Category Question", current_page: "Edit Category Question"} %>
+<%= render partial: 'form', locals: {url: admin_question_category_path(@question_category.id), method: :put} %>

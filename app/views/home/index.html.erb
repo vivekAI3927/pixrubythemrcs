@@ -1,0 +1,423 @@
+<!-- start banner Area -->
+<section class="banner-area home_page_banner">
+  <div class="container">
+    <div class="row fullscreen align-items-center">
+      <div class="col-lg-12">
+        <!-- <div class=""> -->
+          <!-- single-slide -->
+          <div class="row align-items-centersss">
+            <div class="col-lg-5">
+              <div class="banner-content22">
+                <h1><!-- EDU <br>LIKE STOCKS --><%= @home_logo_banner.try(:first_title) %><br/>
+                  <%= @home_logo_banner.try(:second_title) %>
+                </h1>
+                <p><%= @home_logo_banner.try(:description).try(:html_safe) %></p>
+                <a href="/users/sign_up" class="join_btn trading-btn page-scroll">JOIN</a>
+              </div>
+            </div>
+            <div class="col-lg-7">
+              <div class="banner-img" id="banner_for">
+                <!-- <img class="img-fluid" src="<%#= asset_path("info- final.png")%>" alt=""> -->
+                <%= image_tag @home_logo_banner.banner.url, :class => "img-fluid" rescue nil%>
+              </div>
+            </div>
+          </div>
+        <!-- </div> -->
+      </div>
+    </div>
+  </div>
+</section>
+
+<style type="text/css">
+.home_page_banner{padding-bottom: 0px !important}
+/*#db{padding: 0px !important;}*/
+  @media screen and (max-width: 767px){
+}
+
+@media screen and (max-width: 560px){
+.home_page_banner {
+    padding-bottom: 20vh !important;
+}}
+.banner-area {
+     /*padding: 0px 0;
+     padding-left: 0px !important; */
+}}
+@media screen and (max-width: 767px){
+.banner-area {
+     /*padding: 1px 0; */
+}}
+
+@media screen and (max-width: 560px){
+.banner-area {
+     /*padding-left: 0px !important; */
+}}
+@media screen and (max-width: 560px){
+#banner_for {
+     padding-left: 0px !important; 
+}}
+</style>
+<!-- Create your own class for the containing div -->
+<!-- <!doctype html> -->
+<!-- <html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="robots" content="noindex, nofollow">
+  <title>Text and background color with Color Dialog</title>
+  <script src="https://cdn.ckeditor.com/4.14.0/standard-all/ckeditor.js"></script>
+</head>
+
+<body>
+  <textarea cols="80" id="editor1" name="editor1" rows="10" data-sample-short>&lt;p&gt;This is some &lt;strong&gt;sample text&lt;/strong&gt;. You are using &lt;a href=&quot;https://ckeditor.com/&quot;&gt;CKEditor&lt;/a&gt;.&lt;/p&gt;</textarea>
+  <script>
+    CKEDITOR.replace('editor1', {
+      height: 250,
+      extraPlugins: 'colorbutton,colordialog'
+    });
+  </script>
+</body>
+
+</html> -->
+<section class="orange-fade p-5 margin-top-xl pos-r">
+  <div class="container">
+    <div class="row justify-content-center">
+      <div class="col-lg-6 text-center">
+        <div class="section-title">
+          <h1 style="margin-top: 1%;">Resources</h1>
+        </div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-sm-12">
+        <div class="pos-r">
+          <div class="carousel-controls testimonial-carousel-controls">
+            <div class="control prev"><i class="fa fa-chevron-left text-white">&nbsp;</i></div>
+            <div class="control next"><i class="fa fa-chevron-right text-white">&nbsp;</i></div>
+          </div>
+          <div class="testimonial-carousel">
+            <% Resource.all.where(available: true).each do |resource| %>
+              <div class="white" style="min-height: 189px;">
+                <a data-remote="true" href="/open_resource_modal?id=<%= resource.id%>" tabindex="0" >
+                  <div class="testimonial w-100 h-100  p-3 text-center" style="min-height: 182px;">
+                    <div>
+                        <% if resource.image.present? %>
+                          <%= image_tag resource.image.url, size: "50x40"%>
+                        <% else %>
+                          <i class="fa fa-3x fa-cloud" aria-hidden="true"></i>
+                        <% end %> 
+                    </div>
+                    <br>
+                    <div class="banner-content banner-text"><%= resource.title %></div>
+                    <div class="banner-content banner-text"><%#= resource.description.html_safe %><%#= truncate(resource.description, :escape => false, length:100) %></div>
+                  </div>
+                </a>
+              </div>
+            <% end %>  
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+<div id='post-content'></div>
+<div id='course-content'></div>
+<!-- <style type="text/css">
+  .modal-open .modal{overflow-x: none; overflow-y: none !important;}
+  .modal-backdrop {
+    position: fixed;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    /*left: auto !important;*/
+    z-index: 1040;
+    background-color: #000; }
+    /*.modal-backdrop.show{opacity: 0 !important;}*/
+}
+</style> -->
+<section class="orange-fade p-5 margin-top-xl pos-r faq">
+  <div class="container">
+    <div class="row justify-content-center">
+      <div class="col-lg-6 text-center">
+        <div class="section-title">
+          <h1 style="margin-top: 1%;">Coaching</h1>
+        </div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-sm-12">
+        <div class="pos-r">
+          <div class="carousel-controls testimonial-carousel1-controls">
+            <div class="control prev"><i class="fa fa-chevron-left text-white">&nbsp;</i></div>
+            <div class="control next"><i class="fa fa-chevron-right text-white">&nbsp;</i></div>
+          </div>
+          <div class="testimonial-carousel1">
+            <% @all_courses.each do |course| %>
+              <div class="white1" style="min-height: 189px;">
+                <a data-remote="true" href="/open_course_modal?id=<%= course.id%>" tabindex="0" >
+                  <div class="testimonial w-100 h-100 text-center" style="min-height: 182px;">
+                    <div>
+                      <% if course.image.present? %>
+                        <%= image_tag course.image.url, size: "50x40"%>
+                      <% else %>
+                        <i class="fa fa-3x fa-cloud" aria-hidden="true"></i>
+                      <% end %>  
+                    </div>
+                    <br>
+                    <div class="banner-content banner-text"><%= course.title.upcase! %></div>
+                    <br>
+                    <div class="banner-content banner-text"><%#= truncate(course.description, :escape => false, length:70) %></div>
+                  </div>
+                </a>  
+              </div>
+            <% end %>  
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+<section class="orange-fade p-5 margin-top-xl pos-r">
+  <div class="container">
+    <div class="row justify-content-center">
+      <div class="col-lg-6 text-center">
+        <div class="section-title">
+          <h1 style="margin-top: 1%;">Feedback</h1>
+        </div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-sm-12">
+        <div class=" pos-r">
+          <div class="carousel-controls testimonial-carousel2-controls">
+            <div class="control prev"><i class="fa fa-chevron-left text-white">&nbsp;</i></div>
+            <div class="control next"><i class="fa fa-chevron-right text-white">&nbsp;</i></div>
+          </div>
+          <div class="testimonial-carousel2">
+            <% @feedbacks.each do |feedback| %>
+              <div class="one-slide white1">
+                <div class="testimonial w-100 h-100  p-3 text-center">
+                  <div class="brand">
+                    <div class="rating-block">
+                      <% if feedback.star_rating == "one_star" %>
+                        <button type="button" class="btn btn-star btn-sm" aria-label="Left Align">
+                        <span class="fa fa-star checked" aria-hidden="true"></span>
+                        </button>
+                      <% elsif feedback.star_rating == "two_star" %>  
+                        <button type="button" class="btn btn-star btn-sm" aria-label="Left Align">
+                        <span class="fa fa-star checked" aria-hidden="true"></span>
+                        </button>
+                        <button type="button" class="btn btn-star btn-sm" aria-label="Left Align">
+                        <span class="fa fa-star checked" aria-hidden="true"></span>
+                        </button>
+                      <% elsif feedback.star_rating == "three_star" %>  
+                        <button type="button" class="btn btn-star btn-sm" aria-label="Left Align">
+                        <span class="fa fa-star checked" aria-hidden="true"></span>
+                        </button>
+                        <button type="button" class="btn btn-star btn-sm" aria-label="Left Align">
+                        <span class="fa fa-star checked" aria-hidden="true"></span>
+                        </button>
+                        <button type="button" class="btn btn-star btn-sm" aria-label="Left Align">
+                        <span class="fa fa-star checked" aria-hidden="true"></span>
+                        </button>
+                      <% elsif feedback.star_rating == "four_star" %>
+                        <button type="button" class="btn btn-star btn-sm" aria-label="Left Align">
+                        <span class="fa fa-star checked" aria-hidden="true"></span>
+                        </button>
+                        <button type="button" class="btn btn-star btn-sm" aria-label="Left Align">
+                        <span class="fa fa-star checked" aria-hidden="true"></span>
+                        </button>
+                        <button type="button" class="btn btn-star btn-sm" aria-label="Left Align">
+                        <span class="fa fa-star checked" aria-hidden="true"></span>
+                        </button>
+                         <button type="button" class="btn btn-star btn-sm" aria-label="Left Align">
+                        <span class="fa fa-star checked" aria-hidden="true"></span>
+                        </button>
+                      <% elsif feedback.star_rating == "five_star" %>
+                        <button type="button" class="btn btn-star btn-sm" aria-label="Left Align">
+                        <span class="fa fa-star checked" aria-hidden="true"></span>
+                        </button>
+                        <button type="button" class="btn btn-star btn-sm" aria-label="Left Align">
+                        <span class="fa fa-star checked" aria-hidden="true"></span>
+                        </button>
+                        <button type="button" class="btn btn-star btn-sm" aria-label="Left Align">
+                        <span class="fa fa-star checked" aria-hidden="true"></span>
+                        </button>
+                        <button type="button" class="btn btn-star btn-sm" aria-label="Left Align">
+                        <span class="fa fa-star checked" aria-hidden="true"></span>
+                        </button>
+                        <button type="button" class="btn btn-star btn-sm" aria-label="Left Align">
+                        <span class="fa fa-star checked" aria-hidden="true"></span>
+                        </button>
+                      <% else %>
+                      <% end %>         
+                    </div>
+                  </div>
+                  <br>
+                  <div class="banner-content"><%= feedback.description.html_safe %></div>
+                  <br><br>
+                  <div class="banner-content"><%= feedback.name %></div>
+                  <br>
+                </div>
+              </div>
+            <% end %>  
+            <!-- <div class="one-slide white1">
+              <div class="testimonial w-100 h-100  p-3 text-center">
+                <div class="brand">
+                  <div class="rating-block">
+                    <button type="button" class="btn btn-star btn-sm" aria-label="Left Align">
+                    <span class="fa fa-star checked" aria-hidden="true"></span>
+                    </button>
+                    <button type="button" class="btn btn-star btn-sm" aria-label="Left Align">
+                    <span class="fa fa-star checked" aria-hidden="true"></span>
+                    </button>
+                    <button type="button" class="btn btn-star btn-sm" aria-label="Left Align">
+                    <span class="fa fa-star checked" aria-hidden="true"></span>
+                    </button>
+                    <button type="button" class="btn btn-star btn-sm" aria-label="Left Align">
+                    <span class="fa fa-star checked" aria-hidden="true"></span>
+                    </button>
+                    <button type="button" class="btn btn-star btn-sm" aria-label="Left Align">
+                    <span class="fa fa-star checked" aria-hidden="true"></span>
+                    </button>
+                  </div>
+                </div>
+                <br>
+                <div class="banner-content">Solodev has been able to successfully keep us at the forefront of our industry and continually meet our ever adapting needs.</div>
+                <br><br>
+                <div class="banner-content">Antonio Marco</div>
+                <br>
+              </div>
+            </div>
+            <div class="one-slide white1">
+              <div class="testimonial w-100 h-100  p-3 text-center">
+                <div class="brand">
+                  <div class="rating-block">
+                    <button type="button" class="btn btn-star btn-sm" aria-label="Left Align">
+                    <span class="fa fa-star checked" aria-hidden="true"></span>
+                    </button>
+                    <button type="button" class="btn btn-star btn-sm" aria-label="Left Align">
+                    <span class="fa fa-star checked" aria-hidden="true"></span>
+                    </button>
+                    <button type="button" class="btn btn-star btn-sm" aria-label="Left Align">
+                    <span class="fa fa-star checked" aria-hidden="true"></span>
+                    </button>
+                    <button type="button" class="btn btn-star btn-sm" aria-label="Left Align">
+                    <span class="fa fa-star checked" aria-hidden="true"></span>
+                    </button>
+                    <button type="button" class="btn btn-star btn-sm" aria-label="Left Align">
+                    <span class="fa fa-star checked" aria-hidden="true"></span>
+                    </button>
+                  </div>
+                </div>
+                <br>
+                <div class="banner-content">We take care - Whether you are using Desktop, Laptop, Tablet or Smart Phone !</div>
+                <br><br>
+                <div class="banner-content">Ronan Ronan</div>
+                <br>
+              </div>
+            </div> -->
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Start FAQ Area -->
+<section class="faq orange-fade p-5 margin-top-xl pos-r">
+  <div class="container">
+  <div class="row">
+    <h1 class="faq-title">Trial</h1>
+    <div class="bs-example">
+      <div class="accordion" id="accordionExample">
+        <% @stations.each do |station| %>
+          <div class="card">
+            <div class="card-header" id="headingTwo">
+              <h2 class="mb-0">
+                <button type="button" class="btn btn-link" data-toggle="collapse" data-target="#collapseTwo<%= station.id%>"><%= station.title %> <i class="fa fa-plus"></i></button>
+              </h2>
+            </div>
+            <div id="collapseTwo<%= station.id%>" class="collapse " aria-labelledby="headingTwo" data-parent="#accordionExample">
+              <div class="card-body">
+                <p> <%= station.scenario_text.html_safe %> </p>
+                <%= link_to "show", station_path(station.id), :class => "join_btn trading-btn page-scroll" %>
+              </div>
+            </div>
+          </div>
+        <% end %>  
+      </div>
+    </div>
+  </div>
+</section>
+<!-- End FAQ Area -->
+<section class="orange-fade p-5 margin-top-xl pos-r">
+  <div class="container">
+    <div class="row justify-content-center">
+      <div class="col-lg-6 text-center">
+        <div class="section-title">
+          <h1>Pricing</h1>
+        </div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-sm-12">
+        <div class="pos-r">
+          <div class="carousel-controls testimonial-carousel3-controls">
+            <div class="control prev"><i class="fa fa-chevron-left text-white">&nbsp;</i></div>
+            <div class="control next"><i class="fa fa-chevron-right text-white">&nbsp;</i></div>
+          </div>
+          <div class="testimonial-carousel3">
+            <% @pricing.each do |price| %>
+              <div class=" white">
+                <div class="testimonial w-100 h-100  p-3 text-center">
+                  <div>
+                    <% if price.icon.present? %>
+                    <%= image_tag(price.icon_url, size: "50x40") %>
+                    <% else %>
+                    <div class="brand"><a><i class="fa fa-3x fa-cloud" aria-hidden="true"></i></a></div>
+                    <% end %>
+                  </div>
+                  <br>
+                  <div class="brand"><%= price.title %></div>
+                  <br>
+                  <div class="banner-content"><%= price.price %></div>
+                  <br>
+                  <div class="banner-content">
+                    <a href="/users/sign_up" class="join_btn join_trand_btn page-scroll">JOIN</a>
+                  </div>
+                </div>
+              </div>
+            <% end %>  
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+<!------ Include the above in your HEAD tag ---------->
+<!-- Modal -->
+<div class="modal fade signup" id="signup" role="dialog">
+  <div class="modal-dialog">
+    <!-- Modal content-->
+    <div class="modal-content">
+      <div class="cashout-inner">
+        <p>Thank you for signing up.<br/>Happy trading!</p>
+      </div>
+    </div>
+  </div>
+</div>
+<script type="text/javascript" src="//cdn.jsdelivr.net/jquery.slick/1.3.7/slick.min.js"></script> 
+<script src="https://kenwheeler.github.io/slick/slick/slick.js"></script>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<style type="text/css">
+  @media (max-width: 575px){
+.testimonial-carousel img, .testimonial-carousel1 img, .testimonial-carousel2 img, .testimonial-carousel3 img {
+    width: 80px !important;
+}}
+
+@media (max-width: 575px){
+.testimonial-carousel .one-slide, .testimonial-carousel1 .one-slide, .testimonial-carousel2 .one-slide, .testimonial-carousel3 .one-slide {
+    height: auto !important;
+}}
+
+</style>

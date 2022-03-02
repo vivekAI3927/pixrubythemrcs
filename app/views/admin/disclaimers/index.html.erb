@@ -1,0 +1,41 @@
+<%= render partial: "admin/breadcrumbs/breadcrumb", locals: {path: "disclaimers", title: "Disclaimers", current_page: "Disclaimers"} %> 
+<div class="content">
+  <div class="row">
+    <div class="col-sm-12">
+      <div class="grid-view table-responsive" id="student-grid">
+        <table class="items">
+          <thead>
+            <tr>
+              <th id="student-grid_c0">Id</th>
+              <th id="student-grid_c2">Title</th>
+              <th id="student-grid_c1"> Description</th>
+              <th class="button-column" id="student-grid_c7">Action</th>
+            </tr>
+          </thead>
+          <tbody class="hole-list">
+            <%@disclaimers.each_with_index do |x,index|%>
+                <tr>
+                  <td width="5%"><%= x.id %></td>
+                  <td width="15%"><%= x.title%></td>
+                  <td width="15%"><%= truncate(x.description, escape: false, length:200) %></td>
+                  <td width="10%"> 
+                    <%=link_to admin_disclaimer_path(x) do%>
+                      <span class="glyphicon glyphicon-eye-open"></span>
+                    <%end%>
+                    <%= link_to edit_admin_disclaimer_path(x) do|| %>
+                      <span class="glyphicon glyphicon-pencil" style="color:#1ab394"></span>
+                    <% end %>
+                  </td>
+                </tr>
+              <%end%>
+          </tbody>
+        </table>
+        <%if @disclaimers.present?%>
+          <div class="digg_pagination">
+
+          </div>
+        <%end%>
+      </div>
+    </div>
+  </div>
+</div>

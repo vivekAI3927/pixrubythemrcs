@@ -1,0 +1,46 @@
+<%= render partial: "admin/breadcrumbs/breadcrumb", locals: {path: "email_formats", title: "Emails", current_page: "Email"} %>
+<div class="content">
+  <div class="row">
+  </div>
+  <br>
+  <div class="row">
+    <div class="col-sm-12">
+      <div class="grid-view table-responsive" id="student-grid">
+        <table class="items">
+          <thead>
+            <tr>
+              <th id="student-grid_c0">Id</th>
+              <th id="student-grid_c2">Exam Reminder</th>
+              <th id="student-grid_c1">Not Join Message</th>
+              <th id="student-grid_c1">Paid Message</th>
+              <th class="button-column" id="student-grid_c7">Action</th>
+            </tr>
+          </thead>
+          <tbody class="hole-list">
+            <%@email_formats.each_with_index do |x,index|%>
+                <tr>
+                  <td width="5%"><%= x.id %></td>
+                  <td width="15%"><%= truncate(x.exam_reminder, escape: false, length:200) %></td>
+                  <td width="15%"><%= truncate(x.not_join_message, escape: false, length:200) %></td>
+                  <td width="15%"><%= truncate(x.paid_message, escape: false, length:200) %></td>
+                   <td width="10%">
+                    <%=link_to admin_email_format_path(x) do%>
+                      <span class="glyphicon glyphicon-eye-open"></span>
+                    <%end%> 
+                    <%=link_to edit_admin_email_format_path(x) do%>
+                      <span class="glyphicon glyphicon-pencil"></span>
+                    <%end%>
+                  </td>
+                </tr>
+              <%end%>
+          </tbody>
+        </table>
+        <%if @email_formats.present?%>
+          <div class="pager">
+
+          </div>
+        <%end%>
+      </div>
+    </div>
+  </div>
+</div>

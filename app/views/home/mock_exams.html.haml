@@ -1,0 +1,26 @@
+:javascript
+  $(document).ready(function(){
+    $('ul.nav li.active').removeClass('active');
+    $('li#exams').addClass('active')
+  })
+
+.hero-unit#about-us
+  %h1 Mock Exams
+  %p
+    Closer to the exam you need to practice the various skills in the
+    same way they will be tested in the OSCE. It can be difficult to move
+    from an anatomy station straight to a communication station where the
+    focus is completely different.
+  %p
+    Here we present our stations in the format you will experience on the
+    day. Work your way through the 18 stations and make sure you are
+    scoring the majority of the marks. Identify your weaknesses and return
+    to that section to revise it and perhaps practice those stations again
+    with a friend. Remember this is a verbal exam, testing your ability to
+    get the information out, rather than how many facts you can get in,
+    therefore for each station, say your own answer out loud before
+    clicking on to the answer to check if you've got it right.
+  %p
+    Good luck!
+
+  = link_to "Start a new exam", new_exam_path, class: "btn btn-primary btn-large"
