@@ -49,6 +49,6 @@ class ApplicationController < ActionController::Base
   protected
 
   def configure_permitted_parameters
-    devise_parameter_sanitizer.permit(:sign_up, keys: [:name,:country,:referred_by, :target_exam_date, :membership_id, :target_speciality_id])
+    devise_parameter_sanitizer.permit(:sign_up, keys: [:name,:country,:referred_by, :target_exam_date, :membership_id, :royal_college_id])
   end
 end

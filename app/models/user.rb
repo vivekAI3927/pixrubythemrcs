@@ -51,7 +51,7 @@ class User < ApplicationRecord
   # validates :password_confirmation, presence: true, :create => :update, :unless => lambda{ |user| user.password.blank? }
   before_save :password_required?
   before_update :password_required?
-  belongs_to :target_speciality
+  # belongs_to :target_speciality, optional: true
 
   def password_required?
     if self.password.present?

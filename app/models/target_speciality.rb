@@ -8,6 +8,6 @@
 #  updated_at :datetime         not null
 #
 class TargetSpeciality < ApplicationRecord
-	validates :name, presence: true
-  validates_length_of :name, :maximum => 255
+	# validates :name, presence: true
+  # validates_length_of :name, :maximum => 255
 end

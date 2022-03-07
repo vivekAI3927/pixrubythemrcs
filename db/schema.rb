@@ -10,11 +10,10 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_07_30_100203) do
+ActiveRecord::Schema.define(version: 2022_03_07_114821) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "hstore"
-  enable_extension "pg_stat_statements"
   enable_extension "plpgsql"
 
   create_table "about_us_images", force: :cascade do |t|
@@ -30,33 +29,40 @@ ActiveRecord::Schema.define(version: 2020_07_30_100203) do
     t.string "image"
   end
 
-  create_table "active_admin_comments", id: :integer, default: -> { "nextval('admin_notes_id_seq'::regclass)" }, force: :cascade do |t|
-    t.string "resource_id", limit: 255, null: false
-    t.string "resource_type", limit: 255, null: false
-    t.integer "author_id"
-    t.string "author_type", limit: 255
+  create_table "active_admin_comments", force: :cascade do |t|
+    t.string "resource_id", null: false
+    t.string "resource_type", null: false
+    t.string "author_type"
+    t.bigint "author_id"
     t.text "body"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.string "namespace", limit: 255
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.string "namespace"
     t.index ["author_type", "author_id"], name: "index_active_admin_comments_on_author_type_and_author_id"
     t.index ["namespace"], name: "index_active_admin_comments_on_namespace"
-    t.index ["resource_type", "resource_id"], name: "index_admin_notes_on_resource_type_and_resource_id"
   end
 
-  create_table "admin_users", id: :serial, force: :cascade do |t|
-    t.string "email", limit: 255, default: "", null: false
-    t.string "encrypted_password", limit: 255, default: "", null: false
-    t.string "reset_password_token", limit: 255
+  create_table "admin_accesses", force: :cascade do |t|
+    t.integer "admin_id"
+    t.string "allow_model_name", default: [], array: true
+    t.boolean "allow_access"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+  end
+
+  create_table "admin_users", force: :cascade do |t|
+    t.string "email", default: "", null: false
+    t.string "encrypted_password", default: "", null: false
+    t.string "reset_password_token"
     t.datetime "reset_password_sent_at"
     t.datetime "remember_created_at"
     t.integer "sign_in_count", default: 0
     t.datetime "current_sign_in_at"
     t.datetime "last_sign_in_at"
-    t.string "current_sign_in_ip", limit: 255
-    t.string "last_sign_in_ip", limit: 255
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.string "current_sign_in_ip"
+    t.string "last_sign_in_ip"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
     t.boolean "editor", default: false
     t.index ["email"], name: "index_admin_users_on_email", unique: true
     t.index ["reset_password_token"], name: "index_admin_users_on_reset_password_token", unique: true
@@ -75,60 +81,68 @@ ActiveRecord::Schema.define(version: 2020_07_30_100203) do
     t.inet "last_sign_in_ip"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.boolean "super_admin", default: false
     t.index ["email"], name: "index_admins_on_email", unique: true
     t.index ["reset_password_token"], name: "index_admins_on_reset_password_token", unique: true
   end
 
-  create_table "answers", id: :serial, force: :cascade do |t|
+  create_table "answers", force: :cascade do |t|
     t.integer "question_id"
     t.text "content"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.string "image_file_name", limit: 255
-    t.string "image_content_type", limit: 255
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.string "image_file_name"
+    t.string "image_content_type"
     t.integer "image_file_size"
     t.datetime "image_updated_at"
     t.index ["question_id"], name: "index_answers_on_question_id"
   end
 
-  create_table "attempts", id: :serial, force: :cascade do |t|
-    t.integer "user_id"
-    t.integer "station_id"
+  create_table "attempts", force: :cascade do |t|
+    t.bigint "user_id"
+    t.bigint "station_id"
     t.boolean "started", default: false
     t.boolean "completed", default: false
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
     t.index ["station_id"], name: "index_attempts_on_station_id"
     t.index ["user_id"], name: "index_attempts_on_user_id"
   end
 
-  create_table "books", id: :serial, force: :cascade do |t|
-    t.string "name", limit: 255
+  create_table "books", force: :cascade do |t|
+    t.string "name"
     t.text "description"
-    t.string "link", limit: 255
+    t.string "link"
     t.decimal "cost", precision: 8, scale: 2
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.string "image_file_name", limit: 255
-    t.string "image_content_type", limit: 255
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.string "image_file_name"
+    t.string "image_content_type"
     t.integer "image_file_size"
     t.datetime "image_updated_at"
     t.boolean "available", default: true
   end
 
-  create_table "categories", id: :serial, force: :cascade do |t|
-    t.string "name", limit: 255
+  create_table "categories", force: :cascade do |t|
+    t.string "name"
     t.text "advice"
-    t.string "image_url", limit: 255
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.string "image_file_name", limit: 255
-    t.string "image_content_type", limit: 255
+    t.string "image_url"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.string "image_file_name"
+    t.string "image_content_type"
     t.integer "image_file_size"
     t.datetime "image_updated_at"
     t.integer "position"
-    t.string "slug", limit: 255
+    t.string "slug"
     t.index ["slug"], name: "index_categories_on_slug", unique: true
+  end
+
+  create_table "coachings", force: :cascade do |t|
+    t.string "title"
+    t.text "description"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
   end
 
   create_table "comments", force: :cascade do |t|
@@ -155,31 +169,31 @@ ActiveRecord::Schema.define(version: 2020_07_30_100203) do
     t.datetime "updated_at", precision: 6, null: false
   end
 
-  create_table "coupons", id: :serial, force: :cascade do |t|
-    t.string "name", limit: 255
+  create_table "coupons", force: :cascade do |t|
+    t.string "name"
     t.integer "discount"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
     t.integer "uses", default: 0
   end
 
-  create_table "courses", id: :serial, force: :cascade do |t|
-    t.string "title", limit: 255, null: false
+  create_table "courses", force: :cascade do |t|
+    t.string "title", null: false
     t.text "description", null: false
     t.text "booking"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
     t.boolean "available"
-    t.string "image_file_name", limit: 255
-    t.string "image_content_type", limit: 255
+    t.string "image_file_name"
+    t.string "image_content_type"
     t.integer "image_file_size"
     t.datetime "image_updated_at"
-    t.string "member_code", limit: 255
-    t.string "slug", limit: 255
+    t.string "member_code"
+    t.string "slug"
     t.index ["slug"], name: "index_courses_on_slug", unique: true
   end
 
-  create_table "delayed_jobs", id: :serial, force: :cascade do |t|
+  create_table "delayed_jobs", force: :cascade do |t|
     t.integer "priority", default: 0, null: false
     t.integer "attempts", default: 0, null: false
     t.text "handler", null: false
@@ -187,10 +201,10 @@ ActiveRecord::Schema.define(version: 2020_07_30_100203) do
     t.datetime "run_at"
     t.datetime "locked_at"
     t.datetime "failed_at"
-    t.string "locked_by", limit: 255
-    t.string "queue", limit: 255
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.string "locked_by"
+    t.string "queue"
+    t.datetime "created_at", precision: 6
+    t.datetime "updated_at", precision: 6
     t.index ["priority", "run_at"], name: "delayed_jobs_priority"
   end
 
@@ -216,12 +230,12 @@ ActiveRecord::Schema.define(version: 2020_07_30_100203) do
     t.datetime "updated_at", precision: 6, null: false
   end
 
-  create_table "exams", id: :serial, force: :cascade do |t|
+  create_table "exams", force: :cascade do |t|
     t.integer "user_id"
     t.integer "current_station"
     t.text "stations"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
     t.index ["user_id"], name: "index_exams_on_user_id"
   end
 
@@ -300,12 +314,12 @@ ActiveRecord::Schema.define(version: 2020_07_30_100203) do
     t.datetime "updated_at", precision: 6, null: false
   end
 
-  create_table "memberships", id: :serial, force: :cascade do |t|
+  create_table "memberships", force: :cascade do |t|
     t.integer "length"
     t.decimal "price", precision: 8, scale: 2
     t.boolean "available", default: true
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
     t.string "status", limit: 255, default: "create"
     t.string "stripe_plan_name", limit: 255
   end
@@ -333,6 +347,15 @@ ActiveRecord::Schema.define(version: 2020_07_30_100203) do
     t.index ["parta_question_id"], name: "index_parta_answers_on_parta_question_id"
   end
 
+  create_table "parta_answers_options", force: :cascade do |t|
+    t.integer "question_id"
+    t.integer "user_id"
+    t.integer "answer_id"
+    t.string "flag"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+  end
+
   create_table "parta_attempts", force: :cascade do |t|
     t.bigint "user_id", null: false
     t.bigint "parta_category_id", null: false
@@ -353,13 +376,31 @@ ActiveRecord::Schema.define(version: 2020_07_30_100203) do
     t.string "slug"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.string "flag", default: "TO-DO"
     t.index ["parta_category_id"], name: "index_parta_categories_on_parta_category_id"
+  end
+
+  create_table "parta_category_statuses", force: :cascade do |t|
+    t.integer "parta_user_id"
+    t.integer "parta_category_id"
+    t.string "status"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
   end
 
   create_table "parta_infos", force: :cascade do |t|
     t.string "area_tag", limit: 63
     t.string "heading_info", limit: 255
     t.text "body_info"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+  end
+
+  create_table "parta_practice_answers", force: :cascade do |t|
+    t.integer "question_id"
+    t.integer "user_id"
+    t.string "answe"
+    t.integer "answer_id"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
   end
@@ -375,6 +416,13 @@ ActiveRecord::Schema.define(version: 2020_07_30_100203) do
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.index ["parta_category_id"], name: "index_questions_on_parta_category_id"
+  end
+
+  create_table "parta_settings", force: :cascade do |t|
+    t.text "banner_text"
+    t.string "title"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
   end
 
   create_table "parta_users", force: :cascade do |t|
@@ -464,45 +512,45 @@ ActiveRecord::Schema.define(version: 2020_07_30_100203) do
     t.datetime "updated_at", precision: 6, null: false
   end
 
-  create_table "questions", id: :serial, force: :cascade do |t|
+  create_table "questions", force: :cascade do |t|
     t.text "content"
     t.integer "position"
     t.integer "station_id"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.string "image_file_name", limit: 255
-    t.string "image_content_type", limit: 255
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.string "image_file_name"
+    t.string "image_content_type"
     t.integer "image_file_size"
     t.datetime "image_updated_at"
     t.text "answer_text"
-    t.string "answer_image_file_name", limit: 255
-    t.string "answer_image_content_type", limit: 255
+    t.string "answer_image_file_name"
+    t.string "answer_image_content_type"
     t.integer "answer_image_file_size"
     t.datetime "answer_image_updated_at"
-    t.string "image_text", limit: 255
-    t.string "image_url", limit: 255
-    t.string "answer_image_text", limit: 255
-    t.string "answer_image_url", limit: 255
+    t.string "image_text"
+    t.string "image_url"
+    t.string "answer_image_text"
+    t.string "answer_image_url"
     t.index ["station_id"], name: "index_questions_on_station_id"
   end
 
-  create_table "ratings", id: :serial, force: :cascade do |t|
+  create_table "ratings", force: :cascade do |t|
     t.integer "question_id"
     t.integer "station_id"
     t.text "review"
     t.integer "user_id"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
     t.index ["question_id"], name: "index_ratings_on_question_id"
     t.index ["station_id"], name: "index_ratings_on_station_id"
   end
 
-  create_table "recommends", id: :serial, force: :cascade do |t|
-    t.string "email", limit: 255
+  create_table "recommends", force: :cascade do |t|
+    t.string "email"
     t.text "description"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.string "name", limit: 255
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.string "name"
   end
 
   create_table "reset_password_emails", force: :cascade do |t|
@@ -524,19 +572,25 @@ ActiveRecord::Schema.define(version: 2020_07_30_100203) do
     t.datetime "image_updated_at"
   end
 
-  create_table "settings", id: :serial, force: :cascade do |t|
-    t.string "name", limit: 255
-    t.decimal "price", precision: 8, scale: 2
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+  create_table "royal_colleges", force: :cascade do |t|
+    t.string "name"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
   end
 
-  create_table "slugs", id: :serial, force: :cascade do |t|
-    t.string "name", limit: 255
+  create_table "settings", force: :cascade do |t|
+    t.string "name"
+    t.decimal "price", precision: 8, scale: 2
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+  end
+
+  create_table "slugs", force: :cascade do |t|
+    t.string "name"
     t.integer "sluggable_id"
     t.integer "sequence", default: 1, null: false
     t.string "sluggable_type", limit: 40
-    t.string "scope", limit: 255
+    t.string "scope"
     t.datetime "created_at"
     t.index ["name", "sluggable_type", "sequence", "scope"], name: "index_slugs_on_n_s_s_and_s", unique: true
     t.index ["sluggable_id"], name: "index_slugs_on_sluggable_id"
@@ -552,77 +606,78 @@ ActiveRecord::Schema.define(version: 2020_07_30_100203) do
     t.index ["user_id"], name: "index_station_statuses_on_user_id"
   end
 
-  create_table "stations", id: :serial, force: :cascade do |t|
-    t.string "title", limit: 255
+  create_table "stations", force: :cascade do |t|
+    t.string "title"
     t.text "scenario_text"
     t.boolean "trial"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
     t.integer "category_id"
     t.text "markscheme"
     t.text "actor_brief"
     t.text "exam_brief"
     t.text "cheatsheet"
-    t.string "image_file_name", limit: 255
-    t.string "image_content_type", limit: 255
+    t.string "image_file_name"
+    t.string "image_content_type"
     t.integer "image_file_size"
     t.datetime "image_updated_at"
-    t.string "videoId", limit: 255
+    t.string "videoId"
     t.boolean "available", default: true
-    t.string "slug", limit: 255
+    t.string "slug"
     t.string "flag", default: "TO-DO"
     t.index ["category_id"], name: "index_stations_on_category_id"
     t.index ["slug"], name: "index_stations_on_slug", unique: true
   end
 
-  create_table "survey_answers", id: :serial, force: :cascade do |t|
+  create_table "survey_answers", force: :cascade do |t|
     t.integer "attempt_id"
     t.integer "question_id"
     t.integer "option_id"
     t.boolean "correct"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
     t.index ["attempt_id"], name: "index_survey_answers_on_attempt_id"
     t.index ["option_id"], name: "index_survey_answers_on_option_id"
     t.index ["question_id"], name: "index_survey_answers_on_question_id"
   end
 
-  create_table "survey_attempts", id: :serial, force: :cascade do |t|
-    t.integer "participant_id"
-    t.string "participant_type", limit: 255
+  create_table "survey_attempts", force: :cascade do |t|
+    t.string "participant_type"
+    t.bigint "participant_id"
     t.integer "survey_id"
     t.boolean "winner"
     t.integer "score"
     t.index ["participant_id"], name: "index_survey_attempts_on_participant_id"
+    t.index ["participant_type", "participant_id"], name: "index_survey_attempts_on_participant_type_and_participant_id"
     t.index ["survey_id"], name: "index_survey_attempts_on_survey_id"
   end
 
-  create_table "survey_options", id: :serial, force: :cascade do |t|
+  create_table "survey_options", force: :cascade do |t|
     t.integer "question_id"
     t.integer "weight", default: 0
-    t.string "text", limit: 255
+    t.string "text"
     t.boolean "correct"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
     t.index ["question_id"], name: "index_survey_options_on_question_id"
   end
 
-  create_table "survey_questions", id: :serial, force: :cascade do |t|
+  create_table "survey_questions", force: :cascade do |t|
     t.integer "survey_id"
-    t.string "text", limit: 255
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.string "text"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
     t.index ["survey_id"], name: "index_survey_questions_on_survey_id"
   end
 
-  create_table "survey_surveys", id: :serial, force: :cascade do |t|
-    t.string "name", limit: 255
+  create_table "survey_surveys", force: :cascade do |t|
+    t.string "name"
     t.text "description"
     t.integer "attempts_number", default: 0
     t.boolean "finished", default: false
     t.boolean "active", default: false
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
     t.integer "survey_type"
   end
 
@@ -642,11 +697,11 @@ ActiveRecord::Schema.define(version: 2020_07_30_100203) do
     t.integer "position"
   end
 
-  create_table "testimonials", id: :serial, force: :cascade do |t|
-    t.string "author", limit: 255
+  create_table "testimonials", force: :cascade do |t|
+    t.string "author"
     t.text "content"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
   end
 
   create_table "user_join_emails", force: :cascade do |t|
@@ -656,36 +711,36 @@ ActiveRecord::Schema.define(version: 2020_07_30_100203) do
     t.datetime "updated_at", precision: 6, null: false
   end
 
-  create_table "user_memberships", id: :serial, force: :cascade do |t|
+  create_table "user_memberships", force: :cascade do |t|
     t.integer "user_id"
     t.integer "membership_id"
     t.boolean "active"
     t.datetime "expired_at"
-    t.string "token", limit: 255
+    t.string "token"
     t.hstore "response"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
     t.index ["membership_id"], name: "index_user_memberships_on_membership_id"
     t.index ["user_id"], name: "index_user_memberships_on_user_id"
   end
 
-  create_table "users", id: :serial, force: :cascade do |t|
-    t.string "name", limit: 255
-    t.string "email", limit: 255
-    t.string "encrypted_password", limit: 255
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.string "password_reset_token", limit: 255
+  create_table "users", force: :cascade do |t|
+    t.string "name"
+    t.string "email"
+    t.string "encrypted_password"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.string "password_reset_token"
     t.datetime "password_reset_sent_at"
     t.date "subscribed_on"
-    t.string "referred_by", limit: 255
-    t.string "coupon_name", limit: 255
-    t.string "country", limit: 255
+    t.string "referred_by"
+    t.string "coupon_name"
+    t.string "country"
     t.boolean "sent_exam_reminder", default: false
     t.integer "membership_id"
     t.integer "last_question_id"
     t.date "target_exam_date"
-    t.string "authentication_token", limit: 255
+    t.string "authentication_token"
     t.string "reset_password_token"
     t.datetime "reset_password_sent_at"
     t.integer "sign_in_count", default: 0, null: false
@@ -695,6 +750,8 @@ ActiveRecord::Schema.define(version: 2020_07_30_100203) do
     t.inet "last_sign_in_ip"
     t.datetime "remember_created_at"
     t.integer "target_speciality_id"
+    t.datetime "subscribed_expired_at"
+    t.string "royal_college_id"
     t.index ["email"], name: "index_users_on_email", unique: true
     t.index ["membership_id"], name: "index_users_on_membership_id"
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
