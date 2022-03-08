@@ -64,6 +64,15 @@ module ApplicationHelper
     link_to title, {:sort => column, :direction => direction}, {:class => css_class}
   end
 
+
+  def royal_colleges
+    if RoyalCollege.count > 0 
+      return RoyalCollege.all.map{|college| [college.name, college.id]}
+    else
+      return ['England']
+    end
+  end
+
   private
   
   def number_of_people_who_also_answered_count option_id
