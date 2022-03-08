@@ -28,6 +28,8 @@
 #  last_sign_in_ip        :inet
 #  remember_created_at    :datetime
 #  target_speciality_id   :integer
+#  royal_college_id       :string
+#  coaching               :boolean
 #
 class User < ApplicationRecord
 

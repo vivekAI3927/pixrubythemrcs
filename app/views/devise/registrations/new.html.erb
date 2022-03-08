@@ -62,7 +62,17 @@
       <div class="form-group">
         <label class="feld-nm">Royal College:</label>
         <%= f.collection_select :royal_college_id, RoyalCollege.all.order("id ASC"),:id,:name, {},include_blank: true, :class => "form-control" %>
+
+        <!-- <label class="feld-nm">Target Speciality:</label> -->
+        <%#= f.collection_select :target_speciality_id, TargetSpeciality.all.order("name ASC"),:id,:name, {},include_blank: true, :class => "form-control" %>
+
+      </div>      
+
+      <div class="form-check mb-2">
+        <%= f.check_box :coaching, class: 'form-check-input', id: 'coachingCheck' %>
+        <label class="form-check-label" for="coachingCheck">Are you interested in coaching?</label>
       </div>
+
       <div class="form-group">
           <label class="feld-nm">Membership:</label>
          <%  Membership.on_create.order(:price).each do |membership| %>

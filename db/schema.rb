@@ -12,6 +12,7 @@
 
 ActiveRecord::Schema.define(version: 2022_03_07_114821) do
 
+
   # These are extensions that must be enabled in order to support this database
   enable_extension "hstore"
   enable_extension "plpgsql"
@@ -752,6 +753,7 @@ ActiveRecord::Schema.define(version: 2022_03_07_114821) do
     t.integer "target_speciality_id"
     t.datetime "subscribed_expired_at"
     t.string "royal_college_id"
+    t.boolean "coaching"
     t.index ["email"], name: "index_users_on_email", unique: true
     t.index ["membership_id"], name: "index_users_on_membership_id"
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
