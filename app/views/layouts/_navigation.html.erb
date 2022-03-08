@@ -334,7 +334,19 @@
             <li class="<%= is_active_action('new') %>"><%= link_to "Add Target Speciality", new_admin_target_speciality_path %> </li>
           </ul>
         </li>
-      <% end %>  
+      <% end %>        
+
+      <li class="<%= is_active_controller('admin/royal_colleges') %>">
+        <a href="#">
+          <i class="fas fa-train"></i> 
+          <span class="nav-label" data-i18n="nav.appviews">Royal Colleges</span>
+          <span class="fa arrow"></span>
+        </a>
+        <ul class="nav nav-second-level collapse <%= is_active_controller('admin/royal_colleges', 'in') %>">
+          <li class="<%= is_active_action('index') %>"><%= link_to "Royal College",admin_royal_colleges_path %> </li>
+          <li class="<%= is_active_action('new') %>"><%= link_to "Add Royal College", new_admin_royal_college_path %> </li>
+        </ul>
+      </li>
       <!-- <li class="<%#= is_active_controller('admin/reset_password_emails') %>">
         <a href="#"><i class="fa fa-key"></i> <span class="nav-label" data-i18n="nav.appviews">Reset Password Email</span>  <span class="fa arrow"></span></a>
         <ul class="nav nav-second-level collapse <%#= is_active_controller('admin/reset_password_emails', 'in') %>">

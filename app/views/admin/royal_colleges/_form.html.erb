@@ -1,0 +1,25 @@
+<%= form_with model: [:admin, royal_college], local: true do |f| %>
+  <div class="row">
+    <div class="col-sm-12">
+      <div class="panel panel-default">
+         <div class="panel-heading">
+           <h4 class="panel-title">Royal College</h4>
+        </div>
+        <div class="panel-body">
+          <div class="row">  
+            <div class="form-group col-sm-12">
+              <label for="reg_input_name" class="req">Name</label>
+              <%=f.text_field :name, :class=>"form-control", :placeholder => "Enter Name" %>
+              <div class = "error error_msg"><%= @royal_college.errors.messages[:name][0] %></div>
+            </div>
+          </div>  
+          <div class="row">
+            <div class="col-sm-12 text-center">
+              <%= f.submit "Save", :class=>"btn join_btn admin-submit-btn"%>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+<% end %>

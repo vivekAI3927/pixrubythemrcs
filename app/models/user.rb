@@ -54,6 +54,7 @@ class User < ApplicationRecord
   before_save :password_required?
   before_update :password_required?
   # belongs_to :target_speciality, optional: true
+  belongs_to :royal_college, optional: true
 
   def password_required?
     if self.password.present?

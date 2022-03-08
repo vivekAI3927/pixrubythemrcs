@@ -174,6 +174,7 @@ Rails.application.routes.draw do
     resources :email_formats
     resources :question_categories
     resources :target_specialities
+    resources :royal_colleges
     resources :payment_contents
     resources :member_feedbacks
     # resources :reset_password_emails

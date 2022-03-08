@@ -1,0 +1,40 @@
+<%= render partial: "admin/breadcrumbs/breadcrumb", locals: {path: "royal_colleges", title: "Royal Colleges", current_page: "Royal Colleges"} %>
+<div class="content">
+  <div class="row">
+    <div class="col-sm-12">
+      <div class="grid-view table-responsive" id="student-grid">
+        <table class="items">
+          <thead>
+            <tr>
+              <th>id</th>
+              <th>name</th>
+              <th class="button-column" id="student-grid_c7">Action</th>
+            </tr>
+          </thead>
+          <tbody class="hole-list">
+            <% @royal_colleges.each do |royal_college|%>
+                <tr>
+                  <td width="12%"><%= royal_college.id %></td>
+                  <td width="15%"><%= royal_college.name%></td>
+                  <td width="5%"> 
+                    <%=link_to admin_royal_college_path(royal_college) do%>
+                      <span class="glyphicon glyphicon-eye-open"></span>
+                    <%end%>
+                    <%= link_to edit_admin_royal_college_path(royal_college) do|| %>
+                      <span class="glyphicon glyphicon-pencil" style="color:#1ab394"></span>
+                    <% end %>
+                    <%= link_to admin_royal_college_path(royal_college), data: { confirm: 'Are you sure you want to delete this Royal College', "bootstrap-confirm": 'delete' }, method: :delete do|| %>
+                      <span class="glyphicon glyphicon-trash" style="color:red"></span>
+                    <% end %>  
+                  </td>
+                </tr>
+              <%end%>
+          </tbody>
+        </table>
+        <%#if @royal_colleges.present?%>
+          <%#= render partial: "admin/paginations/pagination", locals: {all_data: @royal_colleges} %>
+        <%# end %>
+      </div>
+    </div>
+  </div>
+</div>
