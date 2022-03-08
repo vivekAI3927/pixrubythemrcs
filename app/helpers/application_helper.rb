@@ -69,7 +69,8 @@ module ApplicationHelper
     if RoyalCollege.count > 0 
       return RoyalCollege.all.map{|college| [college.name, college.id]}
     else
-      return ['England']
+      royal_college = RoyalCollege.create(name: 'England')
+      return royal_college.split
     end
   end
 
