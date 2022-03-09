@@ -67,9 +67,14 @@
             </div> 
           </div>
           <div class="row">
-            <div class="form-group col-sm-6">
+<!--             <div class="form-group col-sm-6">
               <label class="reg">Target Speciality:</label>
-              <%= f.collection_select :target_speciality_id, TargetSpeciality.all.order("name ASC"),:id,:name, {},include_blank: true, :class => "form-control" %>
+              <%#= f.collection_select :target_speciality_id, TargetSpeciality.all.order("name ASC"),:id,:name, {},include_blank: true, :class => "form-control" %>
+            </div>
+-->            
+            <div class="form-group col-sm-6">
+              <label class="reg">Royal Colleges:</label>
+              <%= f.select :royal_college_id, options_for_select(royal_colleges), {}, class: "form-control" %>
             </div>
           </div>   
 

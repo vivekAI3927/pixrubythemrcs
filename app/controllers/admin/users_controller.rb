@@ -253,7 +253,7 @@ class Admin::UsersController < Admin::BaseController
   private
 
   def user_params
-    params.require(:user).permit(:name, :email, :password, :password_confirmation, :membership_id, :target_exam_date, :country, :referred_by, :subscribed_on, :target_speciality_id, :subscribed_expired_at)
+    params.require(:user).permit(:name, :email, :password, :password_confirmation, :membership_id, :target_exam_date, :country, :referred_by, :subscribed_on, :royal_college_id, :subscribed_expired_at)
   end
 
   def args_params
