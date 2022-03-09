@@ -1,0 +1,66 @@
+<div class="page-header">
+  <div class="breadcrumb-line upper_header">
+    <ul class="breadcrumb" style="height: 34px;">
+      <li style="margin-top: 9px;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<%=link_to "HOME", "/admin", :class=>"fa fa-home" %></li>
+      <li><a href="/admin/user_join_emails"><b>User interested coching Email</b></a></li>
+      <li class="active">View User interested coching Email</li>
+    </ul>
+    <a class="breadcrumb-elements-toggle"><i class="icon-menu-open"></i></a></div>
+  </div><br>
+  <div class="content">
+    <div class="panel panel-white">
+      <div class="panel-heading admin-pannel">
+        <%= link_to "Edit User Join Email", edit_admin_user_interested_coching_email_path(@user_interested_coching_email), class: "join_btn admin-trading-btn" %>
+      </div>
+      <div class="panel-body">
+        <div class="row">
+          <div class="col-sm-12">
+            <form class="form-horizontal">
+              <div class="row">
+                <div class="form-group col-sm-5" >
+                  <label class="col-sm-5 control-label text-muted admin_font">Id.:</label>
+                  <div class="form-group col-sm-6">
+                    <p class="form-control-static"><%= @user_interested_coching_email.id %></p>
+                  </div>
+                </div>
+              </div>
+              <div id="header"></div>
+              <div class="row">  
+                <div class="form-group col-sm-12" >
+                  <label class="col-sm-12 control-label text-muted admin_font">Subject:</label>
+                  <div class="form-group col-sm-12">
+                    <p class="form-control-static"><%= @user_interested_coching_email.subject %></p>
+                  </div>
+                </div>
+              </div>
+              <div id="header"></div>
+              <div class="row">
+                <div class="form-group col-sm-12" >
+                  <label class="col-sm-12 control-label text-muted admin_font">Description:</label>
+                  <div class="form-group col-sm-12">
+                    <p class="form-control-static"><%= @user_interested_coching_email.description.html_safe %></p>
+                  </div>
+                </div>
+              </div>
+              <div id="header"></div>
+              <div class="row">
+                <div class="form-group col-sm-5">
+                  <label class="col-sm-5 control-label text-muted admin_font">Created At:</label>
+                  <div class="form-group col-sm-6">
+                    <p class="form-control-static"><%=@user_interested_coching_email.created_at.strftime("%d-%m-%Y") rescue nil %></p>
+                  </div>
+                </div>
+                <div class="form-group col-sm-5" >
+                  <label class="col-sm-5 control-label text-muted admin_font">Updated At:</label>
+                  <div class="form-group col-sm-6">
+                    <p class="form-control-static"><%=@user_interested_coching_email.updated_at.strftime("%d-%m-%Y") rescue nil %></p>
+                  </div>
+                </div>
+              </div>
+              <div id="header"></div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+</div>  

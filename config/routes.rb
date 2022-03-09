@@ -179,6 +179,7 @@ Rails.application.routes.draw do
     resources :member_feedbacks
     # resources :reset_password_emails
     resources :user_join_emails
+    resources :user_interested_coching_emails
     resources :community_codes
     resources :end_user_license_agreements
     resources :cookie_policies

@@ -77,6 +77,7 @@ class User < ApplicationRecord
 
   after_create :add_attempts
   after_create :send_registration_notification
+  after_create :send_interested_coching_email
 
   has_many :ratings
   has_many :comments, as: :commentable
@@ -120,6 +121,10 @@ class User < ApplicationRecord
 
   def add_attempts
     User.delay_add_attamps(self.id)
+  end
+
+  def send_interested_coching_email
+    UserMailer.user_interested_coching(self).deliver_now if self.coaching == true
   end
 
   def self.delay_add_attamps(user_id)

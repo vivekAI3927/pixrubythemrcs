@@ -1,0 +1,45 @@
+<%= render partial: "admin/breadcrumbs/breadcrumb", locals: {path: "user_interested_coching_emails", title: "User interested coching Emails", current_page: "Edit User interested coching Emails"} %>
+<%= form_for(@user_interested_coching_email, as: @user_interested_coching_email, url: admin_user_interested_coching_email_path(@user_interested_coching_email), html: { method: :put, :class => "p-20" }) do |f| %>
+  <div class="row">
+    <div class="col-sm-12">
+      <div class="panel panel-default">
+         <div class="panel-heading">
+           <h4 class="panel-title">Edit User interested coching Email</h4>
+        </div>
+        <div class="panel-body">
+          <div class="row">  
+            <div class="form-group col-sm-12">
+              <label for="reg_input_name" class="req">Subject</label>
+              <%=f.text_field :subject, :class=>"form-control" %>
+              <div class = "error error_msg"><%= @user_interested_coching_email.errors.messages[:subject][0] %></div>
+            </div>
+          </div>  
+          <div class="row">
+             <div class="form-group col-sm-12">
+              <label for="reg_input_name">Description</label>
+              <%=f.text_area :description, :class => "form-control", id: "editor_description" %>
+            </div> 
+          </div>
+          <div class="row">
+            <div class="col-sm-12 text-center">
+              <%= link_to "Cancel", :back, {:class=>"btn join_btn admin-submit-btn"} %>
+              <%= f.submit "Submit", :class=>"btn join_btn admin-submit-btn"%>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    
+  </div>
+<% end %>
+<script>
+  CKEDITOR.replace('editor', {
+    height: 250,
+    extraPlugins: 'colorbutton,colordialog'
+  });
+  CKEDITOR.replace('editor_description', {
+    height: 250,
+    extraPlugins: 'colorbutton,colordialog'
+  });
+</script>  
+

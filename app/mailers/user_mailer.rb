@@ -38,5 +38,10 @@ class UserMailer < ApplicationMailer
 			mail to: user.email, subject: parta_info.heading_info.present? ? parta_info.heading_info : "Welcome Email"
 		end
   end
-	
+
+  def user_interested_coching(user)
+    @user_interested_coching_email = UserInterestedCochingEmail.last
+    mail to: user.email, subject: @user_interested_coching_email.present? ? @user_interested_coching_email.subject : "Interested Coching Email"
+  end
+
 end
