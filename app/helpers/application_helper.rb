@@ -70,7 +70,7 @@ module ApplicationHelper
       return RoyalCollege.all.map{|college| [college.name, college.id]}
     else
       royal_college = RoyalCollege.create(name: 'England')
-      return royal_college.split
+      return royal_college
     end
   end
 
