@@ -3,6 +3,7 @@ class ApplicationController < ActionController::Base
 
   before_action :configure_permitted_parameters, if: :devise_controller?
   before_action :is_membership_subscribed?
+  before_action :page_not_found
 
   def after_sign_up_path_for(resource)
     redirect_to start_payment_user_path(resource), notice: t('controllers.application.register_message')
@@ -50,5 +51,11 @@ class ApplicationController < ActionController::Base
 
   def configure_permitted_parameters
     devise_parameter_sanitizer.permit(:sign_up, keys: [:name,:country,:referred_by, :target_exam_date, :membership_id, :royal_college_id, :coaching])
+  end
+
+  def page_not_found
+    if request.url == "#{ENV['DOMAIN']}parta_users/sign_up"
+      redirect_to root_path
+    end
   end
 end
