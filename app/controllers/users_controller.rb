@@ -41,7 +41,7 @@ class UsersController < ApplicationController
   # User can cancel membership
   def cancel_membership
     current_user.update(subscribed_expired_at: DateTime.now)
-    redirect_to root_path
+    redirect_to start_payment_user_path(current_user)
   end
 
   private

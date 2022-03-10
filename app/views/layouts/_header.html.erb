@@ -71,11 +71,10 @@
                   <li class="nav-item <%= current_class?(partner_path) %>"><a class="nav-link" href="/partners">Partners</a></li>
         					<!-- <li class="nav-item <%= current_class?(new_parta_user_registration_path) %>"><a class="nav-link" href="/parta_users/sign_up">PART A</a></li> -->
         					<li class="nav-item <%= current_class?(faq_path) %>"><a class="nav-link" href="/faq">FAQ</a></li>
-                  <% if user_signed_in? && current_user.subscribed_expired_at >= DateTime.now && current_user.membership.present? %>
+                  <% if user_signed_in? && current_user.subscribed_on.present? && current_user.membership_id.present? %>
                     <%#= link_to 'Cancel membership', cancel_membership_path, class: "nav-link", :data => {:confirm => 'Are you sure?'} %>
                     <!-- Button trigger modal -->
                     <li class="nav-item" data-toggle="modal" data-target="#cancelMembershipModal"><a class="nav-link">Cancel Membership</a></li>
-                    
                   <% end %>
                   <% if user_signed_in? %>
                     <!-- <li class="nav-item <%= current_class?(categories_path) %>">
