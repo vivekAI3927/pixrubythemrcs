@@ -194,8 +194,10 @@ class User < ApplicationRecord
   end
 
   def valid_subscription?
-    
     if self.membership
+      if self.membership.length == 1 && self.membership.status == "create" 
+        self.update(subscribed_expired_at: DateTime.now + 30)
+      end
       # new user with membership
       #if subscribed_on && subscribed_on >= self.membership.length.months.ago.to_date
       if subscribed_on && subscribed_expired_at >= Time.now
