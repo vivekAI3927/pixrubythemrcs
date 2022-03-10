@@ -38,6 +38,12 @@ class UsersController < ApplicationController
   def recommend
   end
 
+  # User can cancel membership
+  def cancel_membership
+    current_user.update(subscribed_expired_at: DateTime.now)
+    redirect_to root_path
+  end
+
   private
 
   def clear_session_cost
