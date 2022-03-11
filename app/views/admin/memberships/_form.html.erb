@@ -24,7 +24,11 @@
               <%= f.check_box :available %>
             </div>
           </div>
-           <div class="row">  
+          <div class="form-group">
+            <label for="reg_input_name">Country:</label>
+            <%= f.country_select :location, {priority_countries: ["GB"]}, { class: 'form-control' } %>
+          </div>
+          <div class="row">  
             <div class="form-group col-sm-12">
               <label for="reg_input_name">Status</label>
               <%= f.select :status, [["Create", "create"], ["Renewal", "renewal"]], {}, {class: "form-control"} %>

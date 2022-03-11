@@ -8,6 +8,7 @@
 #  available  :boolean          default(TRUE)
 #  created_at :datetime         not null
 #  updated_at :datetime         not null
+#  location   :string
 #
 
 class Membership < ApplicationRecord
