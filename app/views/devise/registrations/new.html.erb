@@ -35,7 +35,7 @@
       </div>
       <div class="form-group">
         <label class="feld-nm">Country:</label>
-        <%= f.country_select :country, {priority_countries: ["GB"]}, { class: 'form-control' } %>
+        <%= f.country_select :country, {priority_countries: ["GB"]}, { class: 'form-control user-country-select' } %>
         <div class="error"><%= 'Country '+ f.object.errors[:country].join(', ') if f.object.errors[:country].present?  %></div>
       </div>
       <div class="form-group">
@@ -68,16 +68,22 @@
         <%= f.check_box :coaching, class: 'form-check-input', id: 'coachingCheck' %>
         <label class="form-check-label" for="coachingCheck">Are you interested in coaching?</label>
       </div>
+      
+      <div class="country_value">
+        <%= render 'users/membership_price_based_on_country', country_code: @country_code %>
+      </div>
 
       <div class="form-group">
-          <label class="feld-nm">Membership:</label>
-         <%  Membership.on_create.order(:price).each do |membership| %>
-         <label class="radio"><%= membership.name %>
-          <%= f.radio_button :membership_id, membership.id  %>
-            <span class="checkround"></span>
+        <label class="feld-nm">Membership:</label>
+        <%  Membership.on_create.order(:price).each do |membership| %>
+          <label class="radio">
+            <%= membership.name %> 
+            <%= membership.length == 1 ? "( Auto Renewal )" : "" %>
+            <%= f.radio_button :membership_id, membership.id  %>
+              <span class="checkround"></span>
           </label>
-         <% end %>
-          <div class="error"><%= 'Membership ' + f.object.errors[:membership_id].join(' ') if f.object.errors[:membership_id].present? %></div>
+        <% end %>
+        <div class="error"><%= 'Membership ' + f.object.errors[:membership_id].join(' ') if f.object.errors[:membership_id].present? %></div>
       </div>
       <div class="form-group">
         <div class="row">
@@ -211,6 +217,21 @@ function check() {
   });
 })(jQuery);
 </script>
+
+<script type="text/javascript">
+  $(document).ready(function(){
+    $('.user-country-select').on('change', function() {
+      var country_value = $(".user-country-select").val();
+      $.ajax({
+        type: "get",
+        url: "/select-country",
+        data: { country: country_value },
+      })
+    });
+  })  
+</script>
+
+
 <style type="text/css">
   .date-design{
     border: 0px !important;

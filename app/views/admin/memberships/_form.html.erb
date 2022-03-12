@@ -24,7 +24,12 @@
               <%= f.check_box :available %>
             </div>
           </div>
-           <div class="row">  
+          <div class="form-group">
+            <label for="reg_input_name">Location:</label>
+            <%= f.country_select :location, {priority_countries: ["GB"]}, {class: 'form-control custom-select', multiple: true} %>
+            <strong class="text-danger">Hint:- Here you can select multiple countries.</strong>
+          </div>
+          <div class="row">  
             <div class="form-group col-sm-12">
               <label for="reg_input_name">Status</label>
               <%= f.select :status, [["Create", "create"], ["Renewal", "renewal"]], {}, {class: "form-control"} %>
@@ -46,3 +51,11 @@
     </div>
   </div>
 <% end %>
+<script type="text/javascript">
+  
+  $(document).ready(function(){
+    $('.selected_location').on('select', function() {
+      $(".selected_location").height(100);
+    });
+  })
+</script>

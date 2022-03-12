@@ -38,6 +38,20 @@ class UsersController < ApplicationController
   def recommend
   end
 
+  # User can cancel membership
+  def cancel_membership
+    current_user.update(subscribed_expired_at: DateTime.now)
+    redirect_to start_payment_user_path(current_user)
+  end
+
+  def membership_price_based_on_country
+    @country_code = params[:country]
+    respond_to do |format|
+      format.html { redirect_to new_user_registration_path }
+      format.js
+    end
+  end
+
   private
 
   def clear_session_cost

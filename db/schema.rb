@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2022_03_09_103313) do
+ActiveRecord::Schema.define(version: 2022_03_11_115324) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "hstore"
@@ -323,6 +323,7 @@ ActiveRecord::Schema.define(version: 2022_03_09_103313) do
     t.datetime "updated_at", null: false
     t.string "status", limit: 255, default: "create"
     t.string "stripe_plan_name", limit: 255
+    t.text "location", default: [], array: true
   end
 
   create_table "mock_exam_texts", force: :cascade do |t|

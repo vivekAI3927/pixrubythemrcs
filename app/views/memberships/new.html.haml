@@ -10,7 +10,7 @@
       = simple_form_for @user do |f|        
         .form-group
           %label.feld-nm Current membership options:
-          - Membership.on_renewal.order(:price).each do |membership|
+          - Membership.on_renewal.order(:price).limit(1).each do |membership|
             %label.radio
               = membership.name
               = f.radio_button :membership_id, membership.id, selected: Membership.on_renewal.first

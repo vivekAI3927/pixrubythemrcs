@@ -8,6 +8,7 @@
 #  available  :boolean          default(TRUE)
 #  created_at :datetime         not null
 #  updated_at :datetime         not null
+#  location   :string
 #
 
 class Membership < ApplicationRecord
@@ -30,12 +31,9 @@ class Membership < ApplicationRecord
     "£#{price.to_i} for #{length} months"
   end
 
- def price_cents
+  def price_cents
     price.to_i * 100
   end
-  # def to_s
-  #   "#{price.to_i} pounds for #{length} months"
-  # end
 
   def name
     to_s
