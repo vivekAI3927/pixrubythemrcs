@@ -222,7 +222,6 @@ function check() {
   $(document).ready(function(){
     $('.user-country-select').on('change', function() {
       var country_value = $(".user-country-select").val();
-      alert(country_value);
       $.ajax({
         type: "get",
         url: "/select-country",
