@@ -61,7 +61,7 @@ class Admin::MembershipsController < Admin::BaseController
   end
 
   def membership_params
-    params.require(:membership).permit(:stripe_plan_name,:status,:length, :price, :available, :location)
+    params.require(:membership).permit(:stripe_plan_name,:status,:length, :price, :available, location: [])
   end 
   
   def sort_column

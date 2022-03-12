@@ -235,4 +235,5 @@ Rails.application.routes.draw do
   get 'parta/categories/:category_id/questions/:question_id/answers_options/:answers_option_id/practice_reset_answer' => 'parta/practice_answers#reset_answer', as: :parta_category_question_practice_answer
 
   get '/cancel_membership', to: 'users#cancel_membership'
+  get "/select-country", to: "users#membership_price_based_on_country"
 end

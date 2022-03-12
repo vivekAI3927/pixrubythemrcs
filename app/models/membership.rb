@@ -28,15 +28,12 @@ class Membership < ApplicationRecord
   default_scope { where(available: true) }
 
   def to_s
-    "£#{price.to_i} for #{length} months"
+    "#{price.to_i} for #{length} months"
   end
 
- def price_cents
+  def price_cents
     price.to_i * 100
   end
-  # def to_s
-  #   "#{price.to_i} pounds for #{length} months"
-  # end
 
   def name
     to_s

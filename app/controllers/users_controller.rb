@@ -44,6 +44,14 @@ class UsersController < ApplicationController
     redirect_to start_payment_user_path(current_user)
   end
 
+  def membership_price_based_on_country
+    @country_code = params[:country]
+    respond_to do |format|
+      format.html { redirect_to new_user_registration_path }
+      format.js
+    end
+  end
+
   private
 
   def clear_session_cost

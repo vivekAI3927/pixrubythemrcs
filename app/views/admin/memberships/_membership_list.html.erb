@@ -3,7 +3,11 @@
     <td width="5%"><%= link_to x.id, admin_membership_path(x.id) %></td>
     <td width="15%"><%=x.length%></td>
     <td width="15%"><%=x.price%></td>
-    <td width="15%"><%=x.location%></td>
+    <td width="15%">
+      <% if x.location.present? %>
+        <%=x.location.join(",").truncate(20)%>
+      <% end %>    
+    </td>
     <td width="10%"><%= x.available %></td>
     <td width="10%"><%= x.status %></td>
     <td width="10%"><%= x.stripe_plan_name %></td>
