@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2022_03_11_115324) do
+ActiveRecord::Schema.define(version: 2022_04_12_070441) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "hstore"
@@ -222,6 +222,8 @@ ActiveRecord::Schema.define(version: 2022_03_11_115324) do
     t.text "paid_message"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.string "title"
+    t.text "description"
   end
 
   create_table "end_user_license_agreements", force: :cascade do |t|
@@ -338,6 +340,14 @@ ActiveRecord::Schema.define(version: 2022_03_11_115324) do
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.string "title"
+  end
+
+  create_table "notifications", force: :cascade do |t|
+    t.string "title"
+    t.text "description"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.boolean "enable_disable"
   end
 
   create_table "parta_answers", force: :cascade do |t|
@@ -732,6 +742,16 @@ ActiveRecord::Schema.define(version: 2022_03_11_115324) do
     t.index ["user_id"], name: "index_user_memberships_on_user_id"
   end
 
+  create_table "user_notifications", force: :cascade do |t|
+    t.bigint "user_id"
+    t.bigint "notification_id"
+    t.boolean "status"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["notification_id"], name: "index_user_notifications_on_notification_id"
+    t.index ["user_id"], name: "index_user_notifications_on_user_id"
+  end
+
   create_table "users", id: :serial, force: :cascade do |t|
     t.string "name", limit: 255
     t.string "email", limit: 255
@@ -761,6 +781,7 @@ ActiveRecord::Schema.define(version: 2022_03_11_115324) do
     t.datetime "subscribed_expired_at"
     t.boolean "coaching"
     t.bigint "royal_college_id"
+    t.text "stripe_id"
     t.index ["email"], name: "index_users_on_email", unique: true
     t.index ["membership_id"], name: "index_users_on_membership_id"
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
@@ -781,4 +802,6 @@ ActiveRecord::Schema.define(version: 2022_03_11_115324) do
   add_foreign_key "survey_options", "questions"
   add_foreign_key "user_memberships", "memberships"
   add_foreign_key "user_memberships", "users"
+  add_foreign_key "user_notifications", "notifications"
+  add_foreign_key "user_notifications", "users"
 end
