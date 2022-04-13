@@ -377,6 +377,7 @@ GEM
 
 PLATFORMS
   ruby
+  x86_64-linux
 
 DEPENDENCIES
   acts_as_list (= 1.0.1)
