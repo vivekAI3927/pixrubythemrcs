@@ -86,7 +86,7 @@ gem "fog-aws", '3.6.5'
 gem "mini_magick", '4.10.1'
 gem "pdfkit", '0.8.4.2'
 gem 'wkhtmltopdf-binary', '0.12.5.4'
-gem 'ckeditor', '5.1.0', github: 'galetahub/ckeditor'
+gem 'ckeditor'
 
 group :production do
   # Activate Rack::Deflate and serve up precompiled, gzipped assets on Heroku
