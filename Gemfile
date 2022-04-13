@@ -95,4 +95,5 @@ end
 gem 'newrelic_rpm','6.11.0.365'
 gem 'jquery-datatables-rails'
 gem "nested_form"
+gem 'mimemagic'
 
