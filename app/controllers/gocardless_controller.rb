@@ -7,36 +7,45 @@ class GocardlessController < ApplicationController
   # users end up here after completing basic signup
   # /users/:id/start_payment
   # start_payment_user_path(user_object or id)
-def index
-   @user = User.find(params[:id])
+  def index
+    @user = User.find(params[:id])
     if session[:renew]
-      @memberships = Membership.on_renewal.order(:price)
+      @memberships = Membership.on_renewal.order(:price).limit(1)
     elsif @user.subscribed_on && @user.membership_expired?
       return redirect_to new_user_membership_path(@user), notice: t('controllers.sessions.renew_membership')
     else
-      @memberships = Membership.on_create.order(:price)
+      @memberships = Membership.order(:price)
     end 
+    @cost = @user.membership.price
+    # note stripe requires the cost in pence
+    @stripe_cost = @cost * 100
 
-  
-   @cost = @user.membership.price
-   
-   # note stripe requires the cost in pence
-   @stripe_cost = @cost * 100
-        
   end
 
-  def create
-  end
+  def create; end
 
   def success
     begin
+      require 'stripe'
+      Stripe.api_key = ENV["STRIPE_SECRET_KEY"]
+
+      @user = User.find(params[:payment][:user_id])
+      user_stripe_id = @user.stripe_id
+      @user_membership = Membership.find_by(params[@user.membership_id])
+      Stripe::Charge.create({
+        amount: @user_membership.price,
+        currency: 'gbp',
+        customer: "#{user_stripe_id}",
+        description: "My First Test Charge is #{@user_membership.price} for #{@user_membership.length} months (created for API docs)",
+      })
+      @user.update(subscribed_expired_at: month_calc( @user_membership.length), subscribed_on: DateTime.now)
       Rails.logger.info " =============Payment Webhook Called =============="
       Rails.logger.info params
       Rails.logger.debug params.inspect
       # GoCardless.confirm_resource params
       # @user = User.find(params[:state])
       # @user.start_subscription
-      render "gocardless/success"
+      # render "gocardless/success"
     rescue Exception => e
       @error = e
       render :text => "Could not confirm new subscription. Details: #{e}"
@@ -55,15 +64,29 @@ def index
   def stripe_events
     # Webhhok for stripe payments
     begin
-    
-    Rails.logger.info " =============Payment Webhook Called =============="
-    Rails.logger.info params
-    verify_webhook_signature
-    render body: nil
+      require 'stripe'
+      Stripe.api_key = ENV["STRIPE_SECRET_KEY"]
+
+      @user = User.find(params[:id])
+      @user_membership = Membership.find_by(params[@user.membership_id])
+      if @user.stripe_id.nil?
+        user_stripe_id = Stripe::Customer.create({
+          name: @user.name,
+          email: @user.email,
+          currency: @user.email,
+          description: "Membership plan £#{@user_membership.price} for #{@user_membership.length} months."
+        })
+        @user.update(stripe_id: user_stripe_id.id)
+      end
+      # Rails.logger.info " =============Payment Webhook Called =============="
+      # Rails.logger.info params
+      # verify_webhook_signature
+      # render body: nil
     rescue Exception => e
       Rails.logger.info  "Could not confirm new subscription. Details: #{e}"
-      render body: nil
+      # render body: nil
     end
+
   end
 
   def apply_coupon
@@ -84,6 +107,34 @@ def index
       render "index"
     end
   end
+
+  def membership_plan_country_wise
+    @memberships = Membership.order(price: :asc)
+    @user = User.find(current_user.id)
+    if params[:latitude].present? && params[:longitude].present?
+      results = Geocoder.search([params[:latitude], params[:longitude]])
+      country_code = results.first.country_code.upcase
+                       if Membership.exists?({location: [country_code]})        
+        @country_code = country_code
+      else
+        results = Geocoder.search("United Kingdom")
+        @country_code = results.first.country_code.upcase
+      end
+    else
+      results = Geocoder.search("United Kingdom")
+      @country_code = results.first.country_code.upcase
+    end
+    respond_to do |format|
+      format.js
+    end
+
+  end
+
+  # def change_membership_plan_after_select
+  #   @user = current_user
+  #   @user.update(membership_id: params[:membership_id])
+  #   redirect_to gocardless_index_path(@user.id)
+  # end
 
   private
 

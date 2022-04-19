@@ -40,9 +40,11 @@ Rails.application.routes.draw do
     resources :memberships
     member do
       get 'start_payment', to: 'gocardless#index'
+      get 'payment_process', to: "gocardless#stripe_events"
       post 'submit_payment', to: "gocardless#submit"
       post 'apply_coupon', to: "gocardless#apply_coupon", as: :apply_coupon
       resources :stripe_payments, only: :create
+      get 'payment_details', to: 'gocardless#payment_details'
     end
     
   end
@@ -78,9 +80,9 @@ Rails.application.routes.draw do
 
   # GoCardless Callbacks
   get 'gocardless/confirm', as: 'payment_confirm'
-  get '/success' => 'gocardless#success' , as: 'payment_success'
+  post '/success' => 'gocardless#success' , as: 'payment_success'
   get '/canceled' => 'gocardless#canceled' , as: 'payment_canceled'
-  post '/stripe_events' => 'gocardless#stripe_events' , as: 'payment_stripe_events'
+  get '/stripe_events' => 'gocardless#stripe_events' , as: 'payment_stripe_events'
   # Paypal processing of IPN callback
   resources :paypal_payment_notifications
    get '/about_us' => 'home#about_us', as: :about_us
@@ -103,7 +105,7 @@ Rails.application.routes.draw do
 
   devise_for :admins, skip: [:registrations]
   
-	devise_for :parta_users
+  devise_for :parta_users
  
 
   namespace :admin do
@@ -122,7 +124,7 @@ Rails.application.routes.draw do
     get 'sale_leads_users', to: 'users#sale_leads_user'
     get 'not_subscribed_users', to: 'users#not_subscribed_user'  
 
-		resources :parta_users
+    resources :parta_users
     resources :admins do
       get 'download_pdf', to: 'admins#download_pdf'
       resources :admin_accesses
@@ -175,6 +177,7 @@ Rails.application.routes.draw do
     resources :question_categories
     resources :target_specialities
     resources :royal_colleges
+    resources :notifications
     resources :payment_contents
     resources :member_feedbacks
     # resources :reset_password_emails
@@ -188,7 +191,7 @@ Rails.application.routes.draw do
     resources :partners
     resources :partner_members
     resources :about_us_images
-		resources :parta_infos
+    resources :parta_infos
     namespace :parta do
       resources :categories
       resources :settings
@@ -236,4 +239,11 @@ Rails.application.routes.draw do
 
   get '/cancel_membership', to: 'users#cancel_membership'
   get "/select-country", to: "users#membership_price_based_on_country"
+  get "/membership-select-country", to: "gocardless#membership_plan_country_wise"
+  get "/update_progress/:id", to: "categories#update_progress", as: 'update_progress'
+  get "/update_push_notification_status/:id", to: "admin/notifications#update_push_notifications", as: "enable_disable_push_notification"
+  get '/get_push_notification_detail/:id', to: 'users#user_notification', as: 'get_push_notification_detail'
+  get "/send_custom_message_to_all_users/:id", to: 'admin/email_formats#custom_message', as: 'send_custom_message_to_all_users'
+  get "/send_custom_message_to_user/:id", to: 'admin/users#custom_message', as: 'send_custom_message_to_user'
+  # get '/change_membership_plan_after_select', to: 'gocardless#change_membership_plan_after_select'
 end

@@ -5,13 +5,13 @@
     <div class="breadcrumb-banner d-flex flex-wrap align-items-center justify-content-end">
       <div class="col-first">
         <h1>Thanks for registering</h1>
-        <nav >
+        <nav>
           <div>
-        	<a>The cost of membership is currently <strong ><%= number_to_currency(@cost, unit: "£", precision: 0) %></strong>
-           <%= membership_duration(@user) %> 
-          </a>
-        </div>
-       </nav>
+            <a>The cost of membership is currently <strong ><%= number_to_currency(@cost, unit: "£", precision: 0) %></strong>
+              <%= membership_duration(@user) %> 
+            </a>
+          </div>
+        </nav>
       </div>
     </div>
   </div>
@@ -23,19 +23,8 @@
       <div class="row">
         <div class="col-md-12">
           <%= simple_form_for(@user, html: {id: "edit-membership"}) do |f|   %>
-            <div class="form-group">
-              <label class="feld-nm">
-                Current membership options:
-              </label>
-              <% if @memberships.present? %>
-                <% @memberships.each do |membership| %>
-                <label class="radio">
-                  <%= membership.name %>
-                  <%= f.radio_button :membership_id, membership.id, checked: (@user.membership == membership ? 'checked' : 'unchecked') %>
-                  <span class="checkround"></span>
-                </label>
-                <% end %>
-              <% end %>  
+            <div class="form-group" id="membership-plan-country-based">
+              <%= render 'gocardless/membership_plan_country_wise', country_code: @country_code  %> 
             </div>
           <% end %>
         </div>
@@ -69,9 +58,33 @@
 </style>
 
 <script type="text/javascript">
-   $(document).ready(function() { 
-       $('input[type=radio]').change(function(){
-            $('form#edit-membership').submit();
-       });
+  $( window ).on("load", function() {
+    latitude = ''
+    longitude = '';
+    if ("geolocation" in navigator){ //check geolocation available 
+      //try to get user current location using getCurrentPosition() method
+      navigator.geolocation.getCurrentPosition(function(position){ 
+        latitude = position.coords.latitude
+        longitude = position.coords.longitude
       });
+    }else{
+      console.log("Browser doesn't support geolocation!");
+    }
+    // country_value = $(".user-country-select").val();
+    setTimeout(function() {
+      $.ajax({
+        type: "get",
+        url: "/membership-select-country",
+        data: { latitude: latitude, longitude: longitude },
+      })
+    }, 100);
+  });
+</script>
+
+<script type="text/javascript">
+  $(document).ready(function() { 
+    $('input[type=radio]').change(function(){
+      $('form#edit-membership').submit();
+    });
+  });
 </script>
